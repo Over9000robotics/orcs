@@ -1,4 +1,4 @@
-//NOTE: what to with characters with parity error (IGNPAR)?
+//NOTE: what to do with characters with parity error (IGNPAR)?
 //TODO: Implement sending baud rate as a func parameter, ref: termios.h
 
 #include <stdio.h>
@@ -91,7 +91,30 @@ int uart0_transmit(int uart0_filestream, unsigned char *p_tx_buffer)
 		else 
 			return 1;
 	}
-	return 1;
+	else
+		return 1;
 }
 
-
+int uart0_receive_bytes(int uart0_filestream, unsigned char *p_rx_buffer)
+{
+	unsigned char rx_buffer[256];
+	p_rx_buffer = &rx_buffer;
+	
+	if (uart0_filestream != -1)
+	{
+		int rx_length = read(uart0_filestream, p_rx_buffer, 255);
+		if(rx_length < 0)
+		{
+			printf("Receiving error (rx_length < 0)");
+		}
+		else if (rx_length == 0)
+		{
+			printf("No data waiting (rx_length = 0)");
+		}
+		else
+		{
+			p_rx_buffer[rx_length] = '\0';
+			printf("%d bytes read: %s\n", rx_length, p_rx_buffer);
+		}
+	}
+}
