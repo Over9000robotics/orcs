@@ -1,5 +1,7 @@
 //NOTE: what to do with characters with parity error (IGNPAR)?
 //TODO: Implement sending baud rate as a func parameter, ref: termios.h
+//TODO: Implement selection for number of bytes to receieve
+//TODO: Implement close(uart0_filestream);
 
 #include <stdio.h>
 #include <unistd.h>			//Used for UART
@@ -82,10 +84,10 @@ int uart0_transmit(int uart0_filestream, unsigned char *p_tx_buffer)
 	
 	if (uart0_filestream != -1)
 	{
-		int count = write(uart0_filestream, &tx_buffer[0], (p_tx_buffer - &tx_buffer[0]));		//Filestream, bytes to write, number of bytes to write
+		int count = write(uart0_filestream, &tx_buffer[0], (p_tx_buffer - &tx_buffer[0]));	//Filestream, bytes to write, number of bytes to write
 		if (count < 0)
 		{
-			printf("UART TX error\n");
+			printf("Uart: TX error\n");
 			return -1;
 		}
 		else 
@@ -103,13 +105,13 @@ int uart0_receive_bytes(int uart0_filestream, unsigned char *p_rx_buffer)
 	if (uart0_filestream != -1)
 	{
 		int rx_length = read(uart0_filestream, p_rx_buffer, 255);
-		if(rx_length < 0)
+		if(rx_length == -1)
 		{
-			printf("Receiving error (rx_length < 0)");
+			printf("Uart: No messages.\n",rx_length);
 		}
-		else if (rx_length == 0)
+		else if (rx_length < -1)
 		{
-			printf("No data waiting (rx_length = 0)");
+			printf("Uart: error %d\n", rx_length);
 		}
 		else
 		{
