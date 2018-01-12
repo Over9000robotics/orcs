@@ -49,6 +49,13 @@ int main()
 			delay (1000);	//wait 1 second
 			
 			uart0_bytes_receieved = uart0_receive_bytes(uart0_filestream, p_rx_buffer, 255);
+			for(i = 0; i < uart0_bytes_receieved; i++)
+			{
+				print_blue();
+				printf("Uart: ");
+				print_reset();
+				printf("byte - %c\n", rx_buffer[i]);
+			}
 			delay(1000);
 	}
 	return 0;
