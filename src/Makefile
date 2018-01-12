@@ -5,7 +5,7 @@
 
 OBJ 		= test.o uart.o color.o
 
-DEPS 		= uart.h color.h
+DEPS 		= uart.h color.h motioncmd.h
 
 INCLUDE		= -I/usr/local/include
 
