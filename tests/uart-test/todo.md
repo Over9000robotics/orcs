@@ -1,9 +1,15 @@
-#TODO
+TODO
 =====
 
 - packet.c
 - packet.h
+- implement color.h better
 
-- uart_transmit_bytes
+UART
+----
++ uart_transmit_bytes
++ uart_receieve_bytes
 - uart_transmit_packet
-- uart_receieve_bytes
+
+- ask for current position
+- set current position
