@@ -8,6 +8,7 @@
 #include <fcntl.h>			//Used for UART func open parameters
 #include <termios.h>		//Used for UART
 #include "uart.h"
+#include "color.h"
 
 int uart0_init (/*t_speed baud_rate*/)
 {
@@ -71,52 +72,66 @@ int uart0_init (/*t_speed baud_rate*/)
 	return uart0_filestream;
 }
 
-int uart0_transmit(int uart0_filestream, unsigned char *p_tx_buffer)
+void uart0_transmit(int uart0_filestream, unsigned char* p_tx_buffer, int n)
 {
-	unsigned char tx_buffer[20];
-	
-	p_tx_buffer = &tx_buffer[0];
-	*p_tx_buffer++ = 'H';
-	*p_tx_buffer++ = 'e';
-	*p_tx_buffer++ = 'l';
-	*p_tx_buffer++ = 'l';
-	*p_tx_buffer++ = 'o';
-	
 	if (uart0_filestream != -1)
 	{
-		int count = write(uart0_filestream, &tx_buffer[0], (p_tx_buffer - &tx_buffer[0]));	//Filestream, bytes to write, number of bytes to write
+		int count = write(uart0_filestream, p_tx_buffer, n);	//Filestream, bytes to write, number of bytes to write
 		if (count < 0)
 		{
-			printf("Uart: TX error\n");
-			return -1;
+			print_red();
+			printf("Uart: ");
+			print_reset();
+			printf("TX error\n");
 		}
-		else 
-			return 1;
 	}
 	else
-		return 1;
+	{
+		print_red();
+		printf("Uart:");
+		print_reset();
+		printf("uart0_filestream != -1 (uart0_transmit)");
+	}
 }
 
-int uart0_receive_bytes(int uart0_filestream, unsigned char *p_rx_buffer)
+int uart0_receive_bytes(int uart0_filestream, unsigned char *p_rx_buffer, int n)
 {
-	unsigned char rx_buffer[256];
-	p_rx_buffer = &rx_buffer;
 	
 	if (uart0_filestream != -1)
 	{
-		int rx_length = read(uart0_filestream, p_rx_buffer, 255);
+		int rx_length = read(uart0_filestream, p_rx_buffer, n);
 		if(rx_length == -1)
 		{
-			printf("Uart: No messages.\n",rx_length);
+			print_yellow();
+			printf("Uart: ");
+			print_reset();
+			printf("No messages.\n");
+			return 0;
 		}
-		else if (rx_length < -1)
+		else if (rx_length > -1)
 		{
-			printf("Uart: error %d\n", rx_length);
+			p_rx_buffer[rx_length] = '\0';
+			print_blue();
+			printf("Uart: ");
+			print_reset();
+			printf("%d bytes read - %s\n", rx_length, p_rx_buffer);
+			return rx_length;
 		}
 		else
 		{
-			p_rx_buffer[rx_length] = '\0';
-			printf("%d bytes read: %s\n", rx_length, p_rx_buffer);
+			print_red();
+			printf("Uart: ");
+			print_reset();
+			printf("error %d\n", rx_length);
+			return 0;
 		}
 	}
+	else
+	{
+		print_red();
+		printf("Uart: ");
+		print_reset();
+		printf("uart_filestream != -1 (uart0_receieve_bytes)");
+	}
+	return 0;
 }
