@@ -3,9 +3,9 @@
 #DEBUG = -03
 
 
-OBJ 		= test.o uart.o
+OBJ 		= test.o uart.o color.o
 
-DEPS 		= uart.h
+DEPS 		= uart.h color.h
 
 INCLUDE		= -I/usr/local/include
 
