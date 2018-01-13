@@ -1,0 +1,45 @@
+\hypertarget{structpacket__t}{}\section{packet\+\_\+t Struct Reference}
+\label{structpacket__t}\index{packet\+\_\+t@{packet\+\_\+t}}
+
+
+{\ttfamily \#include $<$packet.\+h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t {\bfseries sync}\hypertarget{structpacket__t_a76553624e98cd50b114d0784abf2c7d5}{}\label{structpacket__t_a76553624e98cd50b114d0784abf2c7d5}
+
+\item 
+uint8\+\_\+t {\bfseries crc}\hypertarget{structpacket__t_a2d535881aafa6b7fe4bb93b6bf69989b}{}\label{structpacket__t_a2d535881aafa6b7fe4bb93b6bf69989b}
+
+\item 
+uint8\+\_\+t {\bfseries type}\hypertarget{structpacket__t_afa6fef69d5697c4e07fc8e582e2d578b}{}\label{structpacket__t_afa6fef69d5697c4e07fc8e582e2d578b}
+
+\item 
+uint8\+\_\+t {\bfseries size}\hypertarget{structpacket__t_accc302955ca1bc6f75c387b25001208e}{}\label{structpacket__t_accc302955ca1bc6f75c387b25001208e}
+
+\item 
+uint8\+\_\+t {\bfseries data} \mbox{[}M\+A\+X\+\_\+\+P\+K\+T\+\_\+\+S\+I\+ZE-\/P\+A\+C\+K\+E\+T\+\_\+\+H\+E\+A\+D\+ER\mbox{]}\hypertarget{structpacket__t_ad772e0b13e249e30cb343a9ffb769389}{}\label{structpacket__t_ad772e0b13e249e30cb343a9ffb769389}
+
+\item 
+uint8\+\_\+t {\bfseries cursor}\hypertarget{structpacket__t_afc53f1a0300d4f0b909296b20b7ec480}{}\label{structpacket__t_afc53f1a0300d4f0b909296b20b7ec480}
+
+\item 
+enum Packet\+Status {\bfseries status}\hypertarget{structpacket__t_a25fc56c4d2c72868ab500729ccfdc316}{}\label{structpacket__t_a25fc56c4d2c72868ab500729ccfdc316}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Motion U\+A\+RT packet S\+C\+T\+Lxxxxxxxx
+
+S -\/ 1 Byte sync (0x3c) ~\newline
+ C -\/ 1 Byte checksum ( upper nibble -\/ header checksum, lower~\newline
+ nibble payload checksum ) ~\newline
+ T -\/ 1 Byte type ~\newline
+ L -\/ 1 Byte payload length ~\newline
+ x -\/ L Bytes data 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/djordje/\+Desktop/orcs/src/\hyperlink{packet_8h}{packet.\+h}\end{DoxyCompactItemize}

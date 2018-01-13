@@ -1,3 +1,9 @@
+/**
+ * @file packet.h
+ * @brief Packet status tracking enumeration	\n
+ * Packet structure	\n
+ * Functions for manipulation with packets
+ */
 #ifndef PACKET_H_
 #define PACKET_H_
 
@@ -12,16 +18,16 @@ enum PacketStatus {
 	sending
 };
 
- /*
- * Motion UART packet
- *  SCTLxxxxxxxx
- *
- *  S - 1 Byte sync (0x3c)
- *  C - 1 Byte checksum ( upper nibble - header checksum, lower nibble payload checksum )
- *  T - 1 Byte type
- *  L - 1 Byte payload length
- *  x - L Bytes data
- */
+ /**
+  * Motion UART packet
+  *  SCTLxxxxxxxx
+  *
+  *  S - 1 Byte sync (0x3c)	\n
+  *  C - 1 Byte checksum ( upper nibble - header checksum, lower\n nibble payload checksum )	\n
+  *  T - 1 Byte type	\n
+  *  L - 1 Byte payload length	\n
+  *  x - L Bytes data	
+  */
 typedef struct packet_t
 {
 	uint8_t sync;

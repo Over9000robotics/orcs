@@ -1,0 +1,67 @@
+\hypertarget{packet_8h}{}\section{/home/djordje/\+Desktop/orcs/src/packet.h File Reference}
+\label{packet_8h}\index{/home/djordje/\+Desktop/orcs/src/packet.\+h@{/home/djordje/\+Desktop/orcs/src/packet.\+h}}
+
+
+Packet status tracking enumeration ~\newline
+Packet structure ~\newline
+Functions for manipulation with packets.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+Include dependency graph for packet.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{packet_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpacket__t}{packet\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries M\+A\+X\+\_\+\+P\+K\+T\+\_\+\+S\+I\+ZE}~32\hypertarget{packet_8h_aa173f20e15ba9658bf440a973ef6d8ca}{}\label{packet_8h_aa173f20e15ba9658bf440a973ef6d8ca}
+
+\item 
+\#define {\bfseries P\+A\+C\+K\+E\+T\+\_\+\+H\+E\+A\+D\+ER}~4\hypertarget{packet_8h_a1aa8b6627486da5c445e6bdbe5c2ed0b}{}\label{packet_8h_a1aa8b6627486da5c445e6bdbe5c2ed0b}
+
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structpacket__t}{packet\+\_\+t} \hyperlink{packet_8h_ace7f0a8a0b21a13da9033bb24a0934e7}{packet\+\_\+t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries Packet\+Status} \{ {\bfseries free\+\_\+to\+\_\+use}, 
+{\bfseries writing\+\_\+packet}, 
+{\bfseries ready\+\_\+to\+\_\+send}, 
+{\bfseries sending}
+ \}\hypertarget{packet_8h_a4bfd4d15be352a21c38bec38fc710d46}{}\label{packet_8h_a4bfd4d15be352a21c38bec38fc710d46}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Packet status tracking enumeration ~\newline
+Packet structure ~\newline
+Functions for manipulation with packets. 
+
+
+
+\subsection{Typedef Documentation}
+\index{packet.\+h@{packet.\+h}!packet\+\_\+t@{packet\+\_\+t}}
+\index{packet\+\_\+t@{packet\+\_\+t}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{packet\+\_\+t}{packet_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf packet\+\_\+t} {\bf packet\+\_\+t}}\hypertarget{packet_8h_ace7f0a8a0b21a13da9033bb24a0934e7}{}\label{packet_8h_ace7f0a8a0b21a13da9033bb24a0934e7}
+Motion U\+A\+RT packet S\+C\+T\+Lxxxxxxxx
+
+S -\/ 1 Byte sync (0x3c) ~\newline
+ C -\/ 1 Byte checksum ( upper nibble -\/ header checksum, lower~\newline
+ nibble payload checksum ) ~\newline
+ T -\/ 1 Byte type ~\newline
+ L -\/ 1 Byte payload length ~\newline
+ x -\/ L Bytes data 
