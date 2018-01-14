@@ -1,5 +1,5 @@
 /**
- * file @uart.h
+ * @file uart.h
  * @todo  modify uart0_init -> give him baud rate from main
  */
 
