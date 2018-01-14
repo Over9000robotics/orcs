@@ -3,7 +3,7 @@
 #DEBUG = -03
 
 
-OBJ 		= test.o uart.o color.o packet.o
+OBJ 		= main.o uart.o color.o packet.o
 
 DEPS 		= uart.h color.h motioncmd.h packet.h
 
@@ -34,7 +34,7 @@ EXTENSION = .c
 #Combine them into the output file
 #Set your desired exe output file name here
 
-test.a: $(OBJ)
+orcs_run.a: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 #Cleanup
