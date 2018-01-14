@@ -5,9 +5,21 @@
 #include <wiringPi.h> //for delay
 #include "uart.h"
 #include "color.h"
+#include "motioncmd.h"
+#include "packet.h"
+
+//TRUE  = 1
+//FALSE = 0
+
+void init_main()
+{
+	tx_packets_init();
+	uart_pkt_en(TRUE);
+}
 
 int main()
 {
+	init_main();
 	unsigned char  tx_buffer[255];
 	unsigned char* p_tx_buffer = tx_buffer;
 	
@@ -19,6 +31,12 @@ int main()
 	
 	uart0_filestream = uart0_init();
 	printf("(main) uart0_filestream: %d\n", uart0_filestream);
+	
+	int j=0;
+	for(j = 0; j<MAX_TX_PACKETS+1; j++)
+	{
+		packet_prepare(MOTION_GET_STATUS_AND_POSITION);
+	}
 	
 	while(1)
 	{
