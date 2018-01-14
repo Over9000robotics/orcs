@@ -35,9 +35,15 @@ typedef struct packet_t
 	uint8_t type;
 	uint8_t size;
 	uint8_t data[MAX_PKT_SIZE-PACKET_HEADER];
-	uint8_t cursor;
+	uint8_t packet_ptr;
 	enum PacketStatus status;
 }packet_t;
+
+/**
+ * \fn Prepares everything except message data 
+ */
+
+void packet_prepare(uint8_t type);
 
 #endif
 
