@@ -1,9 +1,7 @@
 /**
  * @file packet.c
  */
-
-#include <stdio.h>
-#include <stdint.h>
+ 
 #include "packet.h"
 #include "color.h"
 #include "uart.h"
@@ -93,4 +91,37 @@ void packet_prepare(uint8_t type)
 		printf("Packet: NO FREE PACKET\n");
 		print_reset();
 	}
+}
+
+void packet_put_byte(int8_t byte)
+{
+	if (tx_packet_ptr == 0) return;
+	tx_packet_ptr -> data[tx_packet_ptr -> size++] = byte;
+}
+
+void packet_put_word(int16_t word)
+{
+	if (tx_packet_ptr == 0) return;
+	tx_packet_ptr -> data[tx_packet_ptr -> size++] = word >> 8;
+	tx_packet_ptr -> data[tx_packet_ptr -> size++] = word;
+}
+
+t_packet* get_selected_tx_packet(uint8_t select)
+{
+	return &tx_packets[select];
+}
+
+void print_packet(t_packet* packet)
+{
+	int i;
+	print_blue();
+	printf("\nPacket number: %d\n", packet - &tx_packets[0]);
+	printf("status: %d\n", packet -> status);
+	printf("type: 0x%x\n", packet -> type);
+	printf("size: %d\n",   packet -> size);
+	for(i = 0; i < packet -> size; i++)
+	{
+		printf("data[%d]: %d (decimal)\n", i, packet -> data[i]);
+	}
+	print_reset();
 }

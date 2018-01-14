@@ -7,6 +7,7 @@
 #ifndef PACKET_H_
 #define PACKET_H_
 
+#include <stdio.h>
 #include <stdint.h>	
 
 #define MAX_PKT_SIZE 32
@@ -69,6 +70,19 @@ t_packet* find_free_packet(void);
  * @param type - type of command (defined in motioncmd.h)
  */
 void packet_prepare(uint8_t type);
+
+void packet_put_byte(int8_t byte);
+void packet_put_word(int16_t word);
+
+t_packet* get_selected_tx_packet(uint8_t select);
+
+
+/**
+ * Function made for easier debugging
+ * @param packet - adress of packet which needs to be printed
+ */
+void print_packet(t_packet* packet);
+
 
 
 #endif
