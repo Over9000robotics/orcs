@@ -1,3 +1,8 @@
+/**
+ * Constans (commands) for message types for motion packetss
+ * @file motioncmd.h
+ */
+
 #ifndef MOTIONCMD_H
 #define MOTIONCMD_H
 
