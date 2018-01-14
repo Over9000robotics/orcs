@@ -8,7 +8,6 @@
 #define PACKET_H_
 
 #include <stdint.h>	
-#include "packet.h"
 
 #define MAX_PKT_SIZE 32
 #define PACKET_HEADER 4
@@ -53,7 +52,7 @@ void uart_pkt_en(uint8_t uen);
 
 
 /**
- *  Initialises packet status to free_to_use
+ *  Initialises packet status to "free_to_use"
  */
 void tx_packets_init(void);
 
