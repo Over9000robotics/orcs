@@ -13,3 +13,7 @@ UART - Motion
 
 - ask for current position
 - set current position
+
+
+scheduler: motion_go(x,y,velocity);
+motion:    implement motion_go -> packet_send(type, data) -> uart_transmit
