@@ -1,5 +1,6 @@
 /**
- * Constans (commands) for message types for motion packetss
+ * Constans (commands) for motion packets \n
+ * (goes into type section in packet)
  * @file motioncmd.h
  */
 
