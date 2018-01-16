@@ -1,5 +1,6 @@
 /**
  * @file packet.c
+ * @todo tx_end_packet
  */
  
 #include "packet.h"
@@ -106,6 +107,38 @@ void packet_put_word(int16_t word)
 	tx_packet_ptr -> data[tx_packet_ptr -> size++] = word;
 }
 
+void packet_end(void)
+{
+	int crc = 0;
+	int i;
+	
+	if (tx_packet_ptr == 0)
+	{
+		print_yellow();
+		printf("Packet: ");
+		print_reset();
+		printf("packet not sent - tx_packet_ptr = 0\n");
+		return;
+	}
+	else
+	{
+		tx_packet_ptr -> status = ready_to_send;
+		tx_packet_ptr -> sync = PACKET_SYNC;
+		
+		for(i = 0; i < tx_packet_ptr -> size; i++)
+		{
+			crc += tx_packet_ptr -> data[i]; 
+		}
+		tx_packet_ptr -> crc = ((tx_packet_ptr -> size + tx_packet_ptr -> type) << 4) | (crc & 0x0F);
+		tx_packet_ptr -> status = sending;
+		
+		uart_send_packet(tx_packet_ptr);
+		
+		tx_packet_ptr -> status = free_to_use;
+		free_packets++;
+	}
+}
+
 t_packet* get_selected_tx_packet(uint8_t select)
 {
 	return &tx_packets[select];
@@ -115,13 +148,16 @@ void print_packet(t_packet* packet)
 {
 	int i;
 	print_blue();
-	printf("\nPacket number: %d\n", packet - &tx_packets[0]);
-	printf("status: %d\n", packet -> status);
-	printf("type: 0x%x\n", packet -> type);
-	printf("size: %d\n",   packet -> size);
+	printf("\nPacket number: 0x%x\n", packet - &tx_packets[0]);
+	printf("sync:   0x%x\n", packet -> sync);
+	printf("chsum:  0x%x\n", packet -> crc);
+	printf("status: 0x%x\n", packet -> status);
+	printf("type:   0x%x\n", packet -> type);
+	printf("size:   0x%x\n",   packet -> size);
 	for(i = 0; i < packet -> size; i++)
 	{
-		printf("data[%d]: %d (decimal)\n", i, packet -> data[i]);
+		printf("data[%d]: 0x%x \n", i, packet -> data[i]);
 	}
+	printf("\n");
 	print_reset();
 }

@@ -39,7 +39,6 @@ typedef struct t_packet
 	uint8_t type;
 	uint8_t size;
 	uint8_t data[MAX_PKT_SIZE-PACKET_HEADER];
-	uint8_t packet_byte_selector;
 	enum PacketStatus status;
 }t_packet;
 
@@ -73,6 +72,14 @@ void packet_prepare(uint8_t type);
 
 void packet_put_byte(int8_t byte);
 void packet_put_word(int16_t word);
+
+/**
+ * Ends packet with sync byte and checksum byte \n
+ * Sends packet via UART \n
+ * At the end, changes packet status to "free_to_use"
+ */
+void packet_end(void);
+
 
 t_packet* get_selected_tx_packet(uint8_t select);
 
