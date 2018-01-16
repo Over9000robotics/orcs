@@ -1,12 +1,21 @@
 /**
  * @file uart.c
- * @brief inits uart to baud rate 115200. 
+ * @brief inits uart to baud rate 57600. 
  * Functions for uart data manipulation.
+ * @todo what if checksum error (uart_try_read_packet)
+ * @todo if byte reading is too long -> write WARNING!
  */
  
 //TODO: Implement close(uart0_filestream);
 
 #include "uart.h"
+#include <stdio.h>
+#include <unistd.h>			//Used for UART
+#include <fcntl.h>			//Used for UART func open parameters
+#include <termios.h>		//Used for UART
+
+#include "packet.h"
+#include "color.h"
 
 static int uart0_filestream = -1;
 
@@ -94,6 +103,86 @@ int uart0_receive_bytes(uint8_t* p_rx_buffer, int n)
 		printf("Uart: ");
 		print_reset();
 		printf("uart_filestream != -1 (uart0_receieve_bytes)");
+	}
+	return 0;
+}
+
+static t_packet rx_packet;
+
+t_packet* uart_try_read_packet(void)
+{
+	uint8_t rx_buffer_header[MAX_PKT_SIZE];
+	uint8_t rx_buffer_data[MAX_PKT_SIZE-PACKET_HEADER];
+	int bytes_num;
+	uint8_t crc = 0;
+	uint8_t type = 0;
+	uint8_t size = 0;
+	int data_sum = 0;
+	
+	bytes_num = uart0_receive_bytes(rx_buffer_header, 1);
+	
+	//if 1 byte read success, and that byte is PACKET_SYNC, continue reading
+	if(bytes_num == 1 && rx_buffer_header[0] == PACKET_SYNC)
+	{
+		//proveriti da li se sme odmah nastaviti citanje
+		uint8_t i = 0;
+		//read: type, crc, size (PACKET_SYNC has already been read)
+		for(i = 0; i < PACKET_HEADER-1; i++)
+		{
+			do
+			{
+				bytes_num = 0;
+				bytes_num = uart0_receive_bytes(rx_buffer_header+i, 1);
+			}while(bytes_num == 0);
+		}
+		crc  = rx_buffer_header[0];
+		type = rx_buffer_header[1];
+		size = rx_buffer_header[2];
+		
+		printf("crc:  0x%x \n", crc);
+		printf("type: 0x%x \n", type);
+		printf("size: 0x%x \n", size);
+		
+		if(((size + type) & 0x0F) != (crc >> 4))
+		{
+			printf("crc HIGH checksum error");
+			return 0;
+		}
+		for(i = 0; i < size; i++)
+		{
+			do
+			{
+				bytes_num = 0;
+				bytes_num = uart0_receive_bytes(rx_buffer_data+i, 1);
+			}while(bytes_num == 0);
+		}
+		
+		//calculate data_sum
+		data_sum = 0;
+		for(i = 0; i < size; i++)
+		{
+			data_sum += rx_buffer_data[i];
+			printf("data[%d]: 0x%x \n",i, rx_buffer_data[i]);
+		}
+		if(data_sum != (crc & 0x0F))
+		{
+			printf("crc LOW checksum error");
+			return 0;
+		}
+		rx_packet.sync = PACKET_SYNC;
+		rx_packet.crc  = crc;
+		rx_packet.type = type;
+		rx_packet.size = size;
+		for(i = 0; i < size; i++)
+		{
+			rx_packet.data[i] = rx_buffer_data[i];
+		}
+		
+		return &rx_packet;
+	}
+	else
+	{
+		return 0;
 	}
 	return 0;
 }

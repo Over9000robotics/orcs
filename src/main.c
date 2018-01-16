@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <termios.h>
 
 #include <wiringPi.h> //for delay
 #include "uart.h"
@@ -29,7 +30,7 @@ int main()
 	int uart0_filestream;
 	int uart0_bytes_receieved  = 0;
 	
-	uart0_filestream = uart0_init();
+	uart0_filestream = uart0_init(B57600);
 	printf("(main) uart0_filestream: %d\n", uart0_filestream);
 	
 
@@ -39,10 +40,22 @@ int main()
 	packet_end();
 	print_packet(get_selected_tx_packet(0));
 	
+	
+	
 	while(1)
 	{
-			int i = 0;
-			int n = 0;
+			t_packet  rx_pkt;
+			t_packet* rx_pkt_ptr = &rx_pkt;
+			//int i = 0;
+			//int n = 0;
+			
+			rx_pkt_ptr = try_read_packet();
+			if (rx_pkt_ptr != 0)
+			{
+				print_rx_packet(rx_pkt_ptr);
+			}
+			delay(500);
+			/*
 			unsigned char c;
 			printf("Type character array to send: \n");
 			
@@ -76,6 +89,7 @@ int main()
 				printf("byte - %c\n", rx_buffer[i]);
 			}
 			delay(1000);
+			* */
 	}
 	return 0;
 }
