@@ -3,20 +3,14 @@
  * @brief inits uart to baud rate 115200. 
  * Functions for uart data manipulation.
  */
-//NOTE: what to do with characters with parity error (IGNPAR)?
-//TODO: Implement sending baud rate as a func parameter, ref: termios.h
-//TODO: Implement selection for number of bytes to receieve
+ 
 //TODO: Implement close(uart0_filestream);
 
-#include <stdio.h>
-#include <unistd.h>			//Used for UART
-#include <fcntl.h>			//Used for UART func open parameters
-#include <termios.h>		//Used for UART
 #include "uart.h"
 
 static int uart0_filestream = -1;
 
-int uart0_init (/*t_speed baud_rate*/)
+int uart0_init (speed_t baud_rate)
 {
 	uart0_filestream = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
 	
@@ -30,7 +24,7 @@ int uart0_init (/*t_speed baud_rate*/)
 	
 	struct termios options;
 	tcgetattr(uart0_filestream, &options);
-	options.c_cflag = B115200 | CS8 | CLOCAL | CREAD;		//<Set baud rate
+	options.c_cflag = baud_rate | CS8 | CLOCAL | CREAD;		//<Set baud rate
 	options.c_iflag = IGNPAR;
 	options.c_oflag = 0;
 	options.c_lflag = 0;

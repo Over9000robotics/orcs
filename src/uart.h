@@ -6,6 +6,11 @@
 #ifndef UART_H_
 #define UART_H_
 
+#include <stdio.h>
+#include <unistd.h>			//Used for UART
+#include <fcntl.h>			//Used for UART func open parameters
+#include <termios.h>		//Used for UART
+
 #include "packet.h"
 #include "color.h"
 
