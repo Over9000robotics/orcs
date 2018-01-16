@@ -6,13 +6,8 @@
 #ifndef UART_H_
 #define UART_H_
 
-#include <stdio.h>
-#include <unistd.h>			//Used for UART
-#include <fcntl.h>			//Used for UART func open parameters
-#include <termios.h>		//Used for UART
-
 #include "packet.h"
-#include "color.h"
+#include "stdint.h"
 
 /**
  * @return uart0_filestream (return value of open(...) function)
@@ -32,8 +27,15 @@ void uart0_transmit(uint8_t *p_tx_buffer, int n);
  * Reads n bytes from UART input file
  * @param *p_rx_buffer - pointer for rx_buffer declared in main
  * @param n - number of bytes to read
+ * @return number of success read bytes
  */
 int uart0_receive_bytes(uint8_t *p_rx_buffer, int n);
+
+/**
+ * Trys to read incoming packet
+ * @return packet adress if packet received, 0 if not received
+ */
+t_packet* uart_try_read_packet(void);
 
 
 /**

@@ -7,13 +7,13 @@
 #ifndef PACKET_H_
 #define PACKET_H_
 
-#include <stdio.h>
-#include <stdint.h>	
 
 #define MAX_PKT_SIZE 32
 #define PACKET_HEADER 4
 #define MAX_TX_PACKETS 10
 #define PACKET_SYNC 0x3c
+
+#include <stdint.h>
 
 enum PacketStatus {
 	free_to_use,
@@ -51,6 +51,9 @@ typedef struct t_packet
 void uart_pkt_en(uint8_t uen);
 
 
+t_packet* try_read_packet(void);
+
+
 /**
  *  Initialises packet status to "free_to_use"
  */
@@ -86,11 +89,15 @@ t_packet* get_selected_tx_packet(uint8_t select);
 
 /**
  * Function made for easier debugging
- * @param packet - adress of packet which needs to be printed
+ * @param packet - adress of TX packet which needs to be printed
  */
 void print_packet(t_packet* packet);
 
-
+/**
+ * Function made for easier debugging
+ * @param packet - adress of RX packet to be printed
+ */
+void print_rx_packet(t_packet* packet);
 
 #endif
 
