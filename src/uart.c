@@ -13,11 +13,11 @@
 #include <fcntl.h>			//Used for UART func open parameters
 #include <termios.h>		//Used for UART
 #include "uart.h"
-#include "color.h"
+
+static int uart0_filestream = -1;
 
 int uart0_init (/*t_speed baud_rate*/)
 {
-	int uart0_filestream = -1;
 	uart0_filestream = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
 	
 	if (uart0_filestream == -1)
@@ -40,7 +40,7 @@ int uart0_init (/*t_speed baud_rate*/)
 	return uart0_filestream;
 }
 
-void uart0_transmit(int uart0_filestream, unsigned char* p_tx_buffer, int n)
+void uart0_transmit(uint8_t* p_tx_buffer, int n)
 {
 	if (uart0_filestream != -1)
 	{
@@ -62,7 +62,7 @@ void uart0_transmit(int uart0_filestream, unsigned char* p_tx_buffer, int n)
 	}
 }
 
-int uart0_receive_bytes(int uart0_filestream, unsigned char *p_rx_buffer, int n)
+int uart0_receive_bytes(uint8_t* p_rx_buffer, int n)
 {
 	
 	if (uart0_filestream != -1)
@@ -102,4 +102,16 @@ int uart0_receive_bytes(int uart0_filestream, unsigned char *p_rx_buffer, int n)
 		printf("uart_filestream != -1 (uart0_receieve_bytes)");
 	}
 	return 0;
+}
+
+void uart_send_packet(t_packet* packet)
+{
+	uint8_t* p_tx_buffer;
+	
+	p_tx_buffer = (uint8_t*) (packet);
+	
+	printf("p_tx_buffer: %p\n", (void*) p_tx_buffer);
+	printf("packet: %p\n\n", (void*) packet);
+	
+	uart0_transmit(p_tx_buffer, PACKET_HEADER + packet -> size);
 }
