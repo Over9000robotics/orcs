@@ -9,7 +9,9 @@ UART - Motion
 -------------
 + uart_transmit_bytes
 + uart_receieve_bytes
-- uart_transmit_packet
+
+- write python script that parses rx packet on PC
+- test uart_transmit_packet
 
 - ask for current position
 - set current position

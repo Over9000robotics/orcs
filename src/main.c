@@ -36,6 +36,7 @@ int main()
 	packet_prepare(MOTION_GET_STATUS_AND_POSITION);
 	packet_put_byte(150);
 	packet_put_word(12345);
+	packet_end();
 	print_packet(get_selected_tx_packet(0));
 	
 	while(1)
@@ -63,10 +64,10 @@ int main()
 			print_reset();
 			printf("\n");
 			
-			uart0_transmit(uart0_filestream, p_tx_buffer, n);
+			uart0_transmit(p_tx_buffer, n);
 			delay (1000);	//wait 1 second
 			
-			uart0_bytes_receieved = uart0_receive_bytes(uart0_filestream, p_rx_buffer, 255);
+			uart0_bytes_receieved = uart0_receive_bytes(p_rx_buffer, 255);
 			for(i = 0; i < uart0_bytes_receieved; i++)
 			{
 				print_blue();

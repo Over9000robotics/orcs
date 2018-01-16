@@ -10,7 +10,7 @@
 #define	MOTION_SET_CONFIG 0x63	//c
 #define	MOTION_GET_CONFIG 0x43		//C
 #define	MOTION_MOVE_TO 0x4E		//N
-#define	MOTION_GET_STATUS_AND_POSITION 0x50	//P /* ask for status and position */
+#define	MOTION_GET_STATUS_AND_POSITION 0x50		//P /* ask for status and position */
 #define	MOTION_UNSTUCK 0x55		//U
 #define	MOTION_MOTOR 0x6D		//m
 #define	MOTION_GET_POSITION 0x70	//p
