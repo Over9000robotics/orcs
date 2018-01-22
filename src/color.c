@@ -1,5 +1,10 @@
-#include "color.h"
+/**
+ * @file color.c
+ * @brief Functions for setting the default printf() color
+ */
+
 #include <stdio.h>
+#include "color.h"
 
 void print_red(void) 
 {
@@ -14,6 +19,11 @@ void print_yellow(void)
 void print_blue(void)
 {
 	printf(BLUE_TEXT);
+}
+
+void print_green(void)
+{
+	printf(GREEN_TEXT);
 }
 
 void print_reset(void) 
