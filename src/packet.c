@@ -72,7 +72,7 @@ t_packet* try_read_packet(void)
 	if(uart_enabled == 1)
 	{
 		rx_packet = uart_try_read_packet();
-		if(!rx_packet)
+		if(rx_packet != 0)
 		{
 			print_yellow();
 			printf("Packet: \n");
@@ -95,8 +95,10 @@ void packet_prepare(uint8_t type)
 			tx_packet_ptr -> type = type;
 			tx_packet_ptr -> size = 0;
 			
+			/*
 			printf("\ntx_free_packets: %d\n",tx_free_packets);
 			printf("tx_packet_ptr -> status: %d\n", tx_packet_ptr -> status);	
+			*/
 		}
 		else
 		{
@@ -170,10 +172,10 @@ void print_packet(t_packet* packet)
 	int i = 0;
 	print_blue();
 	printf("\nPacket number: 0x%x\n", packet - &tx_packets[0]);
-	printf("sync:   0x%x\n", packet -> sync);
-	printf("chsum:  0x%x\n", packet -> crc);
-	printf("status: 0x%x\n", packet -> status);
-	printf("type:   0x%x\n", packet -> type);
+	//printf("sync:   0x%x\n", packet -> sync);
+	//printf("chsum:  0x%x\n", packet -> crc);
+	//printf("status: 0x%x\n", packet -> status);
+	printf("type:   %c\n", packet -> type);
 	printf("size:   0x%x\n", packet -> size);
 	for(i = 0; i < packet -> size; i++)
 	{
@@ -186,11 +188,12 @@ void print_packet(t_packet* packet)
 void print_rx_packet(t_packet* packet)
 {
 	int i = 0;
+	printf("\n");
 	print_yellow();
-	printf("sync:   0x%x\n", packet -> sync);
-	printf("chsum:  0x%x\n", packet -> crc);
-	printf("status: 0x%x\n", packet -> status);
-	printf("type:   0x%x\n", packet -> type);
+	//printf("sync:   0x%x\n", packet -> sync);
+	//printf("chsum:  0x%x\n", packet -> crc);
+	//printf("status: 0x%x\n", packet -> status);
+	printf("type:   %c\n", packet -> type);
 	printf("size:   0x%x\n", packet -> size);
 	for(i = 0; i < packet -> size; i++)
 	{
