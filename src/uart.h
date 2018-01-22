@@ -12,7 +12,7 @@
 /**
  * @return uart0_filestream (return value of open(...) function)
  */
-int uart0_init();
+void uart0_init();
 
 
 /**
@@ -26,10 +26,9 @@ void uart0_transmit(uint8_t *p_tx_buffer, int n);
 /**
  * Reads n bytes from UART input file
  * @param *p_rx_buffer - pointer for rx_buffer declared in main
- * @param n - number of bytes to read
  * @return number of success read bytes
  */
-int uart0_receive_bytes(uint8_t *p_rx_buffer, int n);
+int uart0_receive_byte(uint8_t *p_rx_buffer);
 
 /**
  * Trys to read incoming packet
