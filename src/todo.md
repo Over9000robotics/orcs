@@ -10,12 +10,18 @@ UART - Motion
 + uart_transmit_bytes
 + uart_receieve_bytes
 
-- write python script that parses rx packet on PC
-- test uart_transmit_packet
-
-- ask for current position
-- set current position
++ write python script that parses rx packet on PC
++ test uart_transmit_packet
 
 
-scheduler: motion_go(x,y,velocity);
+
++ ask for current position
++ print current position as integer
++ set current position
+
+
+scheduler -> task -> motion_go(x,y,velocity);
+				  -> motion_stop()
+				  -> motion_get_status(); //where to put?
+				  
 motion:    implement motion_go -> packet_send(type, data) -> uart_transmit
