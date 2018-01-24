@@ -72,12 +72,14 @@ t_packet* try_read_packet(void)
 	if(uart_enabled == 1)
 	{
 		rx_packet = uart_try_read_packet();
+/*
 		if(rx_packet != 0)
 		{
 			print_yellow();
 			printf("Packet: \n");
 			print_reset();
 		}
+*/
 	}
 	return rx_packet;
 }
