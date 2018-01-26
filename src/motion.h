@@ -27,11 +27,20 @@ typedef struct t_motionState
 	enum State state;
 }t_motionState;
 
+
 /**
- * 
+ * Checks communication with motion board
+ * @return 1 if success, 0 if not 
  * 
  */
-void motion_msg_status(void);
+uint8_t motion_check(void);
+
+/**
+ * Checks is packet received, and process him
+ * @return 1 if packet and command was ok
+ * @return 0 if there is no packet, or command was unknown
+ */
+uint8_t motion_msg_status(void);
 
 void set_status_and_position(void);
 

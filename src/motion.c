@@ -5,45 +5,83 @@
  */
 #include <stdio.h>
 #include <stdint.h>
+#include <wiringPi.h>
 
 #include "motion.h"
 #include "motioncmd.h"
 #include "uart.h"
 #include "packet.h"
 #include "color.h"
+#include "config.h"
 
 
 static uint8_t command = 0;
 static t_packet  rx_pkt;
 static t_packet* rx_pkt_ptr = &rx_pkt;
 static t_motionState motion_state;
+unsigned int time_start_millis = 0;
+unsigned int time_end_millis = 0;
 
-void motion_msg_status(void)
+
+uint8_t motion_check(void)
+{
+	packet_prepare(MOTION_GET_STATUS_AND_POSITION);
+	packet_end();
+	
+	time_start_millis = millis();
+	while(millis() - time_start_millis < MOTION_RESPONSE_MS && command != 'P')
+	{
+		if(motion_msg_status() == 1)
+		{
+			print_green();
+			printf("Motion: ");
+			print_blue();
+			printf("communication OK! \n");
+			print_yellow();
+			printf("Communication time: %d \n", millis() - time_start_millis);
+			print_reset();
+			return 1;
+		}
+	}
+	print_red();
+	printf("Uart: no communication! \n");
+	print_red();
+	printf("Check power supply (total-stop), uart cable, or baud-rate \n");
+	print_reset();
+	return 0;
+}
+
+
+uint8_t motion_msg_status(void)
 {
 	rx_pkt_ptr = try_read_packet();
 	if (rx_pkt_ptr != 0)
 	{
+		print_rx_packet(rx_pkt_ptr);
 		command = rx_pkt_ptr -> type;
+		printf("command: %c \n", command);
 		switch(command)
 		{
-			case MOTION_GET_STATUS_AND_POSITION:	// 'P'
+			case MOTION_GET_STATUS_AND_POSITION:	//'P'
 			{
-				set_status_and_position();
+				if(rx_pkt_ptr -> size == 9)
+				{
+					set_status_and_position();
+					return 1;
+				}
 				break;
 			}
 			
 			default: 
 			{
-/*				print_red();
+				print_red();
 				printf("Command '%c' is unknown! \n", command);
 				print_reset();
-*/
 				break;
 			}
 		}
 	}
-	else 
-		return;
+	return 0;		
 }
 
 void set_status_and_position(void)
@@ -75,22 +113,22 @@ void print_status_and_position(void)
 	print_blue();
 	printf("\tX: ");
 	print_reset();
-	printf("int %d, hex 0x%x \n",motion_state.x, motion_state.x);
+	printf("int %d \n",motion_state.x);
 
 	print_blue();
 	printf("\tY: ");
 	print_reset();
-	printf("int %d, hex 0x%x \n",motion_state.y, motion_state.y);
+	printf("int %d \n",motion_state.y);
 	
 	print_blue();
 	printf("\tAngle: ");
 	print_reset();
-	printf("int %d, hex 0x%x \n",motion_state.angle, motion_state.angle);
+	printf("%d \n",motion_state.angle);
 	
 	print_blue();
 	printf("\tCurrent speed: ");
 	print_reset();
-	printf("int %d, hex 0x%x \n",motion_state.current_speed, motion_state.current_speed);
+	printf("%d \n",motion_state.current_speed);
 }
 
 void motion_print_state(void)
