@@ -3,11 +3,12 @@
 #DEBUG = -03
 
 
-OBJ 		= main.o uart.o color.o packet.o motion.o
+OBJ 		= main.o uart.o color.o packet.o motion.o config.o
 
-DEPS 		= uart.h color.h motioncmd.h packet.h motion.h
+DEPS 		= uart.h color.h motioncmd.h packet.h motion.h config.h
 
 INCLUDE		= -I/usr/local/include
+
 
 LDFLAGS		= -L/usr/local/lib
 LDLIBS    	= -lwiringPi -lwiringPiDev -lpthread -lm -lcrypt -lrt
@@ -34,7 +35,7 @@ EXTENSION = .c
 #Combine them into the output file
 #Set your desired exe output file name here
 
-orcs_run.a: $(OBJ)
+orcs_run: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 #Cleanup
