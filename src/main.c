@@ -19,6 +19,7 @@ void init_main(void)
 	uart_pkt_en(TRUE);
 	set_side("GREEN");
 	uart0_init(B57600);
+	motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
 }
 
 uint8_t use_input_arguments(int argc, char* argv[])
@@ -42,19 +43,17 @@ int main(int argc, char* argv[])
 {
 
 	init_main();
-	if(use_input_arguments(argc, argv) == 0)
+	if(!use_input_arguments(argc, argv))
 	{
-		printf("uset_input = 0 \n");
 		return 0;
 	}
-	printf("side: %d \n", get_side());
 	print_side();
 
 /*
 	packet_prepare(MOTION_MOVE_TO);
-	packet_put_word(500);
-	packet_put_word(500);
-	packet_put_byte(0);
+	packet_put_word(-50);
+	packet_put_word(0);
+	packet_put_byte(-1);
 	packet_end();
 	print_packet(get_selected_tx_packet(0));
 	delay(100);
@@ -80,9 +79,10 @@ int main(int argc, char* argv[])
 	print_packet(get_selected_tx_packet(0));
 	delay(100);
 */
-
+	//if communication doesn't work
 	if(!motion_check())
 		return 0;
+		
 	while(1)
 	{
 		motion_msg_status();		

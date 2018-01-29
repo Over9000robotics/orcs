@@ -22,6 +22,14 @@ static t_motionState motion_state;
 unsigned int time_start_millis = 0;
 unsigned int time_end_millis = 0;
 
+void motion_set_position(int16_t x, int16_t y, int16_t o)
+{
+	packet_prepare(MOTION_SET_POSITION_AND_ORIENTATION);
+	packet_put_word(x);
+	packet_put_word(y);
+	packet_put_word(o);
+	packet_end();
+}
 
 uint8_t motion_check(void)
 {
@@ -40,17 +48,24 @@ uint8_t motion_check(void)
 			print_yellow();
 			printf("Communication time: %d \n", millis() - time_start_millis);
 			print_reset();
-			return 1;
+			if(motion_state.x == MOTION_START_X && motion_state.y == MOTION_START_Y && motion_state.angle == MOTION_START_O)
+				return 1;
+			else
+			{
+				print_red();
+				printf("Start position init failed \n");
+				print_reset();
+				return 0;
+			}
 		}
 	}
 	print_red();
 	printf("Uart: no communication! \n");
 	print_red();
-	printf("Check power supply (total-stop), uart cable, or baud-rate \n");
+	printf("Uart: Check power supply (total-stop), uart cable, or baud-rate \n");
 	print_reset();
 	return 0;
 }
-
 
 uint8_t motion_msg_status(void)
 {
@@ -106,22 +121,16 @@ void set_status_and_position(void)
 void print_status_and_position(void)
 {
 	print_green();
-	printf("Motion: \n");
-	
-	motion_print_state();
+	printf("Motion: ");
 	
 	print_blue();
-	printf("\tX: ");
+	printf("Position ");
+	
 	print_reset();
-	printf("int %d \n",motion_state.x);
-
-	print_blue();
-	printf("\tY: ");
-	print_reset();
-	printf("int %d \n",motion_state.y);
+	printf("(%d, %d) ", motion_state.x, motion_state.y);
 	
 	print_blue();
-	printf("\tAngle: ");
+	printf("Angle ");
 	print_reset();
 	printf("%d \n",motion_state.angle);
 	
@@ -129,6 +138,8 @@ void print_status_and_position(void)
 	printf("\tCurrent speed: ");
 	print_reset();
 	printf("%d \n",motion_state.current_speed);
+	
+	motion_print_state();
 }
 
 void motion_print_state(void)

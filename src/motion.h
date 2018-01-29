@@ -36,6 +36,14 @@ typedef struct t_motionState
 uint8_t motion_check(void);
 
 /**
+ * Sets position and orientation
+ * @param x - x coordinate
+ * @param y - y coordinate
+ * @param o - orientation
+ */
+void motion_set_position(int16_t x, int16_t y, int16_t o);
+
+/**
  * Checks is packet received, and process him
  * @return 1 if packet and command was ok
  * @return 0 if there is no packet, or command was unknown
