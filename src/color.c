@@ -26,6 +26,11 @@ void print_green(void)
 	printf(GREEN_TEXT);
 }
 
+void print_orange(void)
+{
+	printf(ORANGE_TEXT);
+}
+
 void print_reset(void) 
 {
   printf("\033[0m");
