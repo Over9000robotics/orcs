@@ -57,12 +57,12 @@ t_packet* find_free_packet(void)
 	int i = 0;
 	
 	for(i = 0; i < MAX_TX_PACKETS; i++)
-		{
+	{
 			if(tx_packets[i].status == free_to_use)
 			{
 				return &tx_packets[i];
 			}
-		}
+	}
 	return 0;
 }
 
@@ -72,14 +72,16 @@ t_packet* try_read_packet(void)
 	if(uart_enabled == 1)
 	{
 		rx_packet = uart_try_read_packet();
-/*
+
 		if(rx_packet != 0)
 		{
+#ifdef DEBUG
 			print_yellow();
 			printf("Packet: \n");
 			print_reset();
+#endif
 		}
-*/
+
 	}
 	return rx_packet;
 }

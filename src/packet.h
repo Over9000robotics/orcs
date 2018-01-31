@@ -50,7 +50,10 @@ typedef struct t_packet
  */
 void uart_pkt_en(uint8_t uen);
 
-
+/**
+ * Trys to read data packet
+ * @return packet adress if found, or 0 if packet not found
+ */
 t_packet* try_read_packet(void);
 
 
@@ -73,7 +76,16 @@ t_packet* find_free_packet(void);
  */
 void packet_prepare(uint8_t type);
 
+/**
+ * Puts byte in data array of message packet
+ * @param byte - byte which needs to put in
+ */
 void packet_put_byte(int8_t byte);
+
+/**
+ * Puts word in data array of message packet
+ * @param word - two bytes which need to put in
+ */
 void packet_put_word(int16_t word);
 
 /**

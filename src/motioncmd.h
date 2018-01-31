@@ -30,8 +30,5 @@
 #define	MOTION_SET_POSITION_AND_ORIENTATION 0x49	//I
 #define	MOTION_BREAK 0x69		//i
 
-/**
- * Posible motion states enumeration 
- */
 
 #endif

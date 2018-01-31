@@ -41,50 +41,38 @@ uint8_t use_input_arguments(int argc, char* argv[])
 }
 int main(int argc, char* argv[])
 {
-
-	init_main();
+	unsigned int last_motion_check = 0;
+	
 	if(!use_input_arguments(argc, argv))
 	{
 		return 0;
 	}
 	print_side();
-
-/*
-	packet_prepare(MOTION_MOVE_TO);
-	packet_put_word(-50);
-	packet_put_word(0);
-	packet_put_byte(-1);
-	packet_end();
-	print_packet(get_selected_tx_packet(0));
+	
+	init_main();
+	
 	delay(100);
-*/
-
-/*
-	packet_prepare(MOTION_UNSTUCK);
-	packet_end();
-	print_packet(get_selected_tx_packet(0));
-	delay(100);
-*/
-/*
-	packet_prepare(MOTION_GET_STATUS_AND_POSITION);
-	packet_end();
-	print_packet(get_selected_tx_packet(0));
-	delay(100);
-*/
-/*
-	packet_prepare(MOTION_FORWARD);
-	packet_put_word(300); //length
-	packet_put_byte(0x0);	 //end speed
-	packet_end();
-	print_packet(get_selected_tx_packet(0));
-	delay(100);
-*/
-	//if communication doesn't work
+	
+	//if communication doesn't work, end program
 	if(!motion_check())
 		return 0;
-		
+	delay(10);
+	
+	motion_forward(400, 0);
+
+	motion_get_status_and_position();
+	delay(100);
+	
+	//motion_relative_rotate(-30);
+	//motion_absolute_rotate(360);
+	
 	while(1)
 	{
+		if(millis() > last_motion_check + MOTION_REFRESH_INTERVAL)
+		{
+			last_motion_check = millis();
+			motion_get_status_and_position();
+		}
 		motion_msg_status();		
 	}
 	return 0;
