@@ -1,0 +1,194 @@
+\hypertarget{motion_8h}{}\section{/home/djordje/\+Desktop/orcs/src/motion.h File Reference}
+\label{motion_8h}\index{/home/djordje/\+Desktop/orcs/src/motion.\+h@{/home/djordje/\+Desktop/orcs/src/motion.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+Include dependency graph for motion.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{motion_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{motion_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__motion_state}{t\+\_\+motion\+State}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structt__motion_state}{t\+\_\+motion\+State} {\bfseries t\+\_\+motion\+State}\hypertarget{motion_8h_af054871f3cccb7b019936b13cbd239be}{}\label{motion_8h_af054871f3cccb7b019936b13cbd239be}
+
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries State} \{ \\*
+{\bfseries S\+T\+A\+T\+U\+S\+\_\+\+I\+D\+LE} = \textquotesingle{}I\textquotesingle{}, 
+{\bfseries S\+T\+A\+T\+U\+S\+\_\+\+M\+O\+V\+I\+NG} = \textquotesingle{}M\textquotesingle{}, 
+{\bfseries S\+T\+A\+T\+U\+S\+\_\+\+R\+O\+T\+A\+T\+I\+NG} = \textquotesingle{}R\textquotesingle{}, 
+{\bfseries S\+T\+A\+T\+U\+S\+\_\+\+S\+T\+U\+CK} = \textquotesingle{}S\textquotesingle{}, 
+\\*
+{\bfseries S\+T\+A\+T\+U\+S\+\_\+\+E\+R\+R\+OR} = \textquotesingle{}E\textquotesingle{}
+ \}\hypertarget{motion_8h_a5d74787dedbc4e11c1ab15bf487e61f8}{}\label{motion_8h_a5d74787dedbc4e11c1ab15bf487e61f8}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{motion_8h_a2c714daf669284f1728fe46b14b91475}{motion\+\_\+check} (void)
+\item 
+void {\bfseries motion\+\_\+get\+\_\+status\+\_\+and\+\_\+position} (void)\hypertarget{motion_8h_a0adaedb6159e0a6f5ad4029a780e004c}{}\label{motion_8h_a0adaedb6159e0a6f5ad4029a780e004c}
+
+\item 
+void \hyperlink{motion_8h_a1c3ba575c3f52b505dbf40ab44712deb}{motion\+\_\+set\+\_\+position} (int16\+\_\+t x, int16\+\_\+t y, int16\+\_\+t o)
+\item 
+void \hyperlink{motion_8h_a816d410972dcb80f847cbe51b00fbe3e}{motion\+\_\+set\+\_\+speed} (uint8\+\_\+t speed)
+\item 
+void \hyperlink{motion_8h_a02a11a3f19f3174c0b01e492bead9e72}{motion\+\_\+set\+\_\+rotating\+\_\+speed} (uint8\+\_\+t speed)
+\item 
+uint8\+\_\+t \hyperlink{motion_8h_a805c4dc483812338b07393567b5d8815}{motion\+\_\+msg\+\_\+status} (void)
+\item 
+void {\bfseries set\+\_\+status\+\_\+and\+\_\+position} (void)\hypertarget{motion_8h_ab10810fdf4a7780ae6b5802aa37e262b}{}\label{motion_8h_ab10810fdf4a7780ae6b5802aa37e262b}
+
+\item 
+void {\bfseries print\+\_\+status\+\_\+and\+\_\+position} (void)\hypertarget{motion_8h_a1ffdf60eb0053df92f0d1f8144440cd0}{}\label{motion_8h_a1ffdf60eb0053df92f0d1f8144440cd0}
+
+\item 
+void {\bfseries motion\+\_\+move\+\_\+to} (int16\+\_\+t x, int16\+\_\+t y, uint8\+\_\+t direction, int16\+\_\+t radius)\hypertarget{motion_8h_a7577289f9920fad15e5450dba6f1a8d8}{}\label{motion_8h_a7577289f9920fad15e5450dba6f1a8d8}
+
+\item 
+void \hyperlink{motion_8h_a8decd796e0916e300e55b527bb5337e4}{motion\+\_\+turn\+\_\+and\+\_\+go} (int16\+\_\+t x, int16\+\_\+t y, uint8\+\_\+t end\+\_\+speed, int8\+\_\+t direction)
+\item 
+void \hyperlink{motion_8h_a52e9fddca41064d2bc05869ec70b30e4}{motion\+\_\+forward} (int16\+\_\+t length, uint8\+\_\+t end\+\_\+speed)
+\item 
+void {\bfseries motion\+\_\+absolute\+\_\+rotate} (int16\+\_\+t degrees)\hypertarget{motion_8h_aaac9a1364beafe43a579fb0ca6b186e6}{}\label{motion_8h_aaac9a1364beafe43a579fb0ca6b186e6}
+
+\item 
+void {\bfseries motion\+\_\+relative\+\_\+rotate} (int16\+\_\+t degrees)\hypertarget{motion_8h_aa48825e48d401533acfc72f32c9a3538}{}\label{motion_8h_aa48825e48d401533acfc72f32c9a3538}
+
+\item 
+void {\bfseries motion\+\_\+hard\+\_\+stop} (void)\hypertarget{motion_8h_aaba0d1e7b2028b3de6f137d9eb5ebff1}{}\label{motion_8h_aaba0d1e7b2028b3de6f137d9eb5ebff1}
+
+\item 
+void {\bfseries motion\+\_\+soft\+\_\+stop} (void)\hypertarget{motion_8h_a098543e41b644c9e6ff2b4e069d4b8a5}{}\label{motion_8h_a098543e41b644c9e6ff2b4e069d4b8a5}
+
+\item 
+void {\bfseries motion\+\_\+reset\+\_\+driver} (void)\hypertarget{motion_8h_a8188ceb848f7429f68795efa988f3ce2}{}\label{motion_8h_a8188ceb848f7429f68795efa988f3ce2}
+
+\item 
+void {\bfseries motion\+\_\+unstuck} (void)\hypertarget{motion_8h_ac0a5e09646deb00d18a7764e6e680b2b}{}\label{motion_8h_ac0a5e09646deb00d18a7764e6e680b2b}
+
+\item 
+void {\bfseries motion\+\_\+print\+\_\+state} (void)\hypertarget{motion_8h_a1552bf42af6c7fe722632b5bdfb2c543}{}\label{motion_8h_a1552bf42af6c7fe722632b5bdfb2c543}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{motion.\+h@{motion.\+h}!motion\+\_\+check@{motion\+\_\+check}}
+\index{motion\+\_\+check@{motion\+\_\+check}!motion.\+h@{motion.\+h}}
+\subsubsection[{\texorpdfstring{motion\+\_\+check(void)}{motion_check(void)}}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t motion\+\_\+check (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_8h_a2c714daf669284f1728fe46b14b91475}{}\label{motion_8h_a2c714daf669284f1728fe46b14b91475}
+Checks communication with motion board \begin{DoxyReturn}{Returns}
+1 if success, 0 if not 
+\end{DoxyReturn}
+\index{motion.\+h@{motion.\+h}!motion\+\_\+forward@{motion\+\_\+forward}}
+\index{motion\+\_\+forward@{motion\+\_\+forward}!motion.\+h@{motion.\+h}}
+\subsubsection[{\texorpdfstring{motion\+\_\+forward(int16\+\_\+t length, uint8\+\_\+t end\+\_\+speed)}{motion_forward(int16_t length, uint8_t end_speed)}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+\_\+forward (
+\begin{DoxyParamCaption}
+\item[{int16\+\_\+t}]{length, }
+\item[{uint8\+\_\+t}]{end\+\_\+speed}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_8h_a52e9fddca41064d2bc05869ec70b30e4}{}\label{motion_8h_a52e9fddca41064d2bc05869ec70b30e4}
+Goes straight 
+\begin{DoxyParams}{Parameters}
+{\em length} & ($>$0) forward \mbox{[}mm\mbox{]}, ($<$0) backward \mbox{[}mm\mbox{]} \\
+\hline
+{\em end\+\_\+speed} & -\/ robot speed while reaching final point \\
+\hline
+\end{DoxyParams}
+\index{motion.\+h@{motion.\+h}!motion\+\_\+msg\+\_\+status@{motion\+\_\+msg\+\_\+status}}
+\index{motion\+\_\+msg\+\_\+status@{motion\+\_\+msg\+\_\+status}!motion.\+h@{motion.\+h}}
+\subsubsection[{\texorpdfstring{motion\+\_\+msg\+\_\+status(void)}{motion_msg_status(void)}}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t motion\+\_\+msg\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_8h_a805c4dc483812338b07393567b5d8815}{}\label{motion_8h_a805c4dc483812338b07393567b5d8815}
+Checks is packet received, and process him \begin{DoxyReturn}{Returns}
+1 if packet and command was ok 
+
+0 if there is no packet, or command was unknown 
+\end{DoxyReturn}
+\index{motion.\+h@{motion.\+h}!motion\+\_\+set\+\_\+position@{motion\+\_\+set\+\_\+position}}
+\index{motion\+\_\+set\+\_\+position@{motion\+\_\+set\+\_\+position}!motion.\+h@{motion.\+h}}
+\subsubsection[{\texorpdfstring{motion\+\_\+set\+\_\+position(int16\+\_\+t x, int16\+\_\+t y, int16\+\_\+t o)}{motion_set_position(int16_t x, int16_t y, int16_t o)}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+\_\+set\+\_\+position (
+\begin{DoxyParamCaption}
+\item[{int16\+\_\+t}]{x, }
+\item[{int16\+\_\+t}]{y, }
+\item[{int16\+\_\+t}]{o}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_8h_a1c3ba575c3f52b505dbf40ab44712deb}{}\label{motion_8h_a1c3ba575c3f52b505dbf40ab44712deb}
+Sets position and orientation 
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ x coordinate \mbox{[}mm\mbox{]} \\
+\hline
+{\em y} & -\/ y coordinate \mbox{[}mm\mbox{]} \\
+\hline
+{\em o} & -\/ orientation \mbox{[}degrees\mbox{]} \\
+\hline
+\end{DoxyParams}
+\index{motion.\+h@{motion.\+h}!motion\+\_\+set\+\_\+rotating\+\_\+speed@{motion\+\_\+set\+\_\+rotating\+\_\+speed}}
+\index{motion\+\_\+set\+\_\+rotating\+\_\+speed@{motion\+\_\+set\+\_\+rotating\+\_\+speed}!motion.\+h@{motion.\+h}}
+\subsubsection[{\texorpdfstring{motion\+\_\+set\+\_\+rotating\+\_\+speed(uint8\+\_\+t speed)}{motion_set_rotating_speed(uint8_t speed)}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+\_\+set\+\_\+rotating\+\_\+speed (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{speed}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_8h_a02a11a3f19f3174c0b01e492bead9e72}{}\label{motion_8h_a02a11a3f19f3174c0b01e492bead9e72}
+Robot speed while rotating 
+\begin{DoxyParams}{Parameters}
+{\em speed} & -\/ positive number \mbox{[}0 -\/ 255\mbox{]} \\
+\hline
+\end{DoxyParams}
+\index{motion.\+h@{motion.\+h}!motion\+\_\+set\+\_\+speed@{motion\+\_\+set\+\_\+speed}}
+\index{motion\+\_\+set\+\_\+speed@{motion\+\_\+set\+\_\+speed}!motion.\+h@{motion.\+h}}
+\subsubsection[{\texorpdfstring{motion\+\_\+set\+\_\+speed(uint8\+\_\+t speed)}{motion_set_speed(uint8_t speed)}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+\_\+set\+\_\+speed (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{speed}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_8h_a816d410972dcb80f847cbe51b00fbe3e}{}\label{motion_8h_a816d410972dcb80f847cbe51b00fbe3e}
+Sets robot speed 
+\begin{DoxyParams}{Parameters}
+{\em speed} & -\/ positive number \mbox{[}0 -\/ 255\mbox{]} \\
+\hline
+\end{DoxyParams}
+\index{motion.\+h@{motion.\+h}!motion\+\_\+turn\+\_\+and\+\_\+go@{motion\+\_\+turn\+\_\+and\+\_\+go}}
+\index{motion\+\_\+turn\+\_\+and\+\_\+go@{motion\+\_\+turn\+\_\+and\+\_\+go}!motion.\+h@{motion.\+h}}
+\subsubsection[{\texorpdfstring{motion\+\_\+turn\+\_\+and\+\_\+go(int16\+\_\+t x, int16\+\_\+t y, uint8\+\_\+t end\+\_\+speed, int8\+\_\+t direction)}{motion_turn_and_go(int16_t x, int16_t y, uint8_t end_speed, int8_t direction)}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+\_\+turn\+\_\+and\+\_\+go (
+\begin{DoxyParamCaption}
+\item[{int16\+\_\+t}]{x, }
+\item[{int16\+\_\+t}]{y, }
+\item[{uint8\+\_\+t}]{end\+\_\+speed, }
+\item[{int8\+\_\+t}]{direction}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_8h_a8decd796e0916e300e55b527bb5337e4}{}\label{motion_8h_a8decd796e0916e300e55b527bb5337e4}
+Calculates angle to setted point, turns and goes to the point 
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ x coordinate of the point \mbox{[}mm\mbox{]} \\
+\hline
+{\em y} & -\/ y coordinate of the point \mbox{[}mm\mbox{]} \\
+\hline
+{\em end\+\_\+speed} & \\
+\hline
+{\em direction} & -\/ ($>$0) forward, ($<$0) backward \\
+\hline
+\end{DoxyParams}

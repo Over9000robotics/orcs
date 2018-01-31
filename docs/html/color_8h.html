@@ -96,7 +96,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Defines all of the ANSI terminal escape codes that modify the color of text.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="color_8h__dep__incl.png" border="0" usemap="#_2home_2djordje_2_desktop_2orcs_2src_2color_8hdep" alt=""/></div>
+<map name="_2home_2djordje_2_desktop_2orcs_2src_2color_8hdep" id="_2home_2djordje_2_desktop_2orcs_2src_2color_8hdep">
+<area shape="rect" id="node2" href="color_8c.html" title="Functions for setting the default printf() color. " alt="" coords="5,95,159,136"/>
+<area shape="rect" id="node3" href="config_8c.html" title="/home/djordje/Desktop\l/orcs/src/config.c" alt="" coords="183,95,336,136"/>
+<area shape="rect" id="node4" href="motion_8c.html" title="/home/djordje/Desktop\l/orcs/src/motion.c" alt="" coords="360,95,513,136"/>
+<area shape="rect" id="node5" href="packet_8c.html" title="/home/djordje/Desktop\l/orcs/src/packet.c" alt="" coords="537,95,691,136"/>
+<area shape="rect" id="node6" href="uart_8c.html" title="inits uart to baud rate 57600. Functions for uart data manipulation. " alt="" coords="715,95,868,136"/>
+</map>
+</div>
+</div>
 <p><a href="color_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -125,6 +137,9 @@ Macros</h2></td></tr>
 <tr class="memitem:aea19743fab227a2e9877bc45c5d52f40"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea19743fab227a2e9877bc45c5d52f40"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>WHITE_TEXT</b>&#160;&#160;&#160;&quot;\033[37;1m&quot;</td></tr>
 <tr class="separator:aea19743fab227a2e9877bc45c5d52f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ff9d46c0e7ff13b7b6d6267404df407"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ff9d46c0e7ff13b7b6d6267404df407"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ORANGE_TEXT</b>&#160;&#160;&#160;&quot;\033[40;1m&quot;</td></tr>
+<tr class="separator:a9ff9d46c0e7ff13b7b6d6267404df407"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48c5595a94b261f15383ba07f18a5eb6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48c5595a94b261f15383ba07f18a5eb6"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>BOLD_BLACK_TEXT</b>&#160;&#160;&#160;&quot;\033[1m\033[30m;1m&quot;</td></tr>
 <tr class="separator:a48c5595a94b261f15383ba07f18a5eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +176,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>print_yellow</b> (voi
 <tr class="memitem:a757c47197a51d1e67b43d1afae5c7c9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a757c47197a51d1e67b43d1afae5c7c9f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>print_blue</b> (void)</td></tr>
 <tr class="separator:a757c47197a51d1e67b43d1afae5c7c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983ca8a8ba6530d8de25633e0944ef35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a983ca8a8ba6530d8de25633e0944ef35"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>print_green</b> (void)</td></tr>
+<tr class="separator:a983ca8a8ba6530d8de25633e0944ef35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2feabd20c70965f5fbe3af82c82d14e9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2feabd20c70965f5fbe3af82c82d14e9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>print_orange</b> (void)</td></tr>
+<tr class="separator:a2feabd20c70965f5fbe3af82c82d14e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83dad9942463b885f9187935e78ba676"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83dad9942463b885f9187935e78ba676"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>print_cyan</b> (void)</td></tr>
+<tr class="separator:a83dad9942463b885f9187935e78ba676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4f6858ed3ecdad5501013ac4001c9ca"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4f6858ed3ecdad5501013ac4001c9ca"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>print_reset</b> (void)</td></tr>
 <tr class="separator:aa4f6858ed3ecdad5501013ac4001c9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>

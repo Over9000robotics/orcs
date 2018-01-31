@@ -3,8 +3,7 @@
 
 
 Packet status tracking enumeration ~\newline
-Packet structure ~\newline
-Functions for manipulation with packets.  
+.  
 
 
 {\ttfamily \#include $<$stdint.\+h$>$}\\*
@@ -15,10 +14,17 @@ Include dependency graph for packet.\+h\+:\nopagebreak
 \includegraphics[width=195pt]{packet_8h__incl}
 \end{center}
 \end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{packet_8h__dep__incl}
+\end{center}
+\end{figure}
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{structpacket__t}{packet\+\_\+t}
+struct \hyperlink{structt__packet}{t\+\_\+packet}
 \end{DoxyCompactItemize}
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
@@ -28,35 +34,74 @@ struct \hyperlink{structpacket__t}{packet\+\_\+t}
 \item 
 \#define {\bfseries P\+A\+C\+K\+E\+T\+\_\+\+H\+E\+A\+D\+ER}~4\hypertarget{packet_8h_a1aa8b6627486da5c445e6bdbe5c2ed0b}{}\label{packet_8h_a1aa8b6627486da5c445e6bdbe5c2ed0b}
 
+\item 
+\#define {\bfseries M\+A\+X\+\_\+\+T\+X\+\_\+\+P\+A\+C\+K\+E\+TS}~10\hypertarget{packet_8h_a6925c0c2ae42b3db5dceb74921d307b5}{}\label{packet_8h_a6925c0c2ae42b3db5dceb74921d307b5}
+
+\item 
+\#define {\bfseries P\+A\+C\+K\+E\+T\+\_\+\+S\+Y\+NC}~0x3c\hypertarget{packet_8h_a97f8bd380af390f6660657b1711c95f4}{}\label{packet_8h_a97f8bd380af390f6660657b1711c95f4}
+
 \end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \hyperlink{structpacket__t}{packet\+\_\+t} \hyperlink{packet_8h_ace7f0a8a0b21a13da9033bb24a0934e7}{packet\+\_\+t}
+typedef struct \hyperlink{structt__packet}{t\+\_\+packet} \hyperlink{packet_8h_a452e8232d6f43e3b74f168306a406f9d}{t\+\_\+packet}
 \end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum {\bfseries Packet\+Status} \{ {\bfseries free\+\_\+to\+\_\+use}, 
+enum {\bfseries Packet\+Status} \{ \\*
+{\bfseries free\+\_\+to\+\_\+use}, 
 {\bfseries writing\+\_\+packet}, 
 {\bfseries ready\+\_\+to\+\_\+send}, 
-{\bfseries sending}
+{\bfseries sending}, 
+\\*
+{\bfseries free\+\_\+to\+\_\+verify}
  \}\hypertarget{packet_8h_a4bfd4d15be352a21c38bec38fc710d46}{}\label{packet_8h_a4bfd4d15be352a21c38bec38fc710d46}
 
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{packet_8h_a1cfcb289613567532e25ec91dff35b7c}{uart\+\_\+pkt\+\_\+en} (uint8\+\_\+t uen)
+\item 
+\hyperlink{structt__packet}{t\+\_\+packet} $\ast$ \hyperlink{packet_8h_adc7fcb126526a7a03af49d6ea6d4c57c}{try\+\_\+read\+\_\+packet} (void)
+\item 
+void \hyperlink{packet_8h_acaa8e038792934459fe02b0d38a08484}{tx\+\_\+packets\+\_\+init} (void)
+\item 
+\hyperlink{structt__packet}{t\+\_\+packet} $\ast$ \hyperlink{packet_8h_a6a5655d1feb2632f9ed82d02a3d1f2a4}{find\+\_\+free\+\_\+packet} (void)
+\item 
+void \hyperlink{packet_8h_a50271e9b68516a6b862d2964237e189b}{packet\+\_\+prepare} (uint8\+\_\+t type)
+\item 
+void \hyperlink{packet_8h_acaf4a4e2fbb83aacc9e2ed4f29adc172}{packet\+\_\+put\+\_\+byte} (int8\+\_\+t byte)
+\item 
+void \hyperlink{packet_8h_a3650e9141d3b4c50372773d750f69fd5}{packet\+\_\+put\+\_\+word} (int16\+\_\+t word)
+\item 
+void \hyperlink{packet_8h_abdd3690e3729c72dda55bbfa4ace9689}{packet\+\_\+end} (void)
+\item 
+void \hyperlink{packet_8h_a32aa640412282bba65c1a2d6358bdf2e}{packet\+\_\+verify} (\hyperlink{structt__packet}{t\+\_\+packet} $\ast$packet)
+\item 
+\hyperlink{structt__packet}{t\+\_\+packet} $\ast$ {\bfseries get\+\_\+selected\+\_\+tx\+\_\+packet} (uint8\+\_\+t select)\hypertarget{packet_8h_acf730aa9517c14513d54d8acbd278d44}{}\label{packet_8h_acf730aa9517c14513d54d8acbd278d44}
+
+\item 
+void \hyperlink{packet_8h_a549436969a91be94e35a0c1701384695}{print\+\_\+packet} (\hyperlink{structt__packet}{t\+\_\+packet} $\ast$packet)
+\item 
+void \hyperlink{packet_8h_ab43a99e9be563e7e6e4ac4b79970b389}{print\+\_\+rx\+\_\+packet} (\hyperlink{structt__packet}{t\+\_\+packet} $\ast$packet)
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Packet status tracking enumeration ~\newline
-Packet structure ~\newline
-Functions for manipulation with packets. 
+. 
 
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000005}{Todo}]pacet is free when verification is over Packet structure ~\newline
+Functions for manipulation with packets \end{DoxyRefDesc}
 
 
 \subsection{Typedef Documentation}
-\index{packet.\+h@{packet.\+h}!packet\+\_\+t@{packet\+\_\+t}}
-\index{packet\+\_\+t@{packet\+\_\+t}!packet.\+h@{packet.\+h}}
-\subsubsection[{\texorpdfstring{packet\+\_\+t}{packet_t}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf packet\+\_\+t} {\bf packet\+\_\+t}}\hypertarget{packet_8h_ace7f0a8a0b21a13da9033bb24a0934e7}{}\label{packet_8h_ace7f0a8a0b21a13da9033bb24a0934e7}
+\index{packet.\+h@{packet.\+h}!t\+\_\+packet@{t\+\_\+packet}}
+\index{t\+\_\+packet@{t\+\_\+packet}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{t\+\_\+packet}{t_packet}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+packet} {\bf t\+\_\+packet}}\hypertarget{packet_8h_a452e8232d6f43e3b74f168306a406f9d}{}\label{packet_8h_a452e8232d6f43e3b74f168306a406f9d}
 Motion U\+A\+RT packet S\+C\+T\+Lxxxxxxxx
 
 S -\/ 1 Byte sync (0x3c) ~\newline
@@ -65,3 +110,125 @@ S -\/ 1 Byte sync (0x3c) ~\newline
  T -\/ 1 Byte type ~\newline
  L -\/ 1 Byte payload length ~\newline
  x -\/ L Bytes data 
+
+\subsection{Function Documentation}
+\index{packet.\+h@{packet.\+h}!find\+\_\+free\+\_\+packet@{find\+\_\+free\+\_\+packet}}
+\index{find\+\_\+free\+\_\+packet@{find\+\_\+free\+\_\+packet}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{find\+\_\+free\+\_\+packet(void)}{find_free_packet(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+packet}$\ast$ find\+\_\+free\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_a6a5655d1feb2632f9ed82d02a3d1f2a4}{}\label{packet_8h_a6a5655d1feb2632f9ed82d02a3d1f2a4}
+Looks for free packet \begin{DoxyReturn}{Returns}
+free packet adress 
+\end{DoxyReturn}
+\index{packet.\+h@{packet.\+h}!packet\+\_\+end@{packet\+\_\+end}}
+\index{packet\+\_\+end@{packet\+\_\+end}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{packet\+\_\+end(void)}{packet_end(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+end (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_abdd3690e3729c72dda55bbfa4ace9689}{}\label{packet_8h_abdd3690e3729c72dda55bbfa4ace9689}
+Ends packet with sync byte and checksum byte ~\newline
+Sends packet via U\+A\+RT ~\newline
+At the end, changes packet status to \char`\"{}free\+\_\+to\+\_\+use\char`\"{} \index{packet.\+h@{packet.\+h}!packet\+\_\+prepare@{packet\+\_\+prepare}}
+\index{packet\+\_\+prepare@{packet\+\_\+prepare}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{packet\+\_\+prepare(uint8\+\_\+t type)}{packet_prepare(uint8_t type)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+prepare (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_a50271e9b68516a6b862d2964237e189b}{}\label{packet_8h_a50271e9b68516a6b862d2964237e189b}
+Prepares everything except message data 
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ type of command (defined in \hyperlink{motioncmd_8h}{motioncmd.\+h}) \\
+\hline
+\end{DoxyParams}
+\index{packet.\+h@{packet.\+h}!packet\+\_\+put\+\_\+byte@{packet\+\_\+put\+\_\+byte}}
+\index{packet\+\_\+put\+\_\+byte@{packet\+\_\+put\+\_\+byte}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{packet\+\_\+put\+\_\+byte(int8\+\_\+t byte)}{packet_put_byte(int8_t byte)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+put\+\_\+byte (
+\begin{DoxyParamCaption}
+\item[{int8\+\_\+t}]{byte}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_acaf4a4e2fbb83aacc9e2ed4f29adc172}{}\label{packet_8h_acaf4a4e2fbb83aacc9e2ed4f29adc172}
+Puts byte in data array of message packet 
+\begin{DoxyParams}{Parameters}
+{\em byte} & -\/ byte which needs to put in \\
+\hline
+\end{DoxyParams}
+\index{packet.\+h@{packet.\+h}!packet\+\_\+put\+\_\+word@{packet\+\_\+put\+\_\+word}}
+\index{packet\+\_\+put\+\_\+word@{packet\+\_\+put\+\_\+word}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{packet\+\_\+put\+\_\+word(int16\+\_\+t word)}{packet_put_word(int16_t word)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+put\+\_\+word (
+\begin{DoxyParamCaption}
+\item[{int16\+\_\+t}]{word}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_a3650e9141d3b4c50372773d750f69fd5}{}\label{packet_8h_a3650e9141d3b4c50372773d750f69fd5}
+Puts word in data array of message packet 
+\begin{DoxyParams}{Parameters}
+{\em word} & -\/ two bytes which need to put in \\
+\hline
+\end{DoxyParams}
+\index{packet.\+h@{packet.\+h}!packet\+\_\+verify@{packet\+\_\+verify}}
+\index{packet\+\_\+verify@{packet\+\_\+verify}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{packet\+\_\+verify(t\+\_\+packet $\ast$packet)}{packet_verify(t_packet *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+verify (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_a32aa640412282bba65c1a2d6358bdf2e}{}\label{packet_8h_a32aa640412282bba65c1a2d6358bdf2e}
+Verifies if acknowledge (command \textquotesingle{}A\textquotesingle{}) packet has the same command in data byte as first unverified packet If verification was success, tx\+\_\+packet status changes to \char`\"{}free\+\_\+to\+\_\+use\char`\"{} Otherwise sends that packet again 
+\begin{DoxyParams}{Parameters}
+{\em packet} & -\/ packet which is received \\
+\hline
+\end{DoxyParams}
+\index{packet.\+h@{packet.\+h}!print\+\_\+packet@{print\+\_\+packet}}
+\index{print\+\_\+packet@{print\+\_\+packet}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{print\+\_\+packet(t\+\_\+packet $\ast$packet)}{print_packet(t_packet *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_a549436969a91be94e35a0c1701384695}{}\label{packet_8h_a549436969a91be94e35a0c1701384695}
+Function made for easier debugging 
+\begin{DoxyParams}{Parameters}
+{\em packet} & -\/ adress of TX packet which needs to be printed \\
+\hline
+\end{DoxyParams}
+\index{packet.\+h@{packet.\+h}!print\+\_\+rx\+\_\+packet@{print\+\_\+rx\+\_\+packet}}
+\index{print\+\_\+rx\+\_\+packet@{print\+\_\+rx\+\_\+packet}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{print\+\_\+rx\+\_\+packet(t\+\_\+packet $\ast$packet)}{print_rx_packet(t_packet *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+rx\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_ab43a99e9be563e7e6e4ac4b79970b389}{}\label{packet_8h_ab43a99e9be563e7e6e4ac4b79970b389}
+Function made for easier debugging 
+\begin{DoxyParams}{Parameters}
+{\em packet} & -\/ adress of RX packet to be printed \\
+\hline
+\end{DoxyParams}
+\index{packet.\+h@{packet.\+h}!try\+\_\+read\+\_\+packet@{try\+\_\+read\+\_\+packet}}
+\index{try\+\_\+read\+\_\+packet@{try\+\_\+read\+\_\+packet}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{try\+\_\+read\+\_\+packet(void)}{try_read_packet(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+packet}$\ast$ try\+\_\+read\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_adc7fcb126526a7a03af49d6ea6d4c57c}{}\label{packet_8h_adc7fcb126526a7a03af49d6ea6d4c57c}
+Trys to read data packet \begin{DoxyReturn}{Returns}
+packet adress if found, or 0 if packet not found 
+\end{DoxyReturn}
+\index{packet.\+h@{packet.\+h}!tx\+\_\+packets\+\_\+init@{tx\+\_\+packets\+\_\+init}}
+\index{tx\+\_\+packets\+\_\+init@{tx\+\_\+packets\+\_\+init}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{tx\+\_\+packets\+\_\+init(void)}{tx_packets_init(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void tx\+\_\+packets\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_acaa8e038792934459fe02b0d38a08484}{}\label{packet_8h_acaa8e038792934459fe02b0d38a08484}
+Initialises packet status to \char`\"{}free\+\_\+to\+\_\+use\char`\"{} \index{packet.\+h@{packet.\+h}!uart\+\_\+pkt\+\_\+en@{uart\+\_\+pkt\+\_\+en}}
+\index{uart\+\_\+pkt\+\_\+en@{uart\+\_\+pkt\+\_\+en}!packet.\+h@{packet.\+h}}
+\subsubsection[{\texorpdfstring{uart\+\_\+pkt\+\_\+en(uint8\+\_\+t uen)}{uart_pkt_en(uint8_t uen)}}]{\setlength{\rightskip}{0pt plus 5cm}void uart\+\_\+pkt\+\_\+en (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{uen}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8h_a1cfcb289613567532e25ec91dff35b7c}{}\label{packet_8h_a1cfcb289613567532e25ec91dff35b7c}
+Enables / disables uart using (second option would be C\+AN) and it will be implemented later. 
+\begin{DoxyParams}{Parameters}
+{\em uen} & 1 -\/ enabled, 0 -\/ disabled \\
+\hline
+\end{DoxyParams}
