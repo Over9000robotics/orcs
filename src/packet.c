@@ -10,6 +10,7 @@
 
 #include "color.h"
 #include "uart.h"
+#include "config.h"
 
 static t_packet* rx_packet = 0;
 static t_packet tx_packets[MAX_TX_PACKETS];
@@ -161,8 +162,46 @@ void packet_end(void)
 		
 		uart_send_packet(tx_packet_ptr);
 		
+		tx_packet_ptr -> status = free_to_verify;
+/*
 		tx_packet_ptr -> status = free_to_use;
 		tx_free_packets++;
+*/
+	}
+}
+
+void packet_verify(t_packet* packet)
+{
+#ifdef DEBUG
+	printf("Inside of packet_verify \n");
+#endif
+	int i;
+	for(i=0; i<MAX_TX_PACKETS; i++)
+	{
+		if(tx_packets[i].status == free_to_verify)
+		{
+			if(tx_packets[i].type == packet -> data[0])
+			{
+#ifdef DEBUG
+				print_green();
+				printf("Packet: '%c' verified \n", tx_packets[i].type);
+				print_packet(&tx_packets[i]);
+				print_reset();
+#endif
+				tx_packets[i].status = free_to_use;
+				tx_free_packets++;
+				return;
+			}
+			else
+			{
+#ifdef DEBUG
+				print_red();
+				printf("Packet to resend: \n");
+				print_packet(&tx_packets[i]);
+#endif
+				uart_send_packet(&tx_packets[i]);
+			}
+		}
 	}
 }
 

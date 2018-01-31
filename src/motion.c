@@ -79,11 +79,13 @@ uint8_t motion_msg_status(void)
 	rx_pkt_ptr = try_read_packet();
 	if (rx_pkt_ptr != 0)
 	{
+		command = rx_pkt_ptr -> type;
+		
 #ifdef DEBUG
+		printf("command: %c \n", command);
 		print_rx_packet(rx_pkt_ptr);
 #endif
-		command = rx_pkt_ptr -> type;
-		printf("command: %c \n", command);
+
 		switch(command)
 		{
 			case MOTION_GET_STATUS_AND_POSITION:	//'P'
@@ -92,6 +94,18 @@ uint8_t motion_msg_status(void)
 				{
 					set_status_and_position();
 					return 1;
+				}
+				break;
+			}
+			
+			case 'A':
+			{
+				printf("CASE A \n");
+				printf("SIZE: %d \n", rx_pkt_ptr -> size);
+				if(rx_pkt_ptr -> size == 1)
+				{
+					printf("INSIDE OF 'A' IF \n");
+					packet_verify(rx_pkt_ptr);
 				}
 				break;
 			}

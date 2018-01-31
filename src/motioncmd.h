@@ -29,6 +29,6 @@
 #define MOTION_FORWARD 0x44		//D
 #define	MOTION_SET_POSITION_AND_ORIENTATION 0x49	//I
 #define	MOTION_BREAK 0x69		//i
-
+#define MOTION_PACKET_VERIFY 'A'
 
 #endif

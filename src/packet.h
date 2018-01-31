@@ -1,6 +1,7 @@
 /**
  * @file packet.h
  * @brief Packet status tracking enumeration	\n
+ * @todo pacet is free when verification is over
  * Packet structure	\n
  * Functions for manipulation with packets
  */
@@ -19,7 +20,8 @@ enum PacketStatus {
 	free_to_use,
 	writing_packet,
 	ready_to_send,
-	sending
+	sending,
+	free_to_verify
 };
 
  /**
@@ -95,6 +97,14 @@ void packet_put_word(int16_t word);
  */
 void packet_end(void);
 
+/**
+ * Verifies if acknowledge (command 'A') packet has the same command in data byte as first
+ * unverified packet
+ * If verification was success, tx_packet status changes to "free_to_use"
+ * Otherwise sends that packet again
+ * @param packet - packet which is received
+ */
+void packet_verify(t_packet* packet);
 
 t_packet* get_selected_tx_packet(uint8_t select);
 
