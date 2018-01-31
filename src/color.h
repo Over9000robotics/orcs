@@ -14,6 +14,7 @@
 #define MAGENTA_TEXT "\033[35;1m"
 #define CYAN_TEXT 	 "\033[36;1m"
 #define WHITE_TEXT 	 "\033[37;1m"
+#define ORANGE_TEXT	 "\033[40;1m"
 
 #define BOLD_BLACK_TEXT 	"\033[1m\033[30m;1m"
 #define BOLD_RED_TEXT 		"\033[1m\033[31m;1m"
@@ -28,6 +29,7 @@ void print_red(void);
 void print_yellow(void);
 void print_blue(void);
 void print_green(void);
+void print_orange(void);
 void print_reset(void);
 
 #endif // COLOR_H
