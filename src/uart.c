@@ -16,6 +16,7 @@
 
 #include "packet.h"
 #include "color.h"
+#include "config.h"
 
 static int uart0_filestream = -1;
 static int8_t no_msgs = 1;
@@ -68,9 +69,8 @@ void uart0_transmit(uint8_t* p_tx_buffer, int n)
 		for(i = 0; i < n; i++)
 		{
 			print_blue();
-			printf("Uart: sent: 0x%x \n",*(p_tx_buffer+i));
+			printf("Uart: sent: 0x%x '%c' \n",*(p_tx_buffer+i), *(p_tx_buffer+i));
 			print_reset();
-			printf("sent: 0x%x \n",*(p_tx_buffer+i));
 		}
 #endif
 		if (count < 0)
@@ -219,10 +219,11 @@ void uart_send_packet(t_packet* packet)
 	
 	p_tx_buffer = (uint8_t*) (packet);
 	
-	/*
+#ifdef DEBUG
 	printf("p_tx_buffer: %p\n", (void*) p_tx_buffer);
 	printf("packet: %p\n\n", (void*) packet);
-	*/
+	print_packet(packet);
+#endif
 	
 	uart0_transmit(p_tx_buffer, PACKET_HEADER + packet -> size);
 }

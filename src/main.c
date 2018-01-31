@@ -39,6 +39,7 @@ uint8_t use_input_arguments(int argc, char* argv[])
 	}
 	return 1;
 }
+
 int main(int argc, char* argv[])
 {
 	unsigned int last_motion_check = 0;
@@ -58,7 +59,19 @@ int main(int argc, char* argv[])
 		return 0;
 	delay(10);
 	
-	motion_forward(400, 0);
+	/** 
+	 * @todo this has to be moved to init_task
+	 */
+	char start_char = 0;
+	printf("PRESS ENTER TO START THE PROGRAM");
+	do{
+		scanf("%c", &start_char);
+		if(start_char != '\n');
+		printf("ENTER WAS NOT PRESSED %c\n", start_char);
+	}while(start_char != '\n');
+	printf("\n");
+	
+	motion_forward(300, 0);
 
 	motion_get_status_and_position();
 	delay(100);

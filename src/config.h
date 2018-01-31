@@ -9,6 +9,7 @@
 #define CONFIG_H_
 
 //#define DEBUG 1
+#define DEBUG_VERIFY
 
 //motion config
 #define MOTION_RESPONSE_MS 50	/**< wait 50 ms for motion response message */

@@ -182,7 +182,7 @@ void packet_verify(t_packet* packet)
 		{
 			if(tx_packets[i].type == packet -> data[0])
 			{
-#ifdef DEBUG
+#ifdef DEBUG_VERIFY
 				print_green();
 				printf("Packet: '%c' verified \n", tx_packets[i].type);
 				print_packet(&tx_packets[i]);
@@ -194,7 +194,7 @@ void packet_verify(t_packet* packet)
 			}
 			else
 			{
-#ifdef DEBUG
+#ifdef DEBUG_VERIFY
 				print_red();
 				printf("Packet to resend: \n");
 				print_packet(&tx_packets[i]);

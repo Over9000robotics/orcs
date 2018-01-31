@@ -19,6 +19,8 @@ UART - Motion
 + print current position as integer
 + set current position
 
++ check if command which is sent - process if incomed 'A' character
+- main reorganize
 
 scheduler -> task -> motion_go(x,y,velocity);
 				  -> motion_stop()
