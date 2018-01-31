@@ -30,6 +30,7 @@ void print_yellow(void);
 void print_blue(void);
 void print_green(void);
 void print_orange(void);
+void print_cyan(void);
 void print_reset(void);
 
 #endif // COLOR_H
