@@ -1,6 +1,5 @@
 /**
  * @file uart.h
- * @todo  modify uart0_init -> give him baud rate from main
  */
 
 #ifndef UART_H_
@@ -8,11 +7,20 @@
 
 #include "packet.h"
 #include "stdint.h"
+#include <termios.h>
+
+int uart0_input_flush();
+
+int uart0_output_flush();
+
+int uart0_io_flush();
+
 
 /**
- * @return uart0_filestream (return value of open(...) function)
+ * Initialises uart to selected baud rate
+ * @param baud_rate - desired baud rate
  */
-void uart0_init();
+void uart0_init (speed_t baud_rate);
 
 
 /**

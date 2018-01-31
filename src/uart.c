@@ -20,6 +20,21 @@
 static int uart0_filestream = -1;
 static int8_t no_msgs = 1;
 
+int uart0_input_flush()
+{
+	return tcflush(uart0_filestream, TCIFLUSH);
+}
+
+int uart0_output_flush()
+{
+	return tcflush(uart0_filestream, TCOFLUSH);
+}
+
+int uart0_io_flush()
+{
+	return tcflush(uart0_filestream, TCIOFLUSH);
+}
+
 void uart0_init (speed_t baud_rate)
 {
 	uart0_filestream = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
@@ -47,6 +62,17 @@ void uart0_transmit(uint8_t* p_tx_buffer, int n)
 	if (uart0_filestream != -1)
 	{
 		int count = write(uart0_filestream, p_tx_buffer, n);	//Filestream, bytes to write, number of bytes to write
+#ifdef DEBUG
+		printf("uart0_transmit: count = %d \n", count);
+		int i;
+		for(i = 0; i < n; i++)
+		{
+			print_blue();
+			printf("Uart: sent: 0x%x \n",*(p_tx_buffer+i));
+			print_reset();
+			printf("sent: 0x%x \n",*(p_tx_buffer+i));
+		}
+#endif
 		if (count < 0)
 		{
 			print_red();
@@ -66,7 +92,8 @@ void uart0_transmit(uint8_t* p_tx_buffer, int n)
 
 int uart0_receive_byte(uint8_t* p_rx_buffer)
 {
-	
+	//tcflush(uart0_filestream, TCIFLUSH);
+
 	if (uart0_filestream != -1)
 	{
 		int rx_length = read(uart0_filestream, p_rx_buffer, 1);
@@ -74,22 +101,24 @@ int uart0_receive_byte(uint8_t* p_rx_buffer)
 		{
 			if(no_msgs)
 			{
+#ifdef DEBUG			
 				print_yellow();
 				printf("Uart: ");
 				print_reset();
 				printf("No messages.\n");
+#endif
 				no_msgs = 0;
 				return 0;
 			}
 		}
 		else if (rx_length > -1)
 		{
-			/*
+#ifdef DEBUG
 			print_blue();
 			printf("Uart: ");
 			print_reset();
 			printf("received byte - 0x%x\n", *p_rx_buffer);
-			*/
+#endif		
 			no_msgs = 1;
 			return rx_length;
 		}
@@ -180,10 +209,7 @@ t_packet* uart_try_read_packet(void)
 		
 		return &rx_packet;
 	}
-	else
-	{
-		return 0;
-	}
+
 	return 0;
 }
 
