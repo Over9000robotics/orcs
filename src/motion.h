@@ -24,6 +24,7 @@ typedef struct t_motionState
 	int16_t angle;
 	int16_t current_speed;
 	int16_t max_speed;
+	int16_t max_rot_speed;
 	enum State state;
 }t_motionState;
 
@@ -35,13 +36,27 @@ typedef struct t_motionState
  */
 uint8_t motion_check(void);
 
+void motion_get_status_and_position(void);
+
 /**
  * Sets position and orientation
- * @param x - x coordinate
- * @param y - y coordinate
- * @param o - orientation
+ * @param x - x coordinate [mm]
+ * @param y - y coordinate [mm]
+ * @param o - orientation [degrees]
  */
 void motion_set_position(int16_t x, int16_t y, int16_t o);
+
+/**
+ * Sets robot speed
+ * @param speed - positive number [0 - 255]
+ */
+void motion_set_speed(uint8_t speed);
+
+/**
+ * Robot speed while rotating
+ * @param speed - positive number [0 - 255]
+ */
+void motion_set_rotating_speed(uint8_t speed);
 
 /**
  * Checks is packet received, and process him
@@ -53,6 +68,33 @@ uint8_t motion_msg_status(void);
 void set_status_and_position(void);
 
 void print_status_and_position(void);
+
+void motion_move_to(int16_t x, int16_t y, uint8_t direction, int16_t radius);
+
+/**
+ * Calculates angle to setted point, turns and goes to the point
+ * @param x - x coordinate of the point [mm]
+ * @param y - y coordinate of the point [mm]
+ * @param end_speed
+ * @param direction - (>0) forward, (<0) backward
+ */
+void motion_turn_and_go(int16_t x, int16_t y, uint8_t end_speed, int8_t direction);
+
+/**
+ * Goes straight
+ * @param length (>0) forward [mm], (<0) backward [mm]
+ * @param end_speed - robot speed while reaching final point
+ */
+void motion_forward(int16_t length, uint8_t end_speed);
+
+void motion_absolute_rotate(int16_t degrees);
+
+void motion_relative_rotate(int16_t degrees);
+
+void motion_hard_stop(void);
+void motion_soft_stop(void);
+void motion_reset_driver(void);
+void motion_unstuck(void);
 
 void motion_print_state(void);
 
