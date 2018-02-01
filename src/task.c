@@ -6,14 +6,15 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include "task.h"
 #include "motion.h"
 #include "config.h"
 #include "color.h"
 
-void init_task(uint16_t option)
+
+void init_task(uint8_t option)
 {
 	char start_char = 0;
-	char entter=0xa;
 	
 	switch(option)
 	{
@@ -21,9 +22,8 @@ void init_task(uint16_t option)
 		{
 			do
 			{
-				printf("PRESS ENTER TO START THE PROGRAM: %c \n",entter);
+				printf("PRESS ENTER TO START THE PROGRAM: ");
 				start_char = getchar();
-				printf("0x%x ", start_char);
 				if(start_char != '\n')
 				{
 					printf("ENTER WAS NOT PRESSED %c\n", start_char);
@@ -40,3 +40,19 @@ void init_task(uint16_t option)
 		}
 	}
 }
+
+void task3(void)
+{
+	printf("Task3 \n");
+}
+
+void task4(void)
+{
+	printf("Task4 \n");
+}
+
+void task5(void)
+{
+	printf("Task5 \n");
+}
+
