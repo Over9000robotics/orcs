@@ -3,15 +3,34 @@
  * @brief
  */
 
-#include <stdint.h>
 
 #ifndef task_H_
 #define task_H_
 
-typedef void (*task) (void);
+#include <stdint.h>
+
+#include "mission.h"
+
+enum TaskStatus
+{
+	not_active,
+	active,
+	task_interrupted
+};
+
+typedef struct t_task
+{
+	unsigned int time;
+	enum TaskStatus status;
+}t_task;
+
+void define_missions(void);
 
 void init_task(uint8_t option);
 
+void task(void);
+
+t_mission* task_get_mission_ptr(void);
 
 void task1(void);
 
