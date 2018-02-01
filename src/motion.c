@@ -189,7 +189,7 @@ void set_status_and_position(void)
 				1 - forward
 			   -1 - backward
 		*/
-void motion_move_to(int16_t x, int16_t y, uint8_t direction, int16_t radius)
+void motion_move_to(int16_t x, int16_t y, int8_t direction, int16_t radius)
 {
 	packet_prepare(MOTION_MOVE_TO);
 	packet_put_word(x);
@@ -258,6 +258,21 @@ void motion_unstuck(void)
 	packet_end();
 }
 
+uint8_t motion_check_speed(int speed)
+{
+	if(speed > 0 && speed < 255)
+	{
+		return 1;
+	}
+	else
+	{
+		print_red();
+		printf("Mission: robot speed is MIN %d and MAX %d \n", MOTION_MIN_SPEED, MOTION_MAX_SPEED);
+		print_reset();
+	}
+	return 0;
+}
+
 void print_status_and_position(void)
 {
 	print_green();
@@ -280,6 +295,11 @@ void print_status_and_position(void)
 	printf("%d \n",motion_state.current_speed);
 */	
 	motion_print_state();
+}
+
+t_motionState* get_motion_state(void)
+{
+	return &motion_state;
 }
 
 void motion_print_state(void)

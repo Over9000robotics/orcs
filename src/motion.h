@@ -36,6 +36,8 @@ typedef struct t_motionState
  */
 uint8_t motion_check(void);
 
+t_motionState* get_motion_state(void);
+
 void motion_get_status_and_position(void);
 
 /**
@@ -69,7 +71,16 @@ void set_status_and_position(void);
 
 void print_status_and_position(void);
 
-void motion_move_to(int16_t x, int16_t y, uint8_t direction, int16_t radius);
+/**
+ * Moves to required point
+ * @param x - x coordinate of the point [mm]
+ * @param y - y coordinate of the point [mm]
+ * @param direction - (0  - pick smallest rotation)
+ * 					  (1  - forward)
+ * 					  (-1 - backward)
+ * @param radius - radius for curvilinear motion, not necessarily
+*/
+void motion_move_to(int16_t x, int16_t y, int8_t direction, int16_t radius);
 
 /**
  * Calculates angle to setted point, turns and goes to the point
@@ -95,6 +106,8 @@ void motion_hard_stop(void);
 void motion_soft_stop(void);
 void motion_reset_driver(void);
 void motion_unstuck(void);
+
+uint8_t motion_check_speed(int speed);
 
 void motion_print_state(void);
 
