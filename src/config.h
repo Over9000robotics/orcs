@@ -23,6 +23,8 @@
 #define MOTION_START_Y 100	/**< Y coordinate on startup */
 #define MOTION_START_O 0	/**< Orientation on startup */
 #define MOTION_REFRESH_INTERVAL 100
+#define MOTION_MIN_SPEED 1
+#define MOTION_MAX_SPEED 255
 
 #define GREEN 1
 #define ORANGE 2
