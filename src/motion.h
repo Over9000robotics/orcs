@@ -76,13 +76,13 @@ void motion_move_to(int16_t x, int16_t y, uint8_t direction, int16_t radius);
  * @param x - x coordinate of the point [mm]
  * @param y - y coordinate of the point [mm]
  * @param end_speed
- * @param direction - (>0) forward, (<0) backward
+ * @param direction - >0 forward, <0 backward
  */
 void motion_turn_and_go(int16_t x, int16_t y, uint8_t end_speed, int8_t direction);
 
 /**
  * Goes straight
- * @param length (>0) forward [mm], (<0) backward [mm]
+ * @param length >0 forward [mm], <0 backward [mm]
  * @param end_speed - robot speed while reaching final point
  */
 void motion_forward(int16_t length, uint8_t end_speed);
