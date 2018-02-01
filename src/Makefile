@@ -10,9 +10,9 @@ OBJ 		= main.o \
 			  motion.o \
 			  config.o \
 			  task.o \
-			  mission.o \
-			  ./tasks/task1.o \
-			  ./tasks/task2.o
+			  mission.o 
+			 # ./tasks/task1.o \
+			 # ./tasks/task2.o
 
 DEPS 		= uart.h \
 			  color.h \
