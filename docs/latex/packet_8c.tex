@@ -1,0 +1,172 @@
+\hypertarget{packet_8c}{}\section{/home/djordje/\+Desktop/orcs/src/packet.c File Reference}
+\label{packet_8c}\index{/home/djordje/\+Desktop/orcs/src/packet.\+c@{/home/djordje/\+Desktop/orcs/src/packet.\+c}}
+{\ttfamily \#include \char`\"{}packet.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}color.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}uart.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+Include dependency graph for packet.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{packet_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{packet_8c_a1cfcb289613567532e25ec91dff35b7c}{uart\+\_\+pkt\+\_\+en} (uint8\+\_\+t uen)
+\item 
+void \hyperlink{packet_8c_acaa8e038792934459fe02b0d38a08484}{tx\+\_\+packets\+\_\+init} (void)
+\item 
+\hyperlink{structt__packet}{t\+\_\+packet} $\ast$ \hyperlink{packet_8c_a6a5655d1feb2632f9ed82d02a3d1f2a4}{find\+\_\+free\+\_\+packet} (void)
+\item 
+\hyperlink{structt__packet}{t\+\_\+packet} $\ast$ \hyperlink{packet_8c_adc7fcb126526a7a03af49d6ea6d4c57c}{try\+\_\+read\+\_\+packet} (void)
+\item 
+void \hyperlink{packet_8c_a50271e9b68516a6b862d2964237e189b}{packet\+\_\+prepare} (uint8\+\_\+t type)
+\item 
+void \hyperlink{packet_8c_acaf4a4e2fbb83aacc9e2ed4f29adc172}{packet\+\_\+put\+\_\+byte} (int8\+\_\+t byte)
+\item 
+void \hyperlink{packet_8c_a3650e9141d3b4c50372773d750f69fd5}{packet\+\_\+put\+\_\+word} (int16\+\_\+t word)
+\item 
+void \hyperlink{packet_8c_abdd3690e3729c72dda55bbfa4ace9689}{packet\+\_\+end} (void)
+\item 
+void \hyperlink{packet_8c_a32aa640412282bba65c1a2d6358bdf2e}{packet\+\_\+verify} (\hyperlink{structt__packet}{t\+\_\+packet} $\ast$packet)
+\item 
+\hyperlink{structt__packet}{t\+\_\+packet} $\ast$ {\bfseries get\+\_\+selected\+\_\+tx\+\_\+packet} (uint8\+\_\+t select)\hypertarget{packet_8c_acf730aa9517c14513d54d8acbd278d44}{}\label{packet_8c_acf730aa9517c14513d54d8acbd278d44}
+
+\item 
+void \hyperlink{packet_8c_a549436969a91be94e35a0c1701384695}{print\+\_\+packet} (\hyperlink{structt__packet}{t\+\_\+packet} $\ast$packet)
+\item 
+void \hyperlink{packet_8c_ab43a99e9be563e7e6e4ac4b79970b389}{print\+\_\+rx\+\_\+packet} (\hyperlink{structt__packet}{t\+\_\+packet} $\ast$packet)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000004}{Todo}]try\+\_\+read\+\_\+packet \end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{packet.\+c@{packet.\+c}!find\+\_\+free\+\_\+packet@{find\+\_\+free\+\_\+packet}}
+\index{find\+\_\+free\+\_\+packet@{find\+\_\+free\+\_\+packet}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{find\+\_\+free\+\_\+packet(void)}{find_free_packet(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+packet}$\ast$ find\+\_\+free\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_a6a5655d1feb2632f9ed82d02a3d1f2a4}{}\label{packet_8c_a6a5655d1feb2632f9ed82d02a3d1f2a4}
+Looks for free packet \begin{DoxyReturn}{Returns}
+free packet adress 
+\end{DoxyReturn}
+\index{packet.\+c@{packet.\+c}!packet\+\_\+end@{packet\+\_\+end}}
+\index{packet\+\_\+end@{packet\+\_\+end}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{packet\+\_\+end(void)}{packet_end(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+end (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_abdd3690e3729c72dda55bbfa4ace9689}{}\label{packet_8c_abdd3690e3729c72dda55bbfa4ace9689}
+Ends packet with sync byte and checksum byte ~\newline
+Sends packet via U\+A\+RT ~\newline
+At the end, changes packet status to \char`\"{}free\+\_\+to\+\_\+use\char`\"{} \index{packet.\+c@{packet.\+c}!packet\+\_\+prepare@{packet\+\_\+prepare}}
+\index{packet\+\_\+prepare@{packet\+\_\+prepare}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{packet\+\_\+prepare(uint8\+\_\+t type)}{packet_prepare(uint8_t type)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+prepare (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_a50271e9b68516a6b862d2964237e189b}{}\label{packet_8c_a50271e9b68516a6b862d2964237e189b}
+Prepares everything except message data 
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ type of command (defined in \hyperlink{motioncmd_8h}{motioncmd.\+h}) \\
+\hline
+\end{DoxyParams}
+\index{packet.\+c@{packet.\+c}!packet\+\_\+put\+\_\+byte@{packet\+\_\+put\+\_\+byte}}
+\index{packet\+\_\+put\+\_\+byte@{packet\+\_\+put\+\_\+byte}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{packet\+\_\+put\+\_\+byte(int8\+\_\+t byte)}{packet_put_byte(int8_t byte)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+put\+\_\+byte (
+\begin{DoxyParamCaption}
+\item[{int8\+\_\+t}]{byte}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_acaf4a4e2fbb83aacc9e2ed4f29adc172}{}\label{packet_8c_acaf4a4e2fbb83aacc9e2ed4f29adc172}
+Puts byte in data array of message packet 
+\begin{DoxyParams}{Parameters}
+{\em byte} & -\/ byte which needs to put in \\
+\hline
+\end{DoxyParams}
+\index{packet.\+c@{packet.\+c}!packet\+\_\+put\+\_\+word@{packet\+\_\+put\+\_\+word}}
+\index{packet\+\_\+put\+\_\+word@{packet\+\_\+put\+\_\+word}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{packet\+\_\+put\+\_\+word(int16\+\_\+t word)}{packet_put_word(int16_t word)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+put\+\_\+word (
+\begin{DoxyParamCaption}
+\item[{int16\+\_\+t}]{word}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_a3650e9141d3b4c50372773d750f69fd5}{}\label{packet_8c_a3650e9141d3b4c50372773d750f69fd5}
+Puts word in data array of message packet 
+\begin{DoxyParams}{Parameters}
+{\em word} & -\/ two bytes which need to put in \\
+\hline
+\end{DoxyParams}
+\index{packet.\+c@{packet.\+c}!packet\+\_\+verify@{packet\+\_\+verify}}
+\index{packet\+\_\+verify@{packet\+\_\+verify}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{packet\+\_\+verify(t\+\_\+packet $\ast$packet)}{packet_verify(t_packet *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void packet\+\_\+verify (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_a32aa640412282bba65c1a2d6358bdf2e}{}\label{packet_8c_a32aa640412282bba65c1a2d6358bdf2e}
+Verifies if acknowledge (command \textquotesingle{}A\textquotesingle{}) packet has the same command in data byte as first unverified packet If verification was success, tx\+\_\+packet status changes to \char`\"{}free\+\_\+to\+\_\+use\char`\"{} Otherwise sends that packet again 
+\begin{DoxyParams}{Parameters}
+{\em packet} & -\/ packet which is received \\
+\hline
+\end{DoxyParams}
+\index{packet.\+c@{packet.\+c}!print\+\_\+packet@{print\+\_\+packet}}
+\index{print\+\_\+packet@{print\+\_\+packet}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{print\+\_\+packet(t\+\_\+packet $\ast$packet)}{print_packet(t_packet *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_a549436969a91be94e35a0c1701384695}{}\label{packet_8c_a549436969a91be94e35a0c1701384695}
+Function made for easier debugging 
+\begin{DoxyParams}{Parameters}
+{\em packet} & -\/ adress of TX packet which needs to be printed \\
+\hline
+\end{DoxyParams}
+\index{packet.\+c@{packet.\+c}!print\+\_\+rx\+\_\+packet@{print\+\_\+rx\+\_\+packet}}
+\index{print\+\_\+rx\+\_\+packet@{print\+\_\+rx\+\_\+packet}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{print\+\_\+rx\+\_\+packet(t\+\_\+packet $\ast$packet)}{print_rx_packet(t_packet *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+rx\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_ab43a99e9be563e7e6e4ac4b79970b389}{}\label{packet_8c_ab43a99e9be563e7e6e4ac4b79970b389}
+Function made for easier debugging 
+\begin{DoxyParams}{Parameters}
+{\em packet} & -\/ adress of RX packet to be printed \\
+\hline
+\end{DoxyParams}
+\index{packet.\+c@{packet.\+c}!try\+\_\+read\+\_\+packet@{try\+\_\+read\+\_\+packet}}
+\index{try\+\_\+read\+\_\+packet@{try\+\_\+read\+\_\+packet}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{try\+\_\+read\+\_\+packet(void)}{try_read_packet(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+packet}$\ast$ try\+\_\+read\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_adc7fcb126526a7a03af49d6ea6d4c57c}{}\label{packet_8c_adc7fcb126526a7a03af49d6ea6d4c57c}
+Trys to read data packet \begin{DoxyReturn}{Returns}
+packet adress if found, or 0 if packet not found 
+\end{DoxyReturn}
+\index{packet.\+c@{packet.\+c}!tx\+\_\+packets\+\_\+init@{tx\+\_\+packets\+\_\+init}}
+\index{tx\+\_\+packets\+\_\+init@{tx\+\_\+packets\+\_\+init}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{tx\+\_\+packets\+\_\+init(void)}{tx_packets_init(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void tx\+\_\+packets\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_acaa8e038792934459fe02b0d38a08484}{}\label{packet_8c_acaa8e038792934459fe02b0d38a08484}
+Initialises packet status to \char`\"{}free\+\_\+to\+\_\+use\char`\"{} \index{packet.\+c@{packet.\+c}!uart\+\_\+pkt\+\_\+en@{uart\+\_\+pkt\+\_\+en}}
+\index{uart\+\_\+pkt\+\_\+en@{uart\+\_\+pkt\+\_\+en}!packet.\+c@{packet.\+c}}
+\subsubsection[{\texorpdfstring{uart\+\_\+pkt\+\_\+en(uint8\+\_\+t uen)}{uart_pkt_en(uint8_t uen)}}]{\setlength{\rightskip}{0pt plus 5cm}void uart\+\_\+pkt\+\_\+en (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t}]{uen}
+\end{DoxyParamCaption}
+)}\hypertarget{packet_8c_a1cfcb289613567532e25ec91dff35b7c}{}\label{packet_8c_a1cfcb289613567532e25ec91dff35b7c}
+Enables / disables uart using (second option would be C\+AN) and it will be implemented later. 
+\begin{DoxyParams}{Parameters}
+{\em uen} & 1 -\/ enabled, 0 -\/ disabled \\
+\hline
+\end{DoxyParams}

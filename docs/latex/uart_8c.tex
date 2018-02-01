@@ -1,0 +1,121 @@
+\hypertarget{uart_8c}{}\section{/home/djordje/\+Desktop/orcs/src/uart.c File Reference}
+\label{uart_8c}\index{/home/djordje/\+Desktop/orcs/src/uart.\+c@{/home/djordje/\+Desktop/orcs/src/uart.\+c}}
+
+
+inits uart to baud rate 57600. Functions for uart data manipulation.  
+
+
+{\ttfamily \#include \char`\"{}uart.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$termios.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}packet.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}color.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+Include dependency graph for uart.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{uart_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries uart0\+\_\+input\+\_\+flush} ()\hypertarget{uart_8c_a6ce182ef6c036dc786ba61722704bb21}{}\label{uart_8c_a6ce182ef6c036dc786ba61722704bb21}
+
+\item 
+int {\bfseries uart0\+\_\+output\+\_\+flush} ()\hypertarget{uart_8c_ad3ae423be5271af2bee9b823aea90f88}{}\label{uart_8c_ad3ae423be5271af2bee9b823aea90f88}
+
+\item 
+int {\bfseries uart0\+\_\+io\+\_\+flush} ()\hypertarget{uart_8c_a81f79878c41dde7d4c2a639a27595fb7}{}\label{uart_8c_a81f79878c41dde7d4c2a639a27595fb7}
+
+\item 
+void \hyperlink{uart_8c_a3d97ac9ce75c5f760667dc124dee4036}{uart0\+\_\+init} (speed\+\_\+t baud\+\_\+rate)
+\item 
+void \hyperlink{uart_8c_ab554561dddf0059b99d7d75bcbef95d4}{uart0\+\_\+transmit} (uint8\+\_\+t $\ast$p\+\_\+tx\+\_\+buffer, int n)
+\item 
+int \hyperlink{uart_8c_ace6380b89766f216764f435fdca9c37c}{uart0\+\_\+receive\+\_\+byte} (uint8\+\_\+t $\ast$p\+\_\+rx\+\_\+buffer)
+\item 
+\hyperlink{structt__packet}{t\+\_\+packet} $\ast$ \hyperlink{uart_8c_aba7f422501920a74b970969d93d6758e}{uart\+\_\+try\+\_\+read\+\_\+packet} (void)
+\item 
+void \hyperlink{uart_8c_af0d9dbabb2a5bc92b1b1eb6e24b41089}{uart\+\_\+send\+\_\+packet} (\hyperlink{structt__packet}{t\+\_\+packet} $\ast$packet)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+inits uart to baud rate 57600. Functions for uart data manipulation. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000006}{Todo}]what if checksum error (uart\+\_\+try\+\_\+read\+\_\+packet) 
+
+if byte reading is too long -\/$>$ write W\+A\+R\+N\+I\+N\+G! \end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{uart.\+c@{uart.\+c}!uart0\+\_\+init@{uart0\+\_\+init}}
+\index{uart0\+\_\+init@{uart0\+\_\+init}!uart.\+c@{uart.\+c}}
+\subsubsection[{\texorpdfstring{uart0\+\_\+init(speed\+\_\+t baud\+\_\+rate)}{uart0_init(speed_t baud_rate)}}]{\setlength{\rightskip}{0pt plus 5cm}void uart0\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{speed\+\_\+t}]{baud\+\_\+rate}
+\end{DoxyParamCaption}
+)}\hypertarget{uart_8c_a3d97ac9ce75c5f760667dc124dee4036}{}\label{uart_8c_a3d97ac9ce75c5f760667dc124dee4036}
+Initialises uart to selected baud rate 
+\begin{DoxyParams}{Parameters}
+{\em baud\+\_\+rate} & -\/ desired baud rate \\
+\hline
+\end{DoxyParams}
+\index{uart.\+c@{uart.\+c}!uart0\+\_\+receive\+\_\+byte@{uart0\+\_\+receive\+\_\+byte}}
+\index{uart0\+\_\+receive\+\_\+byte@{uart0\+\_\+receive\+\_\+byte}!uart.\+c@{uart.\+c}}
+\subsubsection[{\texorpdfstring{uart0\+\_\+receive\+\_\+byte(uint8\+\_\+t $\ast$p\+\_\+rx\+\_\+buffer)}{uart0_receive_byte(uint8_t *p_rx_buffer)}}]{\setlength{\rightskip}{0pt plus 5cm}int uart0\+\_\+receive\+\_\+byte (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t $\ast$}]{p\+\_\+rx\+\_\+buffer}
+\end{DoxyParamCaption}
+)}\hypertarget{uart_8c_ace6380b89766f216764f435fdca9c37c}{}\label{uart_8c_ace6380b89766f216764f435fdca9c37c}
+Reads n bytes from U\+A\+RT input file 
+\begin{DoxyParams}{Parameters}
+{\em $\ast$p\+\_\+rx\+\_\+buffer} & -\/ pointer for rx\+\_\+buffer declared in main \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of success read bytes 
+\end{DoxyReturn}
+\index{uart.\+c@{uart.\+c}!uart0\+\_\+transmit@{uart0\+\_\+transmit}}
+\index{uart0\+\_\+transmit@{uart0\+\_\+transmit}!uart.\+c@{uart.\+c}}
+\subsubsection[{\texorpdfstring{uart0\+\_\+transmit(uint8\+\_\+t $\ast$p\+\_\+tx\+\_\+buffer, int n)}{uart0_transmit(uint8_t *p_tx_buffer, int n)}}]{\setlength{\rightskip}{0pt plus 5cm}void uart0\+\_\+transmit (
+\begin{DoxyParamCaption}
+\item[{uint8\+\_\+t $\ast$}]{p\+\_\+tx\+\_\+buffer, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}\hypertarget{uart_8c_ab554561dddf0059b99d7d75bcbef95d4}{}\label{uart_8c_ab554561dddf0059b99d7d75bcbef95d4}
+Transmits n bytes from tx\+\_\+buffer declared in main 
+\begin{DoxyParams}{Parameters}
+{\em $\ast$p\+\_\+tx\+\_\+buffer} & -\/ pointer for tx\+\_\+buffer declared in main \\
+\hline
+{\em n} & -\/ number of bytes to transmit \\
+\hline
+\end{DoxyParams}
+\index{uart.\+c@{uart.\+c}!uart\+\_\+send\+\_\+packet@{uart\+\_\+send\+\_\+packet}}
+\index{uart\+\_\+send\+\_\+packet@{uart\+\_\+send\+\_\+packet}!uart.\+c@{uart.\+c}}
+\subsubsection[{\texorpdfstring{uart\+\_\+send\+\_\+packet(t\+\_\+packet $\ast$packet)}{uart_send_packet(t_packet *packet)}}]{\setlength{\rightskip}{0pt plus 5cm}void uart\+\_\+send\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{{\bf t\+\_\+packet} $\ast$}]{packet}
+\end{DoxyParamCaption}
+)}\hypertarget{uart_8c_af0d9dbabb2a5bc92b1b1eb6e24b41089}{}\label{uart_8c_af0d9dbabb2a5bc92b1b1eb6e24b41089}
+Sends data packet 
+\begin{DoxyParams}{Parameters}
+{\em $\ast$packet} & -\/ adress of packet which needs to be sent \\
+\hline
+\end{DoxyParams}
+\index{uart.\+c@{uart.\+c}!uart\+\_\+try\+\_\+read\+\_\+packet@{uart\+\_\+try\+\_\+read\+\_\+packet}}
+\index{uart\+\_\+try\+\_\+read\+\_\+packet@{uart\+\_\+try\+\_\+read\+\_\+packet}!uart.\+c@{uart.\+c}}
+\subsubsection[{\texorpdfstring{uart\+\_\+try\+\_\+read\+\_\+packet(void)}{uart_try_read_packet(void)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf t\+\_\+packet}$\ast$ uart\+\_\+try\+\_\+read\+\_\+packet (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{uart_8c_aba7f422501920a74b970969d93d6758e}{}\label{uart_8c_aba7f422501920a74b970969d93d6758e}
+Trys to read incoming packet \begin{DoxyReturn}{Returns}
+packet adress if packet received, 0 if not received 
+\end{DoxyReturn}

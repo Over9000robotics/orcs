@@ -1,0 +1,42 @@
+\hypertarget{structt__packet}{}\section{t\+\_\+packet Struct Reference}
+\label{structt__packet}\index{t\+\_\+packet@{t\+\_\+packet}}
+
+
+{\ttfamily \#include $<$packet.\+h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t {\bfseries sync}\hypertarget{structt__packet_aba8830ef7476e6706053278c355dfda1}{}\label{structt__packet_aba8830ef7476e6706053278c355dfda1}
+
+\item 
+uint8\+\_\+t {\bfseries crc}\hypertarget{structt__packet_a8fb9fbfdea388fb8fa1c026c1d0184c5}{}\label{structt__packet_a8fb9fbfdea388fb8fa1c026c1d0184c5}
+
+\item 
+uint8\+\_\+t {\bfseries type}\hypertarget{structt__packet_a3a8d61b09635be4a12cc08f3bfad9131}{}\label{structt__packet_a3a8d61b09635be4a12cc08f3bfad9131}
+
+\item 
+uint8\+\_\+t {\bfseries size}\hypertarget{structt__packet_a9678638d00fac4b2f1b11ce1721b5004}{}\label{structt__packet_a9678638d00fac4b2f1b11ce1721b5004}
+
+\item 
+uint8\+\_\+t {\bfseries data} \mbox{[}M\+A\+X\+\_\+\+P\+K\+T\+\_\+\+S\+I\+ZE-\/P\+A\+C\+K\+E\+T\+\_\+\+H\+E\+A\+D\+ER\mbox{]}\hypertarget{structt__packet_a09a36988d9e3f087bac9db87cc7d9ebd}{}\label{structt__packet_a09a36988d9e3f087bac9db87cc7d9ebd}
+
+\item 
+enum Packet\+Status {\bfseries status}\hypertarget{structt__packet_a1d52305a9a0486e304f5531b3728a7ff}{}\label{structt__packet_a1d52305a9a0486e304f5531b3728a7ff}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Motion U\+A\+RT packet S\+C\+T\+Lxxxxxxxx
+
+S -\/ 1 Byte sync (0x3c) ~\newline
+ C -\/ 1 Byte checksum ( upper nibble -\/ header checksum, lower~\newline
+ nibble payload checksum ) ~\newline
+ T -\/ 1 Byte type ~\newline
+ L -\/ 1 Byte payload length ~\newline
+ x -\/ L Bytes data 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/djordje/\+Desktop/orcs/src/\hyperlink{packet_8h}{packet.\+h}\end{DoxyCompactItemize}

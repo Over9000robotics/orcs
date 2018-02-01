@@ -1,6 +1,6 @@
 
 \begin{DoxyItemize}
-\item packet.\+c
+\item \hyperlink{packet_8c}{packet.\+c}
 \item \hyperlink{packet_8h}{packet.\+h}
 \item implement \hyperlink{color_8h}{color.\+h} better
 \end{DoxyItemize}
@@ -11,7 +11,15 @@
 \begin{DoxyItemize}
 \item uart\+\_\+transmit\+\_\+bytes
 \item uart\+\_\+receieve\+\_\+bytes
-\item uart\+\_\+transmit\+\_\+packet
+\item write python script that parses rx packet on PC
+\item test uart\+\_\+transmit\+\_\+packet
 \item ask for current position
-\item set current position 
+\item print current position as integer
+\item set current position
+\item check if command which is sent -\/ process if incomed \textquotesingle{}A\textquotesingle{} character
+\item main reorganize
 \end{DoxyItemize}
+
+scheduler -\/$>$ task -\/$>$ motion\+\_\+go(x,y,velocity); -\/$>$ motion\+\_\+stop() -\/$>$ motion\+\_\+get\+\_\+status(); //where to put?
+
+motion\+: implement motion\+\_\+go -\/$>$ packet\+\_\+send(type, data) -\/$>$ uart\+\_\+transmit 

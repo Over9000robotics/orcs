@@ -1,0 +1,132 @@
+\hypertarget{config_8h}{}\section{/home/djordje/\+Desktop/orcs/src/config.h File Reference}
+\label{config_8h}\index{/home/djordje/\+Desktop/orcs/src/config.\+h@{/home/djordje/\+Desktop/orcs/src/config.\+h}}
+
+
+robot configuration file  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+Include dependency graph for config.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{config_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries D\+E\+B\+U\+G\+\_\+\+V\+E\+R\+I\+FY}\hypertarget{config_8h_aab2ec181f464b096c731a5b39eecfdd7}{}\label{config_8h_aab2ec181f464b096c731a5b39eecfdd7}
+
+\item 
+\#define \hyperlink{config_8h_acffaa7834b710a1412b22ada90dccb77}{M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+MS}~50
+\item 
+\#define \hyperlink{config_8h_aa0b021263aba38777b246f56ed3472d2}{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+X}~100
+\item 
+\#define \hyperlink{config_8h_aceeef9434b2aefa8bf803619f701d6e5}{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+Y}~100
+\item 
+\#define \hyperlink{config_8h_acd00d2ede3d91ba74a5c75313b261f91}{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+O}~0
+\item 
+\#define {\bfseries M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+F\+R\+E\+S\+H\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~100\hypertarget{config_8h_a48c5d330fe2741d06d9feac88e16ed0d}{}\label{config_8h_a48c5d330fe2741d06d9feac88e16ed0d}
+
+\item 
+\#define {\bfseries G\+R\+E\+EN}~1\hypertarget{config_8h_acfbc006ea433ad708fdee3e82996e721}{}\label{config_8h_acfbc006ea433ad708fdee3e82996e721}
+
+\item 
+\#define {\bfseries O\+R\+A\+N\+GE}~2\hypertarget{config_8h_ac5b6e19bf06822021f35602c59658de3}{}\label{config_8h_ac5b6e19bf06822021f35602c59658de3}
+
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{config_8h_ae98fcdc4eed7972da406c22d3063a3bf}{Conf\+Enum} \{ \\*
+{\bfseries C\+O\+N\+F\+\_\+\+R\+O\+T\+A\+T\+I\+O\+N\+\_\+\+R\+E\+G\+U\+L\+A\+T\+OR} = 0, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+T\+U\+CK} = 1, 
+{\bfseries C\+O\+N\+F\+\_\+\+D\+E\+B\+UG} = 2, 
+{\bfseries C\+O\+N\+F\+\_\+\+K\+E\+E\+P\+\_\+\+C\+O\+U\+NT} = 3, 
+\\*
+{\bfseries C\+O\+N\+F\+\_\+\+M\+O\+T\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+ED} = 4, 
+{\bfseries C\+O\+N\+F\+\_\+\+T\+MR} = 5, 
+{\bfseries C\+O\+N\+F\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+R\+E\+G\+U\+L\+A\+T\+OR} = 6, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+C\+H\+A\+N\+G\+E\+\_\+\+R\+E\+P\+O\+RT} = 7, 
+\\*
+{\bfseries C\+O\+N\+F\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+S\+T\+U\+CK} = 8, 
+{\bfseries C\+O\+N\+F\+\_\+\+M\+O\+T\+O\+R\+\_\+\+C\+O\+N\+S\+T\+\_\+\+R\+OC} = 9, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+T\+U\+C\+K\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+A\+X\+\_\+\+F\+A\+I\+L\+\_\+\+C\+O\+U\+NT} = 10, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+T\+U\+C\+K\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+J\+U\+MP} = 11, 
+\\*
+{\bfseries C\+O\+N\+F\+\_\+\+M\+O\+T\+O\+R\+\_\+\+R\+A\+T\+E\+\_\+\+O\+F\+\_\+\+C\+H\+A\+N\+GE} = 12, 
+{\bfseries C\+O\+N\+F\+\_\+\+M\+O\+T\+O\+R\+\_\+\+S\+P\+E\+E\+D\+\_\+\+L\+I\+M\+IT} = 13, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+E\+N\+D\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+I\+N\+T\+E\+R\+V\+AL} = 14, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+T\+U\+C\+K\+\_\+\+R\+O\+T\+A\+T\+I\+O\+N\+\_\+\+M\+A\+X\+\_\+\+F\+A\+I\+L\+\_\+\+C\+O\+U\+NT} = 15, 
+\\*
+{\bfseries C\+O\+N\+F\+\_\+\+S\+T\+U\+C\+K\+\_\+\+R\+O\+T\+A\+T\+I\+O\+N\+\_\+\+J\+U\+MP} = 16, 
+{\bfseries C\+O\+N\+F\+\_\+\+O\+M\+E\+GA} = 17, 
+{\bfseries C\+O\+N\+F\+\_\+\+W\+H\+E\+E\+L\+\_\+\+R2} = 18, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+L\+O\+W\+D\+O\+WN} = 19, 
+\\*
+{\bfseries C\+O\+N\+F\+\_\+\+P\+I\+D\+\_\+\+R\+\_\+P} = 20, 
+{\bfseries C\+O\+N\+F\+\_\+\+A\+N\+G\+L\+E\+\_\+\+S\+P\+E\+E\+D\+UP} = 21, 
+{\bfseries C\+O\+N\+F\+\_\+\+A\+L\+P\+HA} = 22, 
+{\bfseries C\+O\+N\+F\+\_\+\+A\+C\+C\+EL} = 23, 
+\\*
+{\bfseries C\+O\+N\+F\+\_\+\+W\+H\+E\+E\+L\+\_\+\+R1} = 24, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+P\+E\+E\+D\+\_\+\+D\+R\+OP} = 25, 
+{\bfseries C\+O\+N\+F\+\_\+\+W\+H\+E\+E\+L\+\_\+\+D\+I\+S\+T\+A\+N\+CE} = 26, 
+{\bfseries C\+O\+N\+F\+\_\+\+S\+L\+O\+W\+D\+O\+W\+N\+\_\+\+A\+N\+G\+LE} = 27, 
+\\*
+{\bfseries C\+O\+N\+F\+\_\+\+V\+M\+AX} = 28, 
+{\bfseries C\+O\+N\+F\+\_\+\+P\+I\+D\+\_\+\+D\+\_\+D} = 29, 
+{\bfseries C\+O\+N\+F\+\_\+\+P\+I\+D\+\_\+\+D\+\_\+P} = 30, 
+{\bfseries C\+O\+N\+F\+\_\+\+P\+I\+D\+\_\+\+R\+\_\+D} = 31
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t {\bfseries set\+\_\+side} (char $\ast$s)\hypertarget{config_8h_ae652b665fefc036ef2b6747665e92b6a}{}\label{config_8h_ae652b665fefc036ef2b6747665e92b6a}
+
+\item 
+uint8\+\_\+t {\bfseries get\+\_\+side} (void)\hypertarget{config_8h_a69931bc7f346692748ed4e94742df898}{}\label{config_8h_a69931bc7f346692748ed4e94742df898}
+
+\item 
+void {\bfseries print\+\_\+side} (void)\hypertarget{config_8h_a1e1b4405d308175fd1eb7954a75d1a95}{}\label{config_8h_a1e1b4405d308175fd1eb7954a75d1a95}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+robot configuration file 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]make side variable \end{DoxyRefDesc}
+
+
+\subsection{Macro Definition Documentation}
+\index{config.\+h@{config.\+h}!M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+MS@{M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+MS}}
+\index{M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+MS@{M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+MS}!config.\+h@{config.\+h}}
+\subsubsection[{\texorpdfstring{M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+MS}{MOTION_RESPONSE_MS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+O\+T\+I\+O\+N\+\_\+\+R\+E\+S\+P\+O\+N\+S\+E\+\_\+\+MS~50}\hypertarget{config_8h_acffaa7834b710a1412b22ada90dccb77}{}\label{config_8h_acffaa7834b710a1412b22ada90dccb77}
+wait 50 ms for motion response message \index{config.\+h@{config.\+h}!M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+O@{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+O}}
+\index{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+O@{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+O}!config.\+h@{config.\+h}}
+\subsubsection[{\texorpdfstring{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+O}{MOTION_START_O}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+O~0}\hypertarget{config_8h_acd00d2ede3d91ba74a5c75313b261f91}{}\label{config_8h_acd00d2ede3d91ba74a5c75313b261f91}
+Orientation on startup \index{config.\+h@{config.\+h}!M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+X@{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+X}}
+\index{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+X@{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+X}!config.\+h@{config.\+h}}
+\subsubsection[{\texorpdfstring{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+X}{MOTION_START_X}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+X~100}\hypertarget{config_8h_aa0b021263aba38777b246f56ed3472d2}{}\label{config_8h_aa0b021263aba38777b246f56ed3472d2}
+X coordinate on startup \index{config.\+h@{config.\+h}!M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+Y@{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+Y}}
+\index{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+Y@{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+Y}!config.\+h@{config.\+h}}
+\subsubsection[{\texorpdfstring{M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+Y}{MOTION_START_Y}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+O\+T\+I\+O\+N\+\_\+\+S\+T\+A\+R\+T\+\_\+Y~100}\hypertarget{config_8h_aceeef9434b2aefa8bf803619f701d6e5}{}\label{config_8h_aceeef9434b2aefa8bf803619f701d6e5}
+Y coordinate on startup 
+
+\subsection{Enumeration Type Documentation}
+\index{config.\+h@{config.\+h}!Conf\+Enum@{Conf\+Enum}}
+\index{Conf\+Enum@{Conf\+Enum}!config.\+h@{config.\+h}}
+\subsubsection[{\texorpdfstring{Conf\+Enum}{ConfEnum}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Conf\+Enum}}\hypertarget{config_8h_ae98fcdc4eed7972da406c22d3063a3bf}{}\label{config_8h_ae98fcdc4eed7972da406c22d3063a3bf}
+Config keys 

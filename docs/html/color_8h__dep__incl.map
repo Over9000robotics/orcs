@@ -1,0 +1,7 @@
+<map id="/home/djordje/Desktop/orcs/src/color.h" name="/home/djordje/Desktop/orcs/src/color.h">
+<area shape="rect" id="node2" href="$color_8c.html" title="Functions for setting the default printf() color. " alt="" coords="5,95,159,136"/>
+<area shape="rect" id="node3" href="$config_8c.html" title="/home/djordje/Desktop\l/orcs/src/config.c" alt="" coords="183,95,336,136"/>
+<area shape="rect" id="node4" href="$motion_8c.html" title="/home/djordje/Desktop\l/orcs/src/motion.c" alt="" coords="360,95,513,136"/>
+<area shape="rect" id="node5" href="$packet_8c.html" title="/home/djordje/Desktop\l/orcs/src/packet.c" alt="" coords="537,95,691,136"/>
+<area shape="rect" id="node6" href="$uart_8c.html" title="inits uart to baud rate 57600. Functions for uart data manipulation. " alt="" coords="715,95,868,136"/>
+</map>
