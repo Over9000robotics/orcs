@@ -40,21 +40,35 @@ int main(int argc, char* argv[])
 	if(!motion_check())
 		return 0;
 
-	init_task(0); /** @note Start options defined in config.h */
+	init_task(ENTER); /** @note Start options defined in config.h */
 	
-	motion_forward(-300, 0);
+	//motion_forward(300, 0);
 	delay(100);
 	//motion_relative_rotate(-30);
 	//motion_absolute_rotate(360);
+	task tasks[5] = {task1, task2, task3, task4, task5};
 	
 	while(1)
-	{
+	{	
+		tasks[0]();
+		delay(500);
+		tasks[1]();
+		delay(500);
+		task3();
+		delay(500);
+		task4();
+		delay(500);
+		task5();
+		delay(500);	
+/*	
 		if(millis() > last_motion_check + MOTION_REFRESH_INTERVAL)
 		{
 			last_motion_check = millis();
 			motion_get_status_and_position();
 		}
-		motion_msg_status();		
+		motion_msg_status();
+*/		
+				
 	}
 	return 0;
 }
