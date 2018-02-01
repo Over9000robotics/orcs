@@ -13,18 +13,20 @@
 
 enum MissionStatus
 {
-	not_active,
-	in_progress,
-	done
+	mission_never_activated,
+	mission_in_progress,
+	mission_done,
+	mission_interrupted,
 };
 
-typedef void (*mission) (void);
+typedef void (*mission) (int, int, int);
 typedef struct t_mission
 {
-	mission job;
 	enum MissionStatus status;
+	mission job;
 }t_mission;
 
+void mission_go(int x, int y, int speed);
 void missions_init(t_mission* m);
 void missions_print(t_mission* m);
 
