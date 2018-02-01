@@ -3,9 +3,9 @@
 #DEBUG = -03
 
 
-OBJ 		= main.o uart.o color.o packet.o motion.o config.o
+OBJ 		= main.o uart.o color.o packet.o motion.o config.o task.o
 
-DEPS 		= uart.h color.h motioncmd.h packet.h motion.h config.h
+DEPS 		= uart.h color.h motioncmd.h packet.h motion.h config.h task.h
 
 INCLUDE		= -I/usr/local/include
 

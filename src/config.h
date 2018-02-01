@@ -11,6 +11,11 @@
 //#define DEBUG 1
 #define DEBUG_VERIFY
 
+//START options
+#define NO_START_OPTION 0
+#define ENTER 1
+#define CINCH 2
+
 //motion config
 #define MOTION_RESPONSE_MS 50	/**< wait 50 ms for motion response message */
 
@@ -62,8 +67,10 @@ enum ConfEnum {
 	CONF_PID_R_D = 31,
 };
 
+uint8_t use_input_arguments(int argc, char* argv[]);
 uint8_t set_side(char* s);
 uint8_t get_side(void);
 void print_side(void);
+
 
 #endif

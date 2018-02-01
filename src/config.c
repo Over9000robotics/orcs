@@ -32,6 +32,24 @@ uint8_t set_side(char* s)
 	}
 }
 
+uint8_t use_input_arguments(int argc, char* argv[])
+{
+	int i;
+	
+	for(i=1; i < argc; i++) 
+	{
+		if(!strcmp(argv[i], "--side")) 
+		{	
+			if(set_side(argv[i+1]) == 0)
+			{
+				return 0;
+			}
+			i++;
+		}
+	}
+	return 1;
+}
+
 uint8_t get_side(void)
 {
 	return side;
