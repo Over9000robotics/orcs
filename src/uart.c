@@ -176,6 +176,9 @@ t_packet* uart_try_read_packet(void)
 		if(((size + type) & 0x0F) != (crc >> 4))
 		{
 			printf("Packet: crc HIGH checksum error\n");
+			printf("\t type: %c 0x%x \n", type, type);
+			printf("\t crc: %c 0x%x \n", crc, crc);
+			printf("\t size: %c 0x%x \n", size, size);
 			return 0;
 		}
 		for(i = 0; i < size; i++)
@@ -196,6 +199,9 @@ t_packet* uart_try_read_packet(void)
 		if((data_sum & 0x0F) != (crc & 0x0F))
 		{
 			printf("Packet: crc LOW checksum error\n");
+			printf("\t type: %c 0x%x \n", type, type);
+			printf("\t crc: %c 0x%x \n", crc, crc);
+			printf("\t size: %c 0x%x \n", size, size);
 			return 0;
 		}
 		rx_packet.sync = PACKET_SYNC;
