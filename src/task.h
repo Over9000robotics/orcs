@@ -32,6 +32,11 @@ void task(void);
 
 t_mission* task_get_mission_ptr(void);
 
+void task_mission_check(void);
+
+void mission1(void);
+void mission2(void);
+
 void task1(void);
 
 void task2(void);

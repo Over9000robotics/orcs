@@ -4,8 +4,8 @@
 #include "mission.h"
 #include "motion.h"
 #include "task.h"
+#include "color.h"
 
-static t_mission* mission_ptr;
 static t_motionState* motion_state;
 static uint8_t started_moving_flag = 0;
 
@@ -16,6 +16,7 @@ void missions_init(t_mission* m)
 	for(i=0; i<MAX_MISSIONS; i++)
 	{
 		m->status = mission_never_activated;
+	
 	}
 }
 
@@ -33,9 +34,74 @@ void missions_print(t_mission* m)
  * 	@todo LATER MAKE SPEED AS INT_16, FOR DEBUGGING NEGATIVE INPUT NUMBERS
  * 	@todo object check - at start of task program (actuator-board sensor check)
  */
+ t_mission* mission_ptr;
+
+void mission_forward(int distance, int speed)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission forward: ");
+			print_reset();
+			printf("distance: %d, speed: %d \n", distance, speed);
+			if(motion_check_speed(speed))
+			{
+				motion_set_speed(speed);
+			}
+			motion_forward(distance, 0);
+			mission_ptr->status = mission_in_progress;
+			break;
+			}
+			case mission_interrupted:
+			{
+				print_yellow();
+				printf("Mission forward from interrupted: ");
+				print_reset();
+				printf("distance: %d, speed: %d \n", distance, speed);
+				if(motion_check_speed(speed))
+				{
+					motion_set_speed(speed);
+				}
+				motion_forward(distance, 0);
+				mission_ptr->status = mission_in_progress;
+				break;
+			}
+			case mission_in_progress:
+			{
+				motion_state = get_motion_state();
+				if(motion_state->state == STATUS_MOVING && started_moving_flag == 0)
+				{
+					started_moving_flag = 1;
+				}
+				if(motion_state->state == STATUS_IDLE && started_moving_flag == 1)
+				{
+					mission_ptr->status = mission_done;
+					started_moving_flag = 0;	//prepare flag for next moving command
+				}
+				break;
+			}
+			case mission_done:
+			{
+				print_yellow();
+				printf("Mission forward DONE: ");
+				print_reset();
+				printf("%d, speed: %d \n", distance, speed);
+				print_reset();
+				break;
+			}
+			default:
+			{	
+				printf("Mission_go: unknown state \n");
+				break;
+			}
+	}
+}
+
 void mission_go(int x, int y, int speed)
 {
-	mission_ptr = task_get_mission_ptr();
+	//mission_ptr = task_get_mission_ptr();
 	switch(mission_ptr->status)
 	{
 		//ako je ova funkcija ometena, skace se u drugu state masinu koja npr zaustavlja robota
@@ -43,6 +109,10 @@ void mission_go(int x, int y, int speed)
 		//i u slucaju da je stanje bilo 'interrupted' i stanje prelazi u 'in_progress'
 		case mission_never_activated:
 		{
+			print_yellow();
+			printf("Mission go: ");
+			print_reset();
+			printf("(%d, %d), speed: %d \n", x, y, speed);
 			if(motion_check_speed(speed))
 			{
 				motion_set_speed(speed);
@@ -53,6 +123,10 @@ void mission_go(int x, int y, int speed)
 		}
 		case mission_interrupted:
 		{
+			print_yellow();
+			printf("Mission from interrupted go: ");
+			print_reset();
+			printf("(%d, %d), speed: %d \n", x, y, speed);
 			if(motion_check_speed(speed))
 			{
 				motion_set_speed(speed);
@@ -79,6 +153,11 @@ void mission_go(int x, int y, int speed)
 		}
 		case mission_done:
 		{
+			print_yellow();
+			printf("Mission go DONE: ");
+			print_reset();
+			printf("(%d, %d), speed: %d \n", x, y, speed);
+			print_reset();
 			break;
 		}
 		default:
