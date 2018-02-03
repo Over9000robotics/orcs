@@ -32,16 +32,22 @@ void define_missions(void)
 {
 	missions[0].job = mission1;
 	missions[1].job = mission2;
+	missions[2].job = mission3;
 }
 
 void mission1(void)
 {
-	mission_forward(400, 0);
+	mission_go(300, 300, 0);
 }
 
 void mission2(void)
 {
 	mission_go(1000, 0, 0);
+}
+
+void mission3(void)
+{
+	mission_rotate_abs(30);
 }
 
 void init_task(uint8_t option)

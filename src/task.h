@@ -36,7 +36,7 @@ void task_mission_check(void);
 
 void mission1(void);
 void mission2(void);
-
+void mission3(void);
 void task1(void);
 
 void task2(void);
