@@ -100,13 +100,16 @@ uint8_t motion_msg_status(void)
 			
 			case 'A':
 			{
-				printf("CASE A \n");
-				printf("SIZE: %d \n", rx_pkt_ptr -> size);
 				if(rx_pkt_ptr -> size == 1)
 				{
-					printf("INSIDE OF 'A' IF \n");
 					packet_verify(rx_pkt_ptr);
 				}
+				break;
+			}
+			
+			//ignore 'F' messages, that is motion debug character
+			case 'F':
+			{
 				break;
 			}
 			
@@ -264,10 +267,12 @@ uint8_t motion_check_speed(int speed)
 	{
 		return 1;
 	}
-	else
+	
+	else if (speed < 0 || speed > 255)
 	{
 		print_red();
-		printf("Mission: robot speed is MIN %d and MAX %d \n", MOTION_MIN_SPEED, MOTION_MAX_SPEED);
+		printf("Motion: robot speed is MIN %d and MAX %d \n", MOTION_MIN_SPEED, MOTION_MAX_SPEED);
+		printf("\tYou typed %d ", speed);
 		print_reset();
 	}
 	return 0;
