@@ -168,3 +168,132 @@ void mission_go(int x, int y, int speed)
 	}
 }
 
+void mission_rotate_abs(int angle, int speed)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission absolute rotate: ");
+			print_reset();
+			printf("Angle: %d, speed: %d \n", angle, speed);
+			if(motion_check_speed(speed))
+			{
+				motion_set_speed(speed);
+			}
+			motion_absolute_rotate(angle);
+			mission_ptr->status = mission_in_progress;
+			break;
+		}
+		case mission_interrupted:
+		{
+			print_yellow();
+			printf("Mission absolute rotate from interrupted: ");
+			print_reset();
+			printf("%d, speed: %d \n", angle, speed);
+			if(motion_check_speed(speed))
+			{
+				motion_set_speed(speed);
+			}
+			motion_absolute_rotate(angle);
+			mission_ptr->status = mission_in_progress;
+			break;
+		}
+		case mission_in_progress:
+		{
+			motion_state = get_motion_state();
+			if(motion_state->state == STATUS_ROTATING && started_moving_flag == 0)
+			{
+				started_moving_flag = 1;
+			}
+			if(motion_state->state == STATUS_IDLE && started_moving_flag == 1)
+			{
+				mission_ptr->status = mission_done;
+				
+				//prepare flag for next moving command
+				started_moving_flag = 0;
+			}
+			break;
+		}
+		case mission_done:
+		{
+			print_yellow();
+			printf("Mission rotate absolute DONE: ");
+			print_reset();
+			printf("Angle: %d, speed: %d \n", angle, speed);
+			print_reset();
+			break;
+		}
+		default:
+		{	
+			printf("Mission rotate abs: unknown state \n");
+			break;
+		}
+	}
+}
+
+void mission_rotate_rel(int angle, int speed)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission relative rotate: ");
+			print_reset();
+			printf("Angle: %d, speed: %d \n", angle, speed);
+			if(motion_check_speed(speed))
+			{
+				motion_set_speed(speed);
+			}
+			motion_relative_rotate(angle);
+			mission_ptr->status = mission_in_progress;
+			break;
+		}
+		case mission_interrupted:
+		{
+			print_yellow();
+			printf("Mission absolute rotate from interrupted: ");
+			print_reset();
+			printf("%d, speed: %d \n", angle, speed);
+			if(motion_check_speed(speed))
+			{
+				motion_set_speed(speed);
+			}
+			motion_relative_rotate(angle);
+			mission_ptr->status = mission_in_progress;
+			break;
+		}
+		case mission_in_progress:
+		{
+			motion_state = get_motion_state();
+			if(motion_state->state == STATUS_ROTATING && started_moving_flag == 0)
+			{
+				started_moving_flag = 1;
+			}
+			if(motion_state->state == STATUS_IDLE && started_moving_flag == 1)
+			{
+				mission_ptr->status = mission_done;
+				
+				//prepare flag for next moving command
+				started_moving_flag = 0;
+			}
+			break;
+		}
+		case mission_done:
+		{
+			print_yellow();
+			printf("Mission rotate absolute DONE: ");
+			print_reset();
+			printf("Angle: %d, speed: %d \n", angle, speed);
+			print_reset();
+			break;
+		}
+		default:
+		{	
+			printf("Mission rotate abs: unknown state \n");
+			break;
+		}
+	}
+}
