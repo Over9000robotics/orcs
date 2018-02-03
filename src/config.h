@@ -9,7 +9,7 @@
 #define CONFIG_H_
 
 //#define DEBUG 1
-#define DEBUG_VERIFY
+//#define DEBUG_VERIFY
 
 //START options
 #define NO_START_OPTION 0
@@ -19,10 +19,10 @@
 //motion config
 #define MOTION_RESPONSE_MS 50	/**< wait 50 ms for motion response message */
 
-#define MOTION_START_X 100	/**< X coordinate on startup */
-#define MOTION_START_Y 100	/**< Y coordinate on startup */
+#define MOTION_START_X 0	/**< X coordinate on startup */
+#define MOTION_START_Y 0	/**< Y coordinate on startup */
 #define MOTION_START_O 0	/**< Orientation on startup */
-#define MOTION_REFRESH_INTERVAL 100
+#define MOTION_REFRESH_INTERVAL 150
 #define MOTION_MIN_SPEED 1
 #define MOTION_MAX_SPEED 255
 

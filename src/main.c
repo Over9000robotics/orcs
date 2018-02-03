@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 		motion_msg_status();
 		
 		task();
-				
+			
 	}
 	return 0;
 }
