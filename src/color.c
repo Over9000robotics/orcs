@@ -40,3 +40,24 @@ void print_reset(void)
 {
   printf("\033[0m");
 }
+
+
+void print_yellow_bold(void)
+{
+	printf("\033[1m\033[33m;1m");
+}
+
+void print_green_bold(void)
+{
+	printf("\033[1m\033[32m;1m");
+}
+
+void print_blue_bold(void)
+{
+	printf("\033[1m\033[34m;1m");
+}
+
+void print_red_bold(void)
+{
+	printf("\033[1m\033[31m;1m");
+}
