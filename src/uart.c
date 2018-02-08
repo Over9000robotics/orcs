@@ -1,11 +1,11 @@
 /**
  * @file uart.c
- * @brief inits uart to baud rate 57600. 
+ * @brief inits uart to desired baud rate.
  * Functions for uart data manipulation.
  * @todo what if checksum error (uart_try_read_packet)
  * @todo if byte reading is too long -> write WARNING!
  */
- 
+
 //TODO: Implement close(uart0_filestream);
 
 #include "uart.h"
@@ -39,15 +39,15 @@ int uart0_io_flush()
 void uart0_init (speed_t baud_rate)
 {
 	uart0_filestream = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
-	
+
 	if (uart0_filestream == -1)
 	{
 		//ERROR - CAN'T OPEN SERIAL PORT
 		printf("Error: %d\n", uart0_filestream);
 		printf("For error details, refer to fnctl.h\n");
 		printf("Unable to open UART.  Ensure it is not in use by another application\n");
-	} 
-	
+	}
+
 	struct termios options;
 	tcgetattr(uart0_filestream, &options);
 	options.c_cflag = baud_rate | CS8 | CLOCAL | CREAD;		//<Set baud rate
@@ -101,7 +101,7 @@ int uart0_receive_byte(uint8_t* p_rx_buffer)
 		{
 			if(no_msgs)
 			{
-#ifdef DEBUG			
+#ifdef DEBUG
 				print_yellow();
 				printf("Uart: ");
 				print_reset();
@@ -118,7 +118,7 @@ int uart0_receive_byte(uint8_t* p_rx_buffer)
 			printf("Uart: ");
 			print_reset();
 			printf("received byte - 0x%x\n", *p_rx_buffer);
-#endif		
+#endif
 			no_msgs = 1;
 			return rx_length;
 		}
@@ -152,9 +152,9 @@ t_packet* uart_try_read_packet(void)
 	uint8_t type = 0;
 	uint8_t size = 0;
 	int data_sum = 0;
-	
+
 	bytes_num = uart0_receive_byte(rx_buffer_header);
-	
+
 	//if 1 byte read success, and that byte is PACKET_SYNC, continue reading
 	if(bytes_num == 1 && rx_buffer_header[0] == PACKET_SYNC)
 	{
@@ -172,7 +172,7 @@ t_packet* uart_try_read_packet(void)
 		crc  = rx_buffer_header[0];
 		type = rx_buffer_header[1];
 		size = rx_buffer_header[2];
-		
+
 		if(((size + type) & 0x0F) != (crc >> 4))
 		{
 			printf("Packet: crc HIGH checksum error\n");
@@ -189,7 +189,7 @@ t_packet* uart_try_read_packet(void)
 				bytes_num = uart0_receive_byte(rx_buffer_data+i);
 			}while(bytes_num == 0);
 		}
-		
+
 		//calculate data_sum
 		data_sum = 0;
 		for(i = 0; i < size; i++)
@@ -212,7 +212,7 @@ t_packet* uart_try_read_packet(void)
 		{
 			rx_packet.data[i] = rx_buffer_data[i];
 		}
-		
+
 		return &rx_packet;
 	}
 
@@ -222,14 +222,14 @@ t_packet* uart_try_read_packet(void)
 void uart_send_packet(t_packet* packet)
 {
 	uint8_t* p_tx_buffer;
-	
+
 	p_tx_buffer = (uint8_t*) (packet);
-	
+
 #ifdef DEBUG
 	printf("p_tx_buffer: %p\n", (void*) p_tx_buffer);
 	printf("packet: %p\n\n", (void*) packet);
 	print_packet(packet);
 #endif
-	
+
 	uart0_transmit(p_tx_buffer, PACKET_HEADER + packet -> size);
 }

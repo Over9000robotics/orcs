@@ -42,7 +42,7 @@ uint8_t motion_check(void)
 {
 	packet_prepare(MOTION_GET_STATUS_AND_POSITION);
 	packet_end();
-	
+
 	time_start_millis = millis();
 	while(millis() - time_start_millis < MOTION_RESPONSE_MS && command != 'P')
 	{
@@ -80,7 +80,7 @@ uint8_t motion_msg_status(void)
 	if (rx_pkt_ptr != 0)
 	{
 		command = rx_pkt_ptr -> type;
-		
+
 #ifdef DEBUG
 		printf("command: %c \n", command);
 		print_rx_packet(rx_pkt_ptr);
@@ -97,7 +97,7 @@ uint8_t motion_msg_status(void)
 				}
 				break;
 			}
-			
+
 			case 'A':
 			{
 				if(rx_pkt_ptr -> size == 1)
@@ -106,14 +106,14 @@ uint8_t motion_msg_status(void)
 				}
 				break;
 			}
-			
+
 			//ignore 'F' messages, that is motion debug character
 			case 'F':
 			{
 				break;
 			}
-			
-			default: 
+
+			default:
 			{
 				print_red();
 				printf("Command '%c' is unknown! \n", command);
@@ -122,7 +122,7 @@ uint8_t motion_msg_status(void)
 			}
 		}
 	}
-	return 0;		
+	return 0;
 }
 
 void motion_set_speed(uint8_t speed)
@@ -137,7 +137,7 @@ void motion_set_speed(uint8_t speed)
 	packet_prepare(MOTION_SET_SPEED);
 	packet_put_byte(speed);
 	packet_end();
-	
+
 	motion_state.max_speed = speed;
 }
 
@@ -154,28 +154,28 @@ void motion_set_rotating_speed(uint8_t speed)
 	packet_put_byte(speed);
 	packet_put_byte(0);
 	packet_end();
-	
+
 	motion_state.max_rot_speed = speed;
 }
 
 void set_status_and_position(void)
-{	
+{
 	motion_old_state = motion_state;
-	
+
 	motion_state.state = rx_pkt_ptr -> data[0];
-	
+
 	motion_state.x = rx_pkt_ptr -> data[1];
 	motion_state.x = (motion_state.x << 8) | (rx_pkt_ptr -> data[2]);
 
 	motion_state.y = rx_pkt_ptr -> data[3];
 	motion_state.y = (motion_state.y << 8) | (rx_pkt_ptr -> data[4]);
-	
+
 	motion_state.angle = rx_pkt_ptr -> data[5];
 	motion_state.angle = (motion_state.angle << 8) | (rx_pkt_ptr -> data[6]);
-	
+
 	motion_state.current_speed = rx_pkt_ptr -> data[7];
 	motion_state.current_speed = (motion_state.current_speed << 8) | (rx_pkt_ptr -> data[8]);
-	
+
 
 	if(motion_old_state.state != motion_state.state ||
 		motion_old_state.x != motion_state.x ||
@@ -261,34 +261,41 @@ void motion_unstuck(void)
 	packet_end();
 }
 
-uint8_t motion_check_speed(int speed)
+void motion_speed_check_set(int speed)
 {
-	if(speed > 0 && speed < 255)
+	if(speed == 0)
 	{
-		return 1;
+		motion_set_speed(MOTION_NORMAL_SPEED);
 	}
-	
+
+	else if(speed > 0 && speed < 255)
+	{
+		motion_set_speed(speed);
+	}
+
 	else if (speed < 0 || speed > 255)
 	{
+		motion_set_speed(MOTION_NORMAL_SPEED);
 		print_red();
 		printf("Motion: robot speed is MIN %d and MAX %d \n", MOTION_MIN_SPEED, MOTION_MAX_SPEED);
 		printf("\tYou typed %d ", speed);
 		print_reset();
+		return;
 	}
-	return 0;
+
 }
 
 void print_status_and_position(void)
 {
 	print_green();
 	printf("Motion: ");
-	
+
 	print_blue();
 	printf("Position: ");
-	
+
 	print_reset();
 	printf("(%d, %d) ", motion_state.x, motion_state.y);
-	
+
 	print_blue();
 	printf("Angle: ");
 	print_reset();
@@ -298,7 +305,7 @@ void print_status_and_position(void)
 	printf("\tCurrent speed: ");
 	print_reset();
 	printf("%d \n",motion_state.current_speed);
-*/	
+*/
 	motion_print_state();
 }
 

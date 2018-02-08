@@ -1,6 +1,6 @@
 /**
  * @file motion.h
- * 
+ *
  */
 
 #ifndef MOTION_H_
@@ -10,11 +10,11 @@
 
 enum State
 {
-	STATUS_IDLE = 'I',		//0x49
-	STATUS_MOVING = 'M',	//0x4D
-	STATUS_ROTATING = 'R',	//0x52
-	STATUS_STUCK = 'S',		//0x53
-	STATUS_ERROR = 'E'		//0x45
+	STATUS_IDLE = 'I',		 //0x49
+	STATUS_MOVING = 'M',	 //0x4D
+	STATUS_ROTATING = 'R', //0x52
+	STATUS_STUCK = 'S',		 //0x53
+	STATUS_ERROR = 'E'		 //0x45
 };
 
 typedef struct t_motionState
@@ -31,8 +31,8 @@ typedef struct t_motionState
 
 /**
  * Checks communication with motion board
- * @return 1 if success, 0 if not 
- * 
+ * @return 1 if success, 0 if not
+ *
  */
 uint8_t motion_check(void);
 
@@ -99,7 +99,6 @@ void motion_turn_and_go(int16_t x, int16_t y, uint8_t end_speed, int8_t directio
 void motion_forward(int16_t length, uint8_t end_speed);
 
 void motion_absolute_rotate(int16_t degrees);
-
 void motion_relative_rotate(int16_t degrees);
 
 void motion_hard_stop(void);
@@ -107,8 +106,14 @@ void motion_soft_stop(void);
 void motion_reset_driver(void);
 void motion_unstuck(void);
 
-uint8_t motion_check_speed(int speed);
-
+/**
+ *	Checks desired speed validity and sets motion speed if
+ *  desired speed is valid
+ *  @param speed - desired robot motioning speed
+ *  speed <= 0 -> motion speed will bi setted to MOTION_NORMAL_SPEED
+ *							 which is defined in config.h
+ */
+void motion_speed_check_set(int speed);
 void motion_print_state(void);
 
 #endif
