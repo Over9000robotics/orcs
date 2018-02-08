@@ -4,6 +4,7 @@
  * @todo object check - at start of task program (actuator-board sensor check)
  * 		 if something found, go into second state machine
  * @todo end_function
+ * @todo at the end of obstacles, init their status to -> mission_free_to_use;
  */
 
 #include <stdio.h>
@@ -16,11 +17,13 @@
 #include "color.h"
 #include "mission.h"
 
-static t_task robot_task;
 static t_mission missions[MAX_MISSIONS];
+static t_mission obstacles[MAX_MISSIONS];
 
 /** this pointer needs to be incremented after every done mission */
 t_mission* mission_ptr = &missions[0];
+t_mission* obstacles_ptr = &obstacles[0];
+t_mission* mission_break_ptr = &missions[0];
 
 void task(void)
 {
@@ -35,6 +38,42 @@ void define_missions(void)
 	missions[2].job = mission3;
 }
 
+/**
+ * @note Last member always has to be obstacle_end!
+ */
+void define_obstacle_handling(void)
+{
+	obstacles[0].job = obstacle1;
+	obstacles[1].job = obstacle2;
+	obstacles[2].job = obstacle3;
+	obstacles[3].job = obstacle_end;
+}
+
+void obstacle1(void)
+{
+	mission_wait(1000);
+}
+
+void obstacle2(void)
+{
+	mission_robot_stop();
+}
+
+void obstacle3(void)
+{
+	mission_wait(2000);
+}
+
+void obstacle_end(void)
+{	
+	print_yellow();
+	printf("Mission obstacle_end \n");
+	print_reset();
+	
+	missions_init(&obstacles[0]);
+	mission_ptr = mission_break_ptr;
+}
+
 void mission1(void)
 {
 	mission_go(300, 300, 0);
@@ -47,7 +86,7 @@ void mission2(void)
 
 void mission3(void)
 {
-	mission_rotate_abs(30);
+	mission_go(1200, 0, 0);
 }
 
 void init_task(uint8_t option)
@@ -78,6 +117,7 @@ void init_task(uint8_t option)
 		}
 	}
 	missions_init(mission_ptr);
+	missions_init(&obstacles[0]);
 }
 
 t_mission* task_get_mission_ptr(void)
@@ -87,10 +127,23 @@ t_mission* task_get_mission_ptr(void)
 
 void task_mission_check(void)
 {
-	if(mission_ptr -> status == mission_done)
+	
+	//motion_state = get_motion_state();
+	
+	if(mission_ptr->status == mission_done)
 	{
 		printf("mission_ptr++ \n");
 		mission_ptr++;
+	}
+
+	if(mission_ptr->status == mission_interrupted)
+	{
+		print_yellow();
+		printf("\nGo to missions obstacle \n");
+		
+		mission_ptr->status = mission_from_interrupted;
+		mission_break_ptr = mission_ptr;
+		mission_ptr = obstacles_ptr;
 	}
 }
 
@@ -108,4 +161,5 @@ void task5(void)
 {
 	printf("Task5 \n");
 }
+
 

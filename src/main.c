@@ -47,9 +47,10 @@ int main(int argc, char* argv[])
 	//motion_relative_rotate(-30);
 	//motion_absolute_rotate(360);
 	define_missions();
+	define_obstacle_handling();
+	
 	while(1)
 	{	
-
 		if(millis() > last_motion_check + MOTION_REFRESH_INTERVAL)
 		{
 			last_motion_check = millis();
@@ -57,8 +58,7 @@ int main(int argc, char* argv[])
 		}
 		motion_msg_status();
 		
-		task();
-			
+		task();	
 	}
 	return 0;
 }
