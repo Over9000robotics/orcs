@@ -8,6 +8,6 @@ int spi_open_port (int spi_device, unsigned int speed);
 
 int spi_close_port (int spi_device);
 
-int spi_rw (int spi_device, unsigned char *data, int length);
+int spi_rw (int spi_device, unsigned char *tx_buff, unsigned char *rx_buff, int length);
 
 #endif
