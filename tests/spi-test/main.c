@@ -6,19 +6,17 @@
 
 #include "spi.h"
 
-
-
 int main (void)
 {
 	
   unsigned char databuf[100];
   int i;
   
-  spi_open_port (DEVICE_0, 500000);
+  spi_open_port (DEVICE_1, 500000);
   
   for(i=0; i<100; i++)
   {
-	  databuf[i] = i;
+	  databuf[i] = 0xFE;
   }
   
   while(1)
