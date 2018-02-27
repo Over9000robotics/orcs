@@ -10,7 +10,8 @@ OBJ 		= main.o \
 			  motion.o \
 			  config.o \
 			  task.o \
-			  mission.o 
+			  mission.o \
+			  sensor.o
 			 # ./tasks/task1.o \
 			 # ./tasks/task2.o
 
@@ -21,7 +22,8 @@ DEPS 		= uart.h \
 			  motion.h \
 			  config.h \
 			  mission.h \
-			  task.h
+			  task.h \
+			  sensor.h
 
 INCLUDE		= -I/usr/local/include
 

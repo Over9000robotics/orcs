@@ -19,11 +19,13 @@
 #include "config.h"
 
 static int uart0_filestream = -1;
+static int uart1_filestream = -1;
+
 static int8_t no_msgs = 1;
 
-int uart0_input_flush()
+int uart_input_flush(int uart_filestream)
 {
-	return tcflush(uart0_filestream, TCIFLUSH);
+	return tcflush(uart_filestream, TCIFLUSH);
 }
 
 int uart0_output_flush()
@@ -34,6 +36,28 @@ int uart0_output_flush()
 int uart0_io_flush()
 {
 	return tcflush(uart0_filestream, TCIOFLUSH);
+}
+
+void uart1_init (speed_t baud_rate)
+{
+	uart1_filestream = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
+
+	if (uart1_filestream == -1)
+	{
+		//ERROR - CAN'T OPEN SERIAL PORT
+		printf("Error: %d\n", uart0_filestream);
+		printf("For error details, refer to fnctl.h\n");
+		printf("Unable to open UART.  Ensure it is not in use by another application\n");
+	}
+
+	struct termios options;
+	tcgetattr(uart1_filestream, &options);
+	options.c_cflag = baud_rate | CS8 | CLOCAL | CREAD;		//<Set baud rate
+	options.c_iflag = IGNPAR;
+	options.c_oflag = 0;
+	options.c_lflag = 0;
+	tcflush(uart1_filestream, TCIFLUSH);
+	tcsetattr(uart1_filestream, TCSANOW, &options);
 }
 
 void uart0_init (speed_t baud_rate)
@@ -90,6 +114,38 @@ void uart0_transmit(uint8_t* p_tx_buffer, int n)
 	}
 }
 
+void uart1_transmit(uint8_t* p_tx_buffer, int n)
+{
+	if (uart1_filestream != -1)
+	{
+		int count = write(uart1_filestream, p_tx_buffer, n);	//Filestream, bytes to write, number of bytes to write
+#ifdef DEBUG_UART1
+		printf("uart1_transmit: count = %d \n", count);
+		int i;
+		for(i = 0; i < n; i++)
+		{
+			print_blue();
+			printf("Uart1: sent: 0x%x '%c' \n",*(p_tx_buffer+i), *(p_tx_buffer+i));
+			print_reset();
+		}
+#endif
+		if (count < 0)
+		{
+			print_red();
+			printf("Uart1: ");
+			print_reset();
+			printf("TX error\n");
+		}
+	}
+	else
+	{
+		print_red();
+		printf("Uart1:");
+		print_reset();
+		printf("uart1_filestream != -1 (uart0_transmit)\n");
+	}
+}
+
 int uart0_receive_byte(uint8_t* p_rx_buffer)
 {
 	//tcflush(uart0_filestream, TCIFLUSH);
@@ -137,6 +193,57 @@ int uart0_receive_byte(uint8_t* p_rx_buffer)
 		printf("Uart: ");
 		print_reset();
 		printf("uart_filestream != -1 (uart0_receieve_bytes)");
+	}
+	return 0;
+}
+
+int uart1_receive_byte(uint8_t* p_rx_buffer)
+{
+	//tcflush(uart0_filestream, TCIFLUSH);
+
+	if (uart1_filestream != -1)
+	{
+		int rx_length = read(uart1_filestream, p_rx_buffer, 1);
+		if(rx_length == -1)
+		{
+			if(no_msgs)
+			{
+#ifdef DEBUG_UART1
+				print_yellow();
+				printf("Uart1: ");
+				print_reset();
+				printf("No messages.\n");
+#endif
+				no_msgs = 0;
+				return 0;
+			}
+		}
+		else if (rx_length > -1)
+		{
+#ifdef DEBUG_UART1
+			print_blue();
+			printf("Uart1: ");
+			print_reset();
+			printf("received byte - 0x%x\n", *p_rx_buffer);
+#endif
+			no_msgs = 1;
+			return rx_length;
+		}
+		else
+		{
+			print_red();
+			printf("Uart1: ");
+			print_reset();
+			printf("error %d\n", rx_length);
+			return 0;
+		}
+	}
+	else
+	{
+		print_red();
+		printf("Uart1: ");
+		print_reset();
+		printf("uar1_filestream != -1 (uart0_receieve_bytes)");
 	}
 	return 0;
 }

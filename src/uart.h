@@ -9,12 +9,15 @@
 #include "stdint.h"
 #include <termios.h>
 
-int uart0_input_flush();
+int uart_input_flush(int uart_filestream);
 
 int uart0_output_flush();
 
 int uart0_io_flush();
 
+void uart1_init (speed_t baud_rate);
+void uart1_transmit(uint8_t* p_tx_buffer, int n);
+int uart1_receive_byte(uint8_t* p_rx_buffer);
 
 /**
  * Initialises uart to selected baud rate
