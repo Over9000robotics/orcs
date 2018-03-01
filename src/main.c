@@ -55,6 +55,7 @@ int main(int argc, char* argv[])
 
 	define_missions();
 	define_obstacle_handling();
+	define_sensor_obstacle_handling();
 	
 	while(1)
 	{	
@@ -62,13 +63,13 @@ int main(int argc, char* argv[])
 		if(millis() > last_motion_check + MOTION_REFRESH_INTERVAL)
 		{
 			last_motion_check = millis();
-			//motion_get_status_and_position();
+			motion_get_status_and_position();
 			sensor_ask_for_status();
 		}
 		update_sensor_status();
-		//motion_msg_status();
+		motion_msg_status();
 		
-		//task();	
+		task();	
 
 	}
 	return 0;

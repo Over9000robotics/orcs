@@ -39,7 +39,9 @@ void obstacle2(void);
 void obstacle3(void);
 void obstacle_end(void);
 
-
+void define_sensor_obstacle_handling(void);
+void sens_obstacle1(void);
+void sens_obstacle_end(void);
 
 void mission1(void);
 void mission2(void);

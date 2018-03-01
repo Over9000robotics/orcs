@@ -23,9 +23,14 @@ static int uart1_filestream = -1;
 
 static int8_t no_msgs = 1;
 
-int uart_input_flush(int uart_filestream)
+int uart0_input_flush(void)
 {
-	return tcflush(uart_filestream, TCIFLUSH);
+	return tcflush(uart0_filestream, TCIFLUSH);
+}
+
+int uart1_input_flush(void)
+{
+	return tcflush(uart1_filestream, TCIFLUSH);
 }
 
 int uart0_output_flush()
@@ -56,6 +61,7 @@ void uart1_init (speed_t baud_rate)
 	options.c_iflag = IGNPAR;
 	options.c_oflag = 0;
 	options.c_lflag = 0;
+	usleep(200000);
 	tcflush(uart1_filestream, TCIFLUSH);
 	tcsetattr(uart1_filestream, TCSANOW, &options);
 }
@@ -78,6 +84,7 @@ void uart0_init (speed_t baud_rate)
 	options.c_iflag = IGNPAR;
 	options.c_oflag = 0;
 	options.c_lflag = 0;
+	usleep(200000);
 	tcflush(uart0_filestream, TCIFLUSH);
 	tcsetattr(uart0_filestream, TCSANOW, &options);
 }
@@ -131,10 +138,14 @@ void uart1_transmit(uint8_t* p_tx_buffer, int n)
 #endif
 		if (count < 0)
 		{
+			int val;
+			val = fcntl(uart1_filestream, F_GETFL, 0);
+			printf("file status = 0x%x\n", val);
+
 			print_red();
-			printf("Uart1: ");
+			printf("Uart1: \n");
 			print_reset();
-			printf("TX error\n");
+			perror("TX error: ");
 		}
 	}
 	else
@@ -142,7 +153,7 @@ void uart1_transmit(uint8_t* p_tx_buffer, int n)
 		print_red();
 		printf("Uart1:");
 		print_reset();
-		printf("uart1_filestream != -1 (uart0_transmit)\n");
+		printf("uart1_filestream != -1 (uart1_transmit) \n");
 	}
 }
 

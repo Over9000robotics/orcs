@@ -9,7 +9,8 @@
 #include "stdint.h"
 #include <termios.h>
 
-int uart_input_flush(int uart_filestream);
+int uart0_input_flush(void);
+int uart1_input_flush(void);
 
 int uart0_output_flush();
 

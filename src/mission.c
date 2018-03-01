@@ -11,8 +11,10 @@
 #include "task.h"
 #include "color.h"
 #include "config.h"
+#include "sensor.h"
 
 static t_motionState* motion_state;
+static uint8_t* sensor;
 static uint8_t started_moving_flag = 0;
 static unsigned int start_time = 0;
 t_mission* mission_ptr;
@@ -88,7 +90,6 @@ void mission_wait(unsigned int time_ms)
  * 	@todo LATER MAKE SPEED AS INT_16, FOR DEBUGGING NEGATIVE INPUT NUMBERS
  * 	@todo object check - at start of task program (actuator-board sensor check)
  */
-
 void mission_forward(int distance, int speed)
 {
 	switch(mission_ptr->status)
@@ -150,11 +151,18 @@ void mission_forward(int distance, int speed)
 	}
 }
 
-void mission_go(int x, int y, int speed)
+void mission_go(int x, int y, int speed, int direction)
 {
 	//mission_ptr = task_get_mission_ptr();
 	switch(mission_ptr->status)
 	{
+		/*
+		if(motion_state->state == STATUS_IDLE)
+		{
+			printf("Started moving = 0 \n");
+			started_moving_flag = 0;
+		}
+		* */
 		//ako je ova funkcija ometena, skace se u drugu state masinu koja npr zaustavlja robota
 		//ukoliko se robot oslobodi, opet se poziva ova funkcija, koja ce da proradi
 		//i u slucaju da je stanje bilo 'interrupted', prelazi u 'in_progress'
@@ -167,38 +175,38 @@ void mission_go(int x, int y, int speed)
 
 			motion_speed_check_set(speed);
 
-			motion_move_to(x, y, 0, 0);
+			motion_move_to(x, y, direction, 0);
 			mission_ptr->status = mission_in_progress;
 			break;
 		}
 
 		case mission_from_interrupted:
 		{
-			print_yellow();
-			printf("Mission from interrupted go: ");
-			print_reset();
-			printf("(%d, %d), speed: %d \n", x, y, speed);
-
-			motion_speed_check_set(MOTION_SAFE_SPEED);
-
-			motion_move_to(x, y, 0, 0);
-
-			mission_ptr->status = mission_in_progress; //wms - wait motion state
-			break;
-		}
-
-		case mission_from_interrupted_wms:
-		{
-			motion_state = get_motion_state();
-			if(motion_state->state == STATUS_MOVING)
+			sensor = get_sensors();
+			
+			printf("sensor front: %x\n",*(sensor+FRONT));
+			printf("direction : %d \n", direction);
+			delay(500);
+			
+			if((*(sensor+FRONT) == 0x00 && direction == FORWARD) || (*(sensor+REAR) == 0x00 && direction == BACKWARD))
 			{
+				print_yellow();
+				printf("Mission from interrupted go: ");
+				print_reset();
+				printf("(%d, %d), speed: %d \n", x, y, speed);
+				
+				motion_speed_check_set(MOTION_SAFE_SPEED);
+				motion_move_to(x, y, direction, 0);
 				mission_ptr->status = mission_in_progress;
 			}
+			break;
 		}
 
 		case mission_in_progress:
 		{
+			sensor = get_sensors();
 			motion_state = get_motion_state();
+			
 			if(motion_state->state == STATUS_MOVING && started_moving_flag == 0)
 			{
 				started_moving_flag = 1;
@@ -222,6 +230,29 @@ void mission_go(int x, int y, int speed)
 				printf(" interrupted \n");
 				mission_ptr->status = mission_interrupted;
 			}
+			/*
+			if(*(sensor+FRONT) == 0xFF)
+			{
+				printf("\nFRONT SENSOR ACTIVE\n");
+				printf("moving flag: %d\n", started_moving_flag);
+				printf("moving_direction: %d\n", motion_state->moving_direction);
+			}
+			* */
+			if(motion_state->state == STATUS_MOVING && started_moving_flag == 1 && *(sensor+FRONT) == 0xFF 
+				&& motion_state->moving_direction == FORWARD)
+			{
+				print_yellow();
+				printf("Mission go: ");
+				print_reset();
+				printf("front sensor active \n");
+				
+				/** @todo analiza pozicije prepreke -> ako je dinamicka, zakoci! */
+				motion_hard_stop();
+				started_moving_flag = 0;
+				mission_ptr->status = mission_sens_interrupted;
+				
+			}
+			
 			break;
 		}
 		case mission_done:
@@ -236,6 +267,7 @@ void mission_go(int x, int y, int speed)
 		default:
 		{
 			printf("Mission_go: unknown state \n");
+			//while(1);
 			break;
 		}
 	}
