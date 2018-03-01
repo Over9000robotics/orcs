@@ -36,7 +36,7 @@ LDLIBS    	= -lwiringPi -lwiringPiDev -lpthread -lm -lcrypt -lrt
 
 #Set any compiler flags you want to use (e.g. -I/usr/include/somefolder `pkg-config --cflags gtk+-3.0` ), or leave blank
 CFLAGS	:= -Wall $(INCLUDE) $(LDFLAGS) $(LDLIBS) -Winline -pipe
-CFLAGS	+= -lrt
+CFLAGS	+= -lrt -g
 #Set the compiler you are using ( gcc for C or g++ for C++ )
 CC	= gcc
 

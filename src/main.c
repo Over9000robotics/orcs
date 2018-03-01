@@ -16,11 +16,16 @@
 
 void init_main(void)
 {
+	int flush_success = 0;
+	
 	tx_packets_init();
 	uart_pkt_en(TRUE);
 	set_side("GREEN");
 	uart0_init(B57600);
 	uart1_init(B57600); //using uart1 is alternate option
+	
+	flush_success = uart0_input_flush();
+	flush_success = uart1_input_flush();
 }
 
 int main(int argc, char* argv[])
@@ -43,6 +48,8 @@ int main(int argc, char* argv[])
 		return 0;
 */
 	init_task(ENTER); /** @note Start options defined in config.h */
+	
+	//motion_soft_stop();
 
 	delay(100);
 
@@ -56,8 +63,9 @@ int main(int argc, char* argv[])
 		{
 			last_motion_check = millis();
 			//motion_get_status_and_position();
-			update_sensor_status();
+			sensor_ask_for_status();
 		}
+		update_sensor_status();
 		//motion_msg_status();
 		
 		//task();	
