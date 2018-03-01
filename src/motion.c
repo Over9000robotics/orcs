@@ -14,7 +14,6 @@
 #include "color.h"
 #include "config.h"
 
-
 static uint8_t command = 0;
 static t_packet  rx_pkt;
 static t_packet* rx_pkt_ptr = &rx_pkt;
@@ -188,7 +187,7 @@ void set_status_and_position(void)
 }
 		/*
 		direction:
-				0 - pick smallest rotation
+				0 - pick smallest rotation (do not use)
 				1 - forward
 			   -1 - backward
 		*/
@@ -203,6 +202,8 @@ void motion_move_to(int16_t x, int16_t y, int8_t direction, int16_t radius)
 		packet_put_word(radius);
 	}
 	packet_end();
+	
+	motion_state.moving_direction = direction;
 }
 
 void motion_turn_and_go(int16_t x, int16_t y, uint8_t end_speed, int8_t direction)
@@ -213,6 +214,8 @@ void motion_turn_and_go(int16_t x, int16_t y, uint8_t end_speed, int8_t directio
 	packet_put_byte(end_speed);
 	packet_put_byte(direction);
 	packet_end();
+	
+	motion_state.moving_direction = direction;
 }
 
 void motion_forward(int16_t length, uint8_t end_speed)
@@ -221,6 +224,12 @@ void motion_forward(int16_t length, uint8_t end_speed)
 	packet_put_word(length);
 	packet_put_byte(end_speed);
 	packet_end();
+	
+	if(length > 0)
+		motion_state.moving_direction = FORWARD;
+	
+	else if(length < 0)
+		motion_state.moving_direction = BACKWARD;
 }
 
 void motion_absolute_rotate(int16_t degrees)

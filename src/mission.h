@@ -26,10 +26,8 @@ enum MissionStatus
 	mission_in_progress,
 	mission_done,
 	mission_interrupted,
+	mission_sens_interrupted,
 	mission_from_interrupted,
-	mission_from_interrupted_wms /** wms - wait motion status
-								   * go in mission_in_progress after motion status
-								   * turns to MOTION_MOVING  */
 };
 
 typedef void (*mission) (void);
@@ -41,7 +39,7 @@ typedef struct t_mission
 }t_mission;
 
 void mission_forward(int distance, int speed);
-void mission_go(int x, int y, int speed);
+void mission_go(int x, int y, int speed, int direction);
 void mission_rotate_abs(int angle);
 void mission_rotate_rel(int angle);
 

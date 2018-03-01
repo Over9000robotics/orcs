@@ -162,11 +162,11 @@ void packet_end(void)
 		
 		uart_send_packet(tx_packet_ptr);
 		
-		tx_packet_ptr -> status = free_to_verify;
-/*
+		//tx_packet_ptr -> status = free_to_verify;
+
 		tx_packet_ptr -> status = free_to_use;
 		tx_free_packets++;
-*/
+
 	}
 }
 

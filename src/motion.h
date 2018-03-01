@@ -8,6 +8,9 @@
 
 #include <stdint.h>
 
+#define FORWARD 1
+#define BACKWARD -1
+
 enum State
 {
 	STATUS_IDLE = 'I',		 //0x49
@@ -25,6 +28,7 @@ typedef struct t_motionState
 	int16_t current_speed;
 	int16_t max_speed;
 	int16_t max_rot_speed;
+	int16_t moving_direction;
 	enum State state;
 }t_motionState;
 
