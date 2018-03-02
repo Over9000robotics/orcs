@@ -41,12 +41,12 @@ int main(int argc, char* argv[])
 	
 	
 	delay(100);
-/*	
+	
 	//if communication doesn't work, end program
 	motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
 	if(!motion_check())
 		return 0;
-*/
+
 	init_task(ENTER); /** @note Start options defined in config.h */
 	
 	//motion_soft_stop();

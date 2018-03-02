@@ -153,7 +153,9 @@ void mission_forward(int distance, int speed)
 
 void mission_go(int x, int y, int speed, int direction)
 {
-	//mission_ptr = task_get_mission_ptr();
+	sensor = get_sensors();
+	motion_state = get_motion_state();
+	
 	switch(mission_ptr->status)
 	{
 		/*
@@ -184,7 +186,7 @@ void mission_go(int x, int y, int speed, int direction)
 		{
 			sensor = get_sensors();
 			
-			printf("sensor front: %x\n",*(sensor+FRONT));
+			printf("sensor front: %x\n", *(sensor+FRONT));
 			printf("direction : %d \n", direction);
 			delay(500);
 			
@@ -238,6 +240,7 @@ void mission_go(int x, int y, int speed, int direction)
 				printf("moving_direction: %d\n", motion_state->moving_direction);
 			}
 			* */
+			//Front sensor handling
 			if(motion_state->state == STATUS_MOVING && started_moving_flag == 1 && *(sensor+FRONT) == 0xFF 
 				&& motion_state->moving_direction == FORWARD)
 			{
@@ -245,6 +248,22 @@ void mission_go(int x, int y, int speed, int direction)
 				printf("Mission go: ");
 				print_reset();
 				printf("front sensor active \n");
+				
+				/** @todo analiza pozicije prepreke -> ako je dinamicka, zakoci! */
+				motion_hard_stop();
+				started_moving_flag = 0;
+				mission_ptr->status = mission_sens_interrupted;
+				
+			}
+			
+			//Back sensor handling
+			if(motion_state->state == STATUS_MOVING && started_moving_flag == 1 && *(sensor+REAR) == 0xFF 
+				&& motion_state->moving_direction == BACKWARD)
+			{
+				print_yellow();
+				printf("Mission go: ");
+				print_reset();
+				printf("rear sensor active \n");
 				
 				/** @todo analiza pozicije prepreke -> ako je dinamicka, zakoci! */
 				motion_hard_stop();
