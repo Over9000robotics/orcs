@@ -2,7 +2,6 @@
 
 #DEBUG = -03
 
-
 OBJ 		= main.o \
 			  uart.o \
 			  color.o \
@@ -11,9 +10,8 @@ OBJ 		= main.o \
 			  config.o \
 			  task.o \
 			  mission.o \
-			  sensor.o
-			 # ./tasks/task1.o \
-			 # ./tasks/task2.o
+			  sensor.o \
+			  actuator.o
 
 DEPS 		= uart.h \
 			  color.h \
@@ -23,7 +21,8 @@ DEPS 		= uart.h \
 			  config.h \
 			  mission.h \
 			  task.h \
-			  sensor.h
+			  sensor.h \
+			  actuator.h
 
 INCLUDE		= -I/usr/local/include
 

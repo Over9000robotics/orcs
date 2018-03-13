@@ -17,6 +17,8 @@
 #define ENTER 1
 #define CINCH 2
 
+#define ROUND_TIME 60000
+
 //motion config
 #define MOTION_RESPONSE_MS 100	/**< wait 50 ms for motion response message */
 
