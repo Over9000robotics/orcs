@@ -13,6 +13,9 @@
 #include "config.h"
 #include "task.h"
 #include "sensor.h"
+#include "actuator.h"
+
+static unsigned long int start_time = 0;
 
 void init_main(void)
 {
@@ -26,11 +29,14 @@ void init_main(void)
 	
 	flush_success = uart0_input_flush();
 	flush_success = uart1_input_flush();
+	
+	brushless_set_speed(BR_HEAD, 0);
+	brushless_set_speed(BR_SECONDARY, 0);
 }
 
 int main(int argc, char* argv[])
 {
-	unsigned int last_motion_check = 0;
+	unsigned int last_check = 0;
 	
 	init_main();
 	if(!use_input_arguments(argc, argv))
@@ -39,16 +45,16 @@ int main(int argc, char* argv[])
 	}
 	print_side();
 	
-	
 	delay(100);
-	
+
 	//if communication doesn't work, end program
+/*
 	motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
 	if(!motion_check())
 		return 0;
-
+*/
 	init_task(ENTER); /** @note Start options defined in config.h */
-	
+	start_time = millis();
 	//motion_soft_stop();
 
 	delay(100);
@@ -57,19 +63,31 @@ int main(int argc, char* argv[])
 	define_obstacle_handling();
 	define_sensor_obstacle_handling();
 	
+	brushless_set_speed(BR_HEAD, 0);
+	
 	while(1)
 	{	
-		
-		if(millis() > last_motion_check + MOTION_REFRESH_INTERVAL)
+		//ask for status of motion board and sensors
+		if(millis() > last_check + MOTION_REFRESH_INTERVAL)
 		{
-			last_motion_check = millis();
-			motion_get_status_and_position();
+			last_check = millis();
+//			motion_get_status_and_position();
 			sensor_ask_for_status();
 		}
+
+		//check end of round
+		if(millis() - start_time > ROUND_TIME)
+		{
+			print_blue();
+			printf("Round time past: %d \n", ROUND_TIME);
+			return 0;
+		}
+	
 		update_sensor_status();
-		motion_msg_status();
+//		motion_msg_status();
 		
 		task();	
+		
 
 	}
 	return 0;

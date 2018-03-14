@@ -12,6 +12,7 @@
 #include "color.h"
 #include "config.h"
 #include "sensor.h"
+#include "actuator.h"
 
 static t_motionState* motion_state;
 static uint8_t* sensor;
@@ -151,6 +152,48 @@ void mission_forward(int distance, int speed)
 	}
 }
 
+void mission_brushless(uint8_t brushless_num, uint8_t procent)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission brushless: ");
+			print_reset();
+			printf("%d procent \n", procent);
+			
+			if(procent > 100 || procent < 0)
+			{
+				print_red();
+				printf("Brushless: ");
+				print_yellow();
+				printf("invalid procent parameter! (%d) \n", procent);
+				return;
+			}
+			
+			if(brushless_num < 0 || brushless_num > NUM_OF_BRUSHLESS)
+			{
+				print_red();
+				printf("Brushless: ");
+				print_yellow();
+				printf("invalid brushless motor selected! (%d) \n", brushless_num);
+				return;
+			}
+			
+			brushless_set_speed(brushless_num, procent);
+			
+			mission_ptr->status = mission_done;
+			break;
+		}
+		
+		default:
+		{
+			break;
+		}
+	}
+}
+
 void mission_go(int x, int y, int speed, int direction)
 {
 	sensor = get_sensors();
@@ -158,13 +201,6 @@ void mission_go(int x, int y, int speed, int direction)
 	
 	switch(mission_ptr->status)
 	{
-		/*
-		if(motion_state->state == STATUS_IDLE)
-		{
-			printf("Started moving = 0 \n");
-			started_moving_flag = 0;
-		}
-		* */
 		//ako je ova funkcija ometena, skace se u drugu state masinu koja npr zaustavlja robota
 		//ukoliko se robot oslobodi, opet se poziva ova funkcija, koja ce da proradi
 		//i u slucaju da je stanje bilo 'interrupted', prelazi u 'in_progress'

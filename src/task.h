@@ -46,6 +46,11 @@ void sens_obstacle_end(void);
 void mission1(void);
 void mission2(void);
 void mission3(void);
+void mission4(void);
+void mission5(void);
+void mission6(void);
+void mission7(void);
+
 void task1(void);
 
 void task2(void);

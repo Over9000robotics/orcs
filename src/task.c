@@ -17,6 +17,7 @@
 #include "color.h"
 #include "mission.h"
 #include "sensor.h"
+#include "actuator.h"
 
 static t_mission missions[MAX_MISSIONS];
 static t_mission obstacles[MAX_MISSIONS];
@@ -36,9 +37,15 @@ void task(void)
 
 void define_missions(void)
 {
-	missions[0].job = mission1;
-	missions[1].job = mission2;
-	missions[2].job = mission3;
+	uint8_t index = 0;
+	
+	missions[index++].job = mission1;
+	missions[index++].job = mission2;
+	missions[index++].job = mission3;
+	missions[index++].job = mission4;
+	missions[index++].job = mission5;
+	missions[index++].job = mission6;
+	missions[index++].job = mission7;
 }
 
 /**
@@ -46,16 +53,56 @@ void define_missions(void)
  */
 void define_obstacle_handling(void)
 {
-	obstacles[0].job = obstacle1;
-	obstacles[1].job = obstacle2;
-	obstacles[2].job = obstacle3;
-	obstacles[3].job = obstacle_end;
+	uint8_t index = 0;
+	
+	obstacles[index++].job = obstacle1;
+	obstacles[index++].job = obstacle2;
+	obstacles[index++].job = obstacle3;
+	obstacles[index++].job = obstacle_end;
 }
 
 void define_sensor_obstacle_handling(void)
 {
 	sensor_obstacles[0].job = sens_obstacle1;
 	sensor_obstacles[1].job = sens_obstacle_end;
+}
+
+void mission1(void)
+{
+	//mission_go(300, 300, 120, BACKWARD);
+	mission_brushless(BR_HEAD, 20);
+}
+
+void mission2(void)
+{
+	//mission_go(1000, 0, 120, BACKWARD);
+	mission_wait(1000);
+}
+
+void mission3(void)
+{
+	//mission_go(1200, 0, 120, BACKWARD);
+	mission_brushless(BR_HEAD, 50);
+}
+
+void mission4(void)
+{
+	mission_wait(2000);
+}
+
+void mission5(void)
+{
+	mission_brushless(BR_HEAD, 15);
+}
+
+void mission6(void)
+{
+	mission_wait(3000);
+}
+
+void mission7(void)
+{
+	mission_brushless(BR_HEAD, 0);
 }
 
 void sens_obstacle1(void)
@@ -98,21 +145,6 @@ void obstacle_end(void)
 	mission_ptr = mission_break_ptr;
 }
 
-void mission1(void)
-{
-	mission_go(300, 300, 0, FORWARD);
-}
-
-void mission2(void)
-{
-	mission_go(1000, 0, 0, FORWARD);
-}
-
-void mission3(void)
-{
-	mission_go(1200, 0, 0, FORWARD);
-}
-
 void init_task(uint8_t option)
 {
 	char start_char = 0;
@@ -130,6 +162,9 @@ void init_task(uint8_t option)
 					printf("ENTER WAS NOT PRESSED %c\n", start_char);
 				}
 			}while(start_char != '\n');
+			
+			
+			
 			break;
 		}
 		default:

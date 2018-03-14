@@ -46,6 +46,8 @@ void mission_rotate_rel(int angle);
 void mission_robot_stop(void);
 void mission_wait(unsigned int time_ms);
 
+void mission_brushless(uint8_t brushless_num, uint8_t procent);
+
 void missions_init(t_mission* m);
 void missions_print(t_mission* m);
 

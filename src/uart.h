@@ -26,7 +26,6 @@ int uart1_receive_byte(uint8_t* p_rx_buffer);
  */
 void uart0_init (speed_t baud_rate);
 
-
 /**
  * Transmits n bytes from tx_buffer declared in main
  * @param *p_tx_buffer - pointer for tx_buffer declared in main
