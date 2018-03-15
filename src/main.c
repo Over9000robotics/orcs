@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <termios.h>
-#include <wiringPi.h> //for delay
+#include <wiringPi.h> //for delay and millis
 
 #include "uart.h"
 #include "color.h"

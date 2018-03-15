@@ -60,7 +60,7 @@ void mission_wait(unsigned int time_ms)
 
 		print_yellow();
 		printf("Mission wait %d ms \n", time_ms);
-		printf("Start time: %d \n", start_time);
+		//printf("Start time: %d \n", start_time);
 
 		mission_ptr->status = mission_in_progress;
 	}
@@ -187,6 +187,48 @@ void mission_brushless(uint8_t brushless_num, uint8_t procent)
 			break;
 		}
 		
+		default:
+		{
+			break;
+		}
+	}
+}
+
+void mission_servo(uint8_t servo_num, uint8_t angle)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission servo: ");
+			print_reset();
+			printf("%d degrees \n", angle);
+			
+			if(angle > 180 || angle < 0)
+			{
+				print_red();
+				printf("Servo: ");
+				print_yellow();
+				printf("invalid angle parameter! (%d) \n", angle);
+				return;
+			}
+
+			if(servo_num < 0 || servo_num > NUM_OF_SERVOS)
+			{
+				print_red();
+				printf("Servo: ");
+				print_yellow();
+				printf("invalid servo motor selected! (%d) \n", servo_num);
+				return;
+			}
+
+			servo_set_angle(servo_num, angle);
+
+			mission_ptr->status = mission_done;
+			break;
+		}
+
 		default:
 		{
 			break;
