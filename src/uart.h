@@ -6,6 +6,7 @@
 
 #include "packet.h"
 #include "stdint.h"
+#include "actuator.h"
 #include <termios.h>
 
 int uart0_input_flush(void);
@@ -52,5 +53,7 @@ t_packet* uart_try_read_packet(void);
  * @param *packet - adress of packet which needs to be sent
  */
 void uart_send_packet(t_packet* packet);
+
+void uart_send_axpacket(t_axPacket* packet);
 
 #endif

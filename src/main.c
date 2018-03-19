@@ -25,7 +25,7 @@ void init_main(void)
 	uart_pkt_en(TRUE);
 	set_side("GREEN");
 	uart0_init(B57600);
-	uart1_init(B57600); //using uart1 is alternate option
+	uart1_init(B115200); //using uart1 is alternate option
 	
 	flush_success = uart0_input_flush();
 	flush_success = uart1_input_flush();
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 		{
 			last_check = millis();
 //			motion_get_status_and_position();
-			sensor_ask_for_status();
+//			sensor_ask_for_status();
 		}
 
 		//check end of round
@@ -83,12 +83,23 @@ int main(int argc, char* argv[])
 			return 0;
 		}
 	
-		update_sensor_status();
+//		update_sensor_status();
 //		motion_msg_status();
 		
-		task();	
+		//task();	
 		
-
+		axpacket_prepare(1, INST_WRITE, P_GOAL_POSITION_L);
+		axpacket_put_word(999);
+		axpacket_end();
+		
+		delay(500);
+/*		
+		axpacket_prepare(1, INST_WRITE, P_GOAL_POSITION_L);
+		axpacket_put_word(100);
+		axpacket_end();
+		
+		delay(100);
+*/
 	}
 	return 0;
 }
