@@ -7,11 +7,60 @@
 
 #include "actuator.h"
 #include "uart.h"
+#include "color.h"
 
 static t_axPacket tx_packet;
 static uint8_t tx_buffer[20];
 static uint8_t rx_buffer[20];
 
+void ax_set_angle(uint8_t id, uint32_t degrees)
+{
+	uint32_t angle = 0;
+	
+	if(degrees > 300 || degrees < 0)
+	{
+		print_red();
+		printf("AX: ");
+		print_reset();
+		printf("Incorrect degrees value! (%d)  \n", degrees);
+		
+		return;
+	}
+	
+	if(id < 1 || id > NUM_OF_AX)
+	{
+		print_red();
+		printf("AX: ");
+		print_reset();
+		printf("Incorrect id! \n");
+		
+		return;
+	}
+	
+	angle = (degrees * 1023) / 300;
+	printf("Angle: %d \n", angle);
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_POSITION_L);
+	axpacket_put_word(angle);
+	axpacket_end();
+}
+
+void ax_set_speed(uint8_t id, uint32_t speed)
+{
+	if(speed < 0 || speed > 1023)
+	{
+		print_red();
+		printf("AX: ");
+		print_reset();
+		printf("Incorrect speed value! (%d) \n", speed);
+		
+		return;
+	}
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_SPEED_L);
+	axpacket_put_word(speed);
+	axpacket_end();
+}
 
 void axpacket_prepare(uint8_t ax_id, uint8_t instruction, uint8_t data_addr)
 {
@@ -60,6 +109,24 @@ void axpacket_end(void)
 void brushless_set_speed(uint8_t brushless_num, uint8_t procent)
 {
 	uint8_t num_of_param = 0;
+	
+	if(procent > 100 || procent < 0)
+	{
+		print_red();
+		printf("Brushless: ");
+		print_yellow();
+		printf("invalid procent parameter! (%d) \n", procent);
+		return;
+	}
+			
+	if(brushless_num < 0 || brushless_num > NUM_OF_BRUSHLESS)
+	{
+		print_red();
+		printf("Brushless: ");
+		print_yellow();
+		printf("invalid brushless motor selected! (%d) \n", brushless_num);
+		return;
+	}
 	
 	tx_buffer[num_of_param++] = BR_SET_SPEED;
 	tx_buffer[num_of_param++] = brushless_num;

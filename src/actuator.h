@@ -18,6 +18,11 @@
 #define SERVO3 3
 #define NUM_OF_SERVOS 3
 
+
+/**AX-12 IDs*/
+#define HEAD_AX 1 /** ID of AX-12 motor is 1 */
+#define NUM_OF_AX 1
+
 /** AX-12 packet properties */
 #define AX_PACKET_HEADER 5
 #define AX_MAX_PKT_SIZE 20
@@ -94,6 +99,9 @@ typedef struct t_axPacket
 #define P_LOCK (47)
 #define P_PUNCH_L (48)
 #define P_PUNCH_H (49)
+
+void ax_set_angle(uint8_t id, uint32_t degrees);
+void ax_set_speed(uint8_t id, uint32_t speed);
 
 void axpacket_prepare(uint8_t ax_id, uint8_t instruction, uint8_t data_addr);
 void axpacket_put_byte(uint8_t byte);
