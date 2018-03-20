@@ -10,16 +10,6 @@
 
 #define MAX_MISSIONS 20
 
-/*
-enum MissionList
-{
-	mission1,
-	mission2,
-	mission3,
-	mission4,
-	end_of_missions
-};
-*/
 enum MissionStatus
 {
 	mission_never_activated,
@@ -36,6 +26,7 @@ typedef struct t_mission
 {
 	enum MissionStatus status;
 	mission job;
+	
 }t_mission;
 
 void mission_forward(int distance, int speed);
@@ -46,6 +37,7 @@ void mission_rotate_rel(int angle);
 void mission_robot_stop(void);
 void mission_wait(unsigned int time_ms);
 
+void mission_ax_angle(uint8_t id, uint32_t degrees);
 void mission_brushless(uint8_t brushless_num, uint8_t procent);
 void mission_servo(uint8_t servo_num, uint8_t angle);
 

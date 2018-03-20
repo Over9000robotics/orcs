@@ -65,6 +65,8 @@ int main(int argc, char* argv[])
 	
 	brushless_set_speed(BR_HEAD, 0);
 	
+	ax_set_speed(HEAD_AX, 1023);
+	
 	while(1)
 	{	
 		//ask for status of motion board and sensors
@@ -86,20 +88,15 @@ int main(int argc, char* argv[])
 //		update_sensor_status();
 //		motion_msg_status();
 		
-		//task();	
-		
-		axpacket_prepare(1, INST_WRITE, P_GOAL_POSITION_L);
-		axpacket_put_word(999);
-		axpacket_end();
-		
-		delay(500);
-/*		
-		axpacket_prepare(1, INST_WRITE, P_GOAL_POSITION_L);
-		axpacket_put_word(100);
-		axpacket_end();
-		
-		delay(100);
+		task();	
+/*			
+		ax_set_angle(HEAD_AX, 300);
+		delay(2000);
+	
+		ax_set_angle(HEAD_AX, 0);
+		delay(2000);
 */
+
 	}
 	return 0;
 }

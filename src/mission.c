@@ -163,28 +163,36 @@ void mission_brushless(uint8_t brushless_num, uint8_t procent)
 			print_reset();
 			printf("%d procent \n", procent);
 			
-			if(procent > 100 || procent < 0)
-			{
-				print_red();
-				printf("Brushless: ");
-				print_yellow();
-				printf("invalid procent parameter! (%d) \n", procent);
-				return;
-			}
-			
-			if(brushless_num < 0 || brushless_num > NUM_OF_BRUSHLESS)
-			{
-				print_red();
-				printf("Brushless: ");
-				print_yellow();
-				printf("invalid brushless motor selected! (%d) \n", brushless_num);
-				return;
-			}
 			
 			brushless_set_speed(brushless_num, procent);
 			
 			mission_ptr->status = mission_done;
 			break;
+		}
+		
+		default:
+		{
+			break;
+		}
+	}
+}
+
+/** 
+ * AX-12a operating angle from 0 to 300 degrees 
+ */
+void mission_ax_angle(uint8_t id, uint32_t degrees)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission AX: ");
+			print_reset();
+			printf("%d degrees \n", degrees);
+			
+			ax_set_angle(id, degrees);
+			mission_ptr->status = mission_done;
 		}
 		
 		default:

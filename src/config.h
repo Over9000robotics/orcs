@@ -8,10 +8,11 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+//Debug constants
 //#define DEBUG 1
 //#define DEBUG_VERIFY
-#define DEBUG_UART1 1
-#define AX_PKT_DEBUG 1
+//#define DEBUG_UART1 1
+//#define AX_PKT_DEBUG 1
 
 //START options
 #define NO_START_OPTION 0
