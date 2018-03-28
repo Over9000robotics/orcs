@@ -24,8 +24,13 @@ void init_main(void)
 	tx_packets_init();
 	uart_pkt_en(TRUE);
 	set_side("GREEN");
+	
+	wiringPiSetup();
+	pinMode(0, INPUT);
+	pullUpDnControl(0, PUD_DOWN);
+	
 	uart0_init(B57600);
-	uart1_init(B115200); //using uart1 is alternate option
+	uart1_init(B57600); //using uart1 is alternate option
 	
 	flush_success = uart0_input_flush();
 	flush_success = uart1_input_flush();
@@ -53,7 +58,11 @@ int main(int argc, char* argv[])
 	if(!motion_check())
 		return 0;
 */
-	init_task(ENTER); /** @note Start options defined in config.h */
+	print_blue();
+	printf("Pin0: %d \n", digitalRead(0));
+	print_reset();
+
+	init_task(CINCH); /** @note Start options defined in config.h */
 	start_time = millis();
 	//motion_soft_stop();
 
@@ -74,29 +83,23 @@ int main(int argc, char* argv[])
 		{
 			last_check = millis();
 //			motion_get_status_and_position();
-//			sensor_ask_for_status();
+			sensor_ask_for_status();
 		}
 
 		//check end of round
 		if(millis() - start_time > ROUND_TIME)
 		{
+			motion_soft_stop();
+			actuator_stop_all();
 			print_blue();
 			printf("Round time past: %d \n", ROUND_TIME);
 			return 0;
 		}
 	
-//		update_sensor_status();
+		update_sensor_status();
 //		motion_msg_status();
 		
-		task();	
-/*			
-		ax_set_angle(HEAD_AX, 300);
-		delay(2000);
-	
-		ax_set_angle(HEAD_AX, 0);
-		delay(2000);
-*/
-
+		//task();	
 	}
 	return 0;
 }

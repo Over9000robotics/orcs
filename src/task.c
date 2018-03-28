@@ -186,10 +186,12 @@ void init_task(uint8_t option)
 					printf("ENTER WAS NOT PRESSED %c\n", start_char);
 				}
 			}while(start_char != '\n');
-			
-			
-			
 			break;
+		}
+		case CINCH:
+		{
+				printf("PULL CHINCH CABLE");
+				while(digitalRead(0));
 		}
 		default:
 		{

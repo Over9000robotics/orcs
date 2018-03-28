@@ -15,9 +15,10 @@
 //#define AX_PKT_DEBUG 1
 
 //START options
+#define START_OPTION 2
 #define NO_START_OPTION 0
 #define ENTER 1
-#define CINCH 2
+#define CINCH 2 //Pin 0 wiring pi, Pin 11 on phisycal
 
 #define ROUND_TIME 60000
 
