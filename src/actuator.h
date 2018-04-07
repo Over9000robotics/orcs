@@ -100,6 +100,8 @@ typedef struct t_axPacket
 #define P_PUNCH_L (48)
 #define P_PUNCH_H (49)
 
+void actuators_init(void);
+
 void ax_set_angle(uint8_t id, uint32_t degrees);
 void ax_set_speed(uint8_t id, uint32_t speed);
 
@@ -122,4 +124,8 @@ void brushless_set_speed(uint8_t brushless_num, uint8_t procent);
  */
 void servo_set_angle(int8_t servo_num, uint8_t angle);
 
+/**
+ * @brief Stopps all running actuators on actuator-sensor board
+ */
+void actuator_stop_all(void);
 #endif

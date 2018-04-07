@@ -12,11 +12,15 @@
 #include "../color.h"
 #include "../mission.h"
 
+
 static t_mission missions[MAX_MISSIONS];
 static t_mission* mission_ptr = &missions[0];
+
+missions[0].job = mission_go(200, 200, 0)
 
 void task1(void)
 {
 	missions_init(missions);
-	missions_print(missions);
+	mission_go();
+	
 }

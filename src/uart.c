@@ -255,7 +255,7 @@ int uart1_receive_byte(uint8_t* p_rx_buffer)
 		print_red();
 		printf("Uart1: ");
 		print_reset();
-		printf("uar1_filestream != -1 (uart0_receieve_bytes)");
+		printf("uar1_filestream != -1 (uart0_receieve_bytes) \n");
 	}
 	return 0;
 }

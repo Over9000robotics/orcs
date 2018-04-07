@@ -1,9 +1,9 @@
 TODO
 =====
 
-- packet.c
-- packet.h
-- implement color.h better
++ packet.c
++ packet.h
++ implement color.h better
 
 UART - Motion
 -------------

@@ -13,6 +13,14 @@ static t_axPacket tx_packet;
 static uint8_t tx_buffer[20];
 static uint8_t rx_buffer[20];
 
+void actuators_init(void)
+{
+	brushless_set_speed(BR_HEAD, 0);
+	brushless_set_speed(BR_SECONDARY, 0);
+
+	ax_set_speed(HEAD_AX, 1023);
+}
+
 void ax_set_angle(uint8_t id, uint32_t degrees)
 {
 	uint32_t angle = 0;
@@ -151,3 +159,17 @@ void servo_set_angle(int8_t servo_num, uint8_t angle)
 	uart1_transmit(tx_buffer, num_of_param);
 }
 
+void actuator_stop_all(void)
+{
+	//turn off al brushlesses
+	int i;
+	for(i=0; i<NUM_OF_BRUSHLESS; i++)
+	{
+		brushless_set_speed(i, 20);
+	}
+	delay(500);
+	for(i=0; i<NUM_OF_BRUSHLESS; i++)
+	{
+		brushless_set_speed(i, 0);
+	}
+}

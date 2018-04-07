@@ -190,8 +190,11 @@ void init_task(uint8_t option)
 		}
 		case CINCH:
 		{
-				printf("PULL CHINCH CABLE");
-				while(digitalRead(0));
+			print_blue();
+			printf("Pin0: %d \n", digitalRead(0));
+			print_reset();
+			printf("PULL CHINCH CABLE \n");
+			while(digitalRead(0));
 		}
 		default:
 		{

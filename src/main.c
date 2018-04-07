@@ -30,13 +30,12 @@ void init_main(void)
 	pullUpDnControl(0, PUD_DOWN);
 	
 	uart0_init(B57600);
-	uart1_init(B57600); //using uart1 is alternate option
+	//uart1_init(B57600); //using uart1 is alternate option
 	
 	flush_success = uart0_input_flush();
-	flush_success = uart1_input_flush();
+	//flush_success = uart1_input_flush();
 	
-	brushless_set_speed(BR_HEAD, 0);
-	brushless_set_speed(BR_SECONDARY, 0);
+	actuators_init();
 }
 
 int main(int argc, char* argv[])
@@ -53,17 +52,13 @@ int main(int argc, char* argv[])
 	delay(100);
 
 	//if communication doesn't work, end program
-/*
 	motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
 	if(!motion_check())
 		return 0;
-*/
-	print_blue();
-	printf("Pin0: %d \n", digitalRead(0));
-	print_reset();
 
-	init_task(CINCH); /** @note Start options defined in config.h */
+	init_task(ENTER); /** @note Start options defined in config.h */
 	start_time = millis();
+	
 	//motion_soft_stop();
 
 	delay(100);
@@ -72,32 +67,28 @@ int main(int argc, char* argv[])
 	define_obstacle_handling();
 	define_sensor_obstacle_handling();
 	
-	brushless_set_speed(BR_HEAD, 0);
-	
-	ax_set_speed(HEAD_AX, 1023);
-	
 	while(1)
 	{	
 		//ask for status of motion board and sensors
 		if(millis() > last_check + MOTION_REFRESH_INTERVAL)
 		{
 			last_check = millis();
-//			motion_get_status_and_position();
-			sensor_ask_for_status();
+			motion_get_status_and_position();
+//			sensor_ask_for_status();
 		}
 
 		//check end of round
 		if(millis() - start_time > ROUND_TIME)
 		{
 			motion_soft_stop();
-			actuator_stop_all();
+//			actuator_stop_all();
 			print_blue();
 			printf("Round time past: %d \n", ROUND_TIME);
 			return 0;
 		}
 	
-		update_sensor_status();
-//		motion_msg_status();
+//		update_sensor_status();
+		motion_msg_status();
 		
 		//task();	
 	}

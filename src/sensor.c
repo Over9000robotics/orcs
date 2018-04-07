@@ -77,8 +77,10 @@ void update_sensor_status(void)
 		sensors_fr[REAR] = 0x00;
 	
 	if(state_changed_flag)
-			print_sensors_state();
-	state_changed_flag = 0;
+	{
+		print_sensors_state();
+		state_changed_flag = 0;
+	}
 }
 
 uint8_t* get_sensors(void)
