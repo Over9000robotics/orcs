@@ -109,7 +109,7 @@ void mission_forward(int distance, int speed)
 
 			motion_speed_check_set(speed);
 
-			motion_forward(length, 0);
+			motion_forward(distance, 0);
 			mission_ptr->status = mission_in_progress;
 			break;
 		}
@@ -120,18 +120,16 @@ void mission_forward(int distance, int speed)
 			
 			printf("sensor front:    %x\n", *(sensor+FRONT));
 			printf("sensor backward: %x\n", *(sensor+REAR));
-			printf("Direction : %d \n", direction);
-			//delay(500);
 			
-			if((*(sensor+FRONT) == 0x00 && direction == FORWARD) || (*(sensor+REAR) == 0x00 && direction == BACKWARD))
+			if((*(sensor+FRONT) == 0x00 && motion_state->moving_direction == FORWARD) || (*(sensor+REAR) == 0x00 && motion_state->moving_direction == BACKWARD))
 			{
 				print_yellow();
 				printf("Mission from interrupted forward: ");
 				print_reset();
-				printf("(%d, %d), speed: %d \n", distance, speed);
+				printf("%d mm, speed: %d \n", distance, speed);
 				
 				motion_speed_check_set(MOTION_SAFE_SPEED);
-				motion_forward(length, 0);
+				motion_forward(distance, 0);
 				mission_ptr->status = mission_in_progress;
 			}
 			break;
@@ -202,9 +200,9 @@ void mission_forward(int distance, int speed)
 		case mission_done:
 		{
 			print_yellow();
-			printf("Mission go DONE: ");
+			printf("Mission forward DONE: ");
 			print_reset();
-			printf("(%d, %d), speed: %d \n", x, y, speed);
+			printf("%d mm, speed: %d \n", distance, speed);
 			print_reset();
 			break;
 		}
