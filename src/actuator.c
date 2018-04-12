@@ -4,6 +4,7 @@
  */
 #include <stdio.h>
 #include <stdint.h>
+#include <wiringPi.h>
 
 #include "actuator.h"
 #include "uart.h"
@@ -11,7 +12,7 @@
 
 static t_axPacket tx_packet;
 static uint8_t tx_buffer[20];
-static uint8_t rx_buffer[20];
+//static uint8_t rx_buffer[20];
 
 void actuators_init(void)
 {
