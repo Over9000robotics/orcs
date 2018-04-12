@@ -46,6 +46,8 @@ void define_missions(void)
 	missions[index++].job = mission5;
 	missions[index++].job = mission6;
 	missions[index++].job = mission7;
+	missions[index++].job = mission8;
+
 }
 
 /**
@@ -69,24 +71,30 @@ void define_sensor_obstacle_handling(void)
 
 void mission1(void)
 {
-	//mission_go(300, 300, 120, BACKWARD);
+	//mission_rotate_rel(720);
+	mission_go(1000, 0, 0x32, FORWARD);
+	//mission_rotate_abs(0);
+
+	//mission_go(-1200, 0, 0x32, BACKWARD);
 	//mission_brushless(BR_HEAD, 20);
 	/*
 	mission_servo(SERVO1, 0);
 	mission_servo(SERVO2, 0);
 	mission_servo(SERVO3, 0);
 	* */
-	mission_ax_angle(HEAD_AX, 30);
+	//mission_ax_angle(HEAD_AX, 30);
 }
 
 void mission2(void)
 {
-	//mission_go(1000, 0, 120, BACKWARD);
-	mission_wait(2000);
+	//mission_rotate_abs(0);
+	//mission_go(1050, 0, 0x32, FORWARD);
+	mission_wait(1000);
 }
 
 void mission3(void)
 {
+	mission_go(1000, 1000, 0x32, FORWARD);
 	//mission_go(1200, 0, 120, BACKWARD);
 	//mission_brushless(BR_HEAD, 50);
 	/*
@@ -94,44 +102,58 @@ void mission3(void)
 	mission_servo(SERVO2, 90);
 	mission_servo(SERVO3, 90);
 	* */
-	mission_ax_angle(HEAD_AX, 0);
+	//mission_ax_angle(HEAD_AX, 0);
 }
 
 void mission4(void)
 {
-	mission_wait(2000);
+	mission_wait(500);
 }
 
 void mission5(void)
 {
+	mission_go(0, 1000, 0x32, FORWARD);
+
+	//mission_rotate_abs(0);
 	//mission_brushless(BR_HEAD, 15);
 	/*
 	mission_servo(SERVO1, 0);
 	mission_servo(SERVO2, 0);
 	mission_servo(SERVO3, 0);
 	* */
-	mission_ax_angle(HEAD_AX, 300);
+	//mission_ax_angle(HEAD_AX, 300);
 }
 
 void mission6(void)
 {
-	mission_wait(2000);
+	mission_wait(500);
 }
 
 void mission7(void)
 {
+	mission_go(0, 0, 0x32, FORWARD);
+
 	//mission_brushless(BR_HEAD, 0);
 	/*
 	mission_servo(SERVO1, 180);
 	mission_servo(SERVO2, 180);
 	mission_servo(SERVO3, 180);
 	* */
-	mission_ax_angle(HEAD_AX, 150);
+	//mission_ax_angle(HEAD_AX, 150);
 }
+
+void mission8(void)
+{
+		mission_rotate_abs(0);
+
+}
+
+
+
 
 void sens_obstacle1(void)
 {
-	mission_wait(1000);
+	//mission_wait(1000);
 }
 
 void sens_obstacle_end(void)
@@ -143,6 +165,9 @@ void sens_obstacle_end(void)
 	missions_init(&sensor_obstacles[0]);
 	mission_ptr = mission_break_ptr;
 }
+
+
+
 
 void obstacle1(void)
 {

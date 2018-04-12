@@ -67,6 +67,8 @@ int main(int argc, char* argv[])
 	define_obstacle_handling();
 	define_sensor_obstacle_handling();
 	
+	motion_set_rotating_speed(40);
+	
 	while(1)
 	{	
 		//ask for status of motion board and sensors
@@ -90,7 +92,7 @@ int main(int argc, char* argv[])
 //		update_sensor_status();
 		motion_msg_status();
 		
-		//task();	
+		task();	
 	}
 	return 0;
 }
