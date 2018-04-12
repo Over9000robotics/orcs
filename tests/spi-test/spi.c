@@ -115,7 +115,7 @@ int spi_close_port (int spi_device)
 
 //********** SPI WRITE & READ DATA **********
 //data		Bytes to write.  Contents is overwritten with bytes read.
-int spi_rw (int spi_device, unsigned char *data, int length)
+int spi_rw (int spi_device, unsigned char *tx_buff, unsigned char *rx_buff, int length)
 {
 	struct spi_ioc_transfer spi[length];
 	int i = 0;
@@ -126,9 +126,9 @@ int spi_rw (int spi_device, unsigned char *data, int length)
 	for (i = 0 ; i < length ; i++)
 	{
 		memset(&spi[i], 0, sizeof (spi[i]));
-		spi[i].tx_buf        = (unsigned long)(data + i); // transmit from "data"
-		spi[i].rx_buf        = (unsigned long)(data + i) ; // receive into "data"
-		spi[i].len           = sizeof(*(data + i)) ;
+		spi[i].tx_buf        = (unsigned long)(tx_buff + i); // transmit from "data"
+		spi[i].rx_buf        = (unsigned long)(rx_buff + i) ; // receive into "rx_buff"
+		spi[i].len           = sizeof(*(tx_buff + i)) ;
 		spi[i].delay_usecs   = 0 ;
 		spi[i].speed_hz      = spi_speed ;
 		spi[i].bits_per_word = spi_bitsPerWord ;
