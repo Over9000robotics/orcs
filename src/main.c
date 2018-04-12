@@ -6,6 +6,7 @@
 #include <wiringPi.h> //for delay and millis
 
 #include "uart.h"
+#include "uart_ax.h"
 #include "color.h"
 #include "motioncmd.h"
 #include "motion.h"
@@ -29,8 +30,9 @@ void init_main(void)
 	pinMode(0, INPUT);
 	pullUpDnControl(0, PUD_DOWN);
 	
-	uart0_init(B57600);
+	//uart0_init(B57600);
 	//uart1_init(B57600); //using uart1 is alternate option
+	uart_ax_init(B115200);
 	
 	flush_success = uart0_input_flush();
 	//flush_success = uart1_input_flush();
@@ -52,9 +54,9 @@ int main(int argc, char* argv[])
 	delay(100);
 
 	//if communication doesn't work, end program
-	motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
-	if(!motion_check())
-		return 0;
+	//motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
+	//if(!motion_check())
+		//return 0;
 
 	init_task(ENTER); /** @note Start options defined in config.h */
 	start_time = millis();
@@ -75,7 +77,7 @@ int main(int argc, char* argv[])
 		if(millis() > last_check + MOTION_REFRESH_INTERVAL)
 		{
 			last_check = millis();
-			motion_get_status_and_position();
+			//motion_get_status_and_position();
 //			sensor_ask_for_status();
 		}
 
@@ -90,7 +92,7 @@ int main(int argc, char* argv[])
 		}
 	
 //		update_sensor_status();
-		motion_msg_status();
+		//motion_msg_status();
 		
 		task();	
 	}

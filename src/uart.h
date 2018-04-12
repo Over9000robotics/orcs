@@ -54,6 +54,5 @@ t_packet* uart_try_read_packet(void);
  */
 void uart_send_packet(t_packet* packet);
 
-void uart_send_axpacket(t_axPacket* packet);
 
 #endif

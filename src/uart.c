@@ -353,23 +353,3 @@ void uart_send_packet(t_packet* packet)
 	uart0_transmit(p_tx_buffer, PACKET_HEADER + packet->size);
 }
 
-void uart_send_axpacket(t_axPacket* packet)
-{
-	uint8_t* p_tx_buffer = (uint8_t*) (packet);
-
-	*(p_tx_buffer+packet->length+3) = packet->checksum;
-	
-	uart1_transmit(p_tx_buffer, packet->length+4);
-	
-	#ifdef AX_PKT_DEBUG
-	printf("\n");
-	int i=0;
-	for(i=0; i<packet->length + 4; i++)
-	{
-		print_yellow();
-		printf("AX: ");
-		print_reset();
-		printf("0x%x \n", *(p_tx_buffer+i));
-	}
-	#endif
-}

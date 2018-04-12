@@ -11,7 +11,8 @@ OBJ 		= main.o \
 			  task.o \
 			  mission.o \
 			  sensor.o \
-			  actuator.o
+			  actuator.o \
+			  uart_ax.o
 
 DEPS 		= uart.h \
 			  color.h \
@@ -22,7 +23,8 @@ DEPS 		= uart.h \
 			  mission.h \
 			  task.h \
 			  sensor.h \
-			  actuator.h
+			  actuator.h \
+			  uart_ax.h
 
 INCLUDE		= -I/usr/local/include
 

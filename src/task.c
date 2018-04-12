@@ -72,7 +72,7 @@ void define_sensor_obstacle_handling(void)
 void mission1(void)
 {
 	//mission_rotate_rel(720);
-	mission_go(1000, 0, 0x32, FORWARD);
+	//mission_go(1000, 0, 0x32, FORWARD);
 	//mission_rotate_abs(0);
 
 	//mission_go(-1200, 0, 0x32, BACKWARD);
@@ -82,7 +82,7 @@ void mission1(void)
 	mission_servo(SERVO2, 0);
 	mission_servo(SERVO3, 0);
 	* */
-	//mission_ax_angle(HEAD_AX, 30);
+	mission_ax_angle(HEAD_AX, 300);
 }
 
 void mission2(void)
@@ -94,7 +94,7 @@ void mission2(void)
 
 void mission3(void)
 {
-	mission_go(1000, 1000, 0x32, FORWARD);
+	//mission_go(1000, 1000, 0x32, FORWARD);
 	//mission_go(1200, 0, 120, BACKWARD);
 	//mission_brushless(BR_HEAD, 50);
 	/*
@@ -102,17 +102,17 @@ void mission3(void)
 	mission_servo(SERVO2, 90);
 	mission_servo(SERVO3, 90);
 	* */
-	//mission_ax_angle(HEAD_AX, 0);
+	mission_ax_angle(HEAD_AX, 0);
 }
 
 void mission4(void)
 {
-	mission_wait(500);
+	mission_wait(1000);
 }
 
 void mission5(void)
 {
-	mission_go(0, 1000, 0x32, FORWARD);
+	//mission_go(0, 1000, 0x32, FORWARD);
 
 	//mission_rotate_abs(0);
 	//mission_brushless(BR_HEAD, 15);
