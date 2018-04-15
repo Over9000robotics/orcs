@@ -153,7 +153,7 @@ void mission8(void)
 
 void sens_obstacle1(void)
 {
-	//mission_wait(1000);
+	mission_wait(1000);
 }
 
 void sens_obstacle_end(void)
