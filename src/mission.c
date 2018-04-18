@@ -19,6 +19,11 @@ static uint8_t started_moving_flag = 0;
 static unsigned int start_time = 0;
 t_mission* mission_ptr;
 
+//void wait_in_mission(uint32_t time)
+//{
+	
+//}
+
 void missions_init(t_mission* m)
 {
 	int i = 0;
@@ -42,12 +47,25 @@ void missions_print(t_mission* m)
 
 void mission_robot_stop(void)
 {
-	print_yellow();
-	printf("Mission robot soft stop \n");
-	print_reset();
+	
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission robot soft stop \n");
+			print_reset();
 
-	motion_soft_stop();
-	mission_ptr->status = mission_done;
+			motion_soft_stop(SOFT_STOP_EN);
+			mission_ptr->status = mission_in_progress;
+			break;
+		}
+		default:
+		{
+			break;
+		}
+	//mission_ptr->status = mission_done;
+	}
 }
 
 void mission_wait(unsigned int time_ms)
@@ -86,13 +104,76 @@ void mission_wait(unsigned int time_ms)
 	}
 }
 
+void mission_switch_activate(void)
+{
+	uint8_t stuck_flag = 0;
+	motion_state = get_motion_state();
+	
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			started_moving_flag = 0;
+			if(motion_state->state == STATUS_IDLE)
+			{
+				mission_ptr->status = mission_in_progress;
+				motion_forward(-MOTION_SWITCH_DISTANCE, 0x32);
+				print_yellow();
+				printf("Mission switch activate: \n");
+				print_reset();
+				printf("Started");
+			}
+			break;
+		}
+		case mission_in_progress:
+		{
+			if(motion_state->state == STATUS_MOVING && started_moving_flag == 0)
+			{
+				started_moving_flag = 1;
+			}
+			if(motion_state->state == STATUS_STUCK && started_moving_flag == 1)
+			{
+				started_moving_flag = 0;
+				motion_soft_stop(1);
+				stuck_flag = 1;
+				//@todo implement wait
+			}
+			if(stuck_flag == 1)
+			{
+				stuck_flag = 0;
+				motion_forward(MOTION_SWITCH_DISTANCE, 0x20);
+			}
+			if(started_moving_flag == 1 && motion_state->state == STATUS_IDLE)
+			{
+				started_moving_flag = 0;
+				mission_ptr->status = mission_done;
+			}
+			break;
+		}
+		case mission_done:
+		{
+			print_yellow();
+			printf("Mission switch activate ");
+			print_blue();
+			printf("DONE");
+			print_reset();
+			break;
+		}
+		default:
+		{
+			printf("Mission switch default");
+			break;
+		}
+	}
+}
+
 /**
  * 	@todo LATER MAKE SPEED AS INT_16, FOR DEBUGGING NEGATIVE INPUT NUMBERS
  * 	@todo object check - at start of task program (actuator-board sensor check)
  */
 void mission_forward(int distance, int speed)
 {
-	sensor = get_sensors();
+	///sensor = get_sensors();
 	motion_state = get_motion_state();
 	
 	switch(mission_ptr->status)
@@ -284,21 +365,46 @@ void mission_servo(uint8_t servo_num, uint8_t angle)
 				return;
 			}
 
-			if(servo_num < 0 || servo_num > NUM_OF_SERVOS)
-			{
-				print_red();
-				printf("Servo: ");
-				print_yellow();
-				printf("invalid servo motor selected! (%d) \n", servo_num);
-				return;
-			}
-
 			servo_set_angle(servo_num, angle);
-
 			mission_ptr->status = mission_done;
 			break;
 		}
 
+		default:
+		{
+			break;
+		}
+	}
+}
+
+
+
+void mission_wing(uint8_t option)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission wing: ");
+			print_reset();
+
+			if(option == OPEN)
+			{
+				printf("OPEN \n");
+				servo_set_angle(RIGHT, 180); //PB2 = SERVO1
+				servo_set_angle(LEFT, 15); //LEVI, PB4
+			}
+			else if(option == CLOSE)
+			{
+				printf("CLOSE \n");
+				servo_set_angle(RIGHT, 0); //PB2 = SERVO1
+				servo_set_angle(LEFT, 180); //LEVI, PB4
+			}	
+
+				mission_ptr->status = mission_done;
+				break;
+		}
 		default:
 		{
 			break;
@@ -355,8 +461,10 @@ void mission_go(int x, int y, int speed, int direction)
 
 		case mission_in_progress:
 		{
-			sensor = get_sensors();
+			//sensor = get_sensors();
 			motion_state = get_motion_state();
+			
+			//printf("Mission go in progress \n");
 			
 			if(motion_state->state == STATUS_MOVING && started_moving_flag == 0)
 			{
@@ -391,7 +499,7 @@ void mission_go(int x, int y, int speed, int direction)
 				print_reset();
 				printf("front sensor active \n");
 				
-				/** @todo analiza pozicije prepreke -> ako je dinamicka, zakoci! */
+				// @todo analiza pozicije prepreke -> ako je dinamicka, zakoci! 
 				motion_hard_stop();
 				started_moving_flag = 0;
 				mission_ptr->status = mission_sens_interrupted;
@@ -407,7 +515,7 @@ void mission_go(int x, int y, int speed, int direction)
 				print_reset();
 				printf("rear sensor active \n");
 				
-				/** @todo analiza pozicije prepreke -> ako je dinamicka, zakoci! */
+				//  @todo analiza pozicije prepreke -> ako je dinamicka, zakoci!
 				motion_hard_stop();
 				started_moving_flag = 0;
 				mission_ptr->status = mission_sens_interrupted;			

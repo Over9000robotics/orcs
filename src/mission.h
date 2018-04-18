@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 
-#define MAX_MISSIONS 20
+#define MAX_MISSIONS 200
 
 enum MissionStatus
 {
@@ -33,6 +33,7 @@ void mission_forward(int distance, int speed);
 void mission_go(int x, int y, int speed, int direction);
 void mission_rotate_abs(int angle);
 void mission_rotate_rel(int angle);
+void mission_switch_activate(void);
 
 void mission_robot_stop(void);
 void mission_wait(unsigned int time_ms);
@@ -40,6 +41,7 @@ void mission_wait(unsigned int time_ms);
 void mission_ax_angle(uint8_t id, uint32_t degrees);
 void mission_brushless(uint8_t brushless_num, uint8_t procent);
 void mission_servo(uint8_t servo_num, uint8_t angle);
+void mission_wing(uint8_t option);
 
 void missions_init(t_mission* m);
 void missions_print(t_mission* m);

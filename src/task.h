@@ -51,6 +51,21 @@ void mission5(void);
 void mission6(void);
 void mission7(void);
 void mission8(void);
+void mission9(void);
+void mission10(void);
+void mission11(void);
+void mission12(void);
+void mission13(void);
+void mission14(void);
+void mission15(void);
+void mission16(void);
+void mission17(void);
+void mission18(void);
+void mission19(void);
+void mission20(void);
+void mission21(void);
+void mission22(void);
+void mission23(void);
 
 void task1(void);
 
