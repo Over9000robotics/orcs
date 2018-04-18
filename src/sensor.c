@@ -15,6 +15,7 @@ static uint8_t sensors[NUM_OF_SENS];
 static uint8_t sensors_fr[2]; /** Front or back */
 static uint8_t* sensors_fr_ptr;
 
+static uint8_t sensors_ignore_flag = 0;
 static uint8_t state_changed_flag = 0;
 static uint8_t const communication_type;
 
@@ -66,20 +67,36 @@ void update_sensor_status(void)
 		}
 	}
 	
-	if((sensors[FRONT_LEFT] == 0xFF) || (sensors[FRONT_RIGHT] == 0xFF))
-		sensors_fr[FRONT] = 0xFF;
-	else
-		sensors_fr[FRONT] = 0x00;
-	
-	if((sensors[REAR_LEFT] == 0xFF) || (sensors[REAR_RIGHT] == 0xFF))
-		sensors_fr[REAR] = 0xFF;
-	else
-		sensors_fr[REAR] = 0x00;
-	
-	if(state_changed_flag)
+	if(sensors_ignore_flag == 0)
 	{
-		print_sensors_state();
-		state_changed_flag = 0;
+		
+		if((sensors[FRONT_LEFT] == 0xFF) || (sensors[FRONT_RIGHT] == 0xFF))
+		{
+			sensors_fr[FRONT] = 0xFF;
+			//printf("FRONT SENSOR ACTIVE \n");
+		}
+		else
+			sensors_fr[FRONT] = 0x00;
+		
+		if((sensors[REAR_LEFT] == 0xFF) || (sensors[REAR_RIGHT] == 0xFF))
+		{
+			sensors_fr[REAR] = 0xFF;
+			//printf("REAR SENSOR ACTIVE \n");
+		}
+		else
+			sensors_fr[REAR] = 0x00;
+		
+		
+		if(state_changed_flag)
+		{
+			print_sensors_state();
+			state_changed_flag = 0;
+		}
+	}
+	else if(sensors_ignore_flag == 1)
+	{
+		sensors_fr[FRONT] = 0x00;
+		sensors_fr[REAR]  = 0x00;
 	}
 }
 
@@ -105,5 +122,18 @@ void print_sensors_state(void)
 		printf("Sens[%d]: ", i);
 		print_reset();
 		printf("%x \n", sensors[i]);
+	}
+}
+
+void ignore_sensors(uint8_t option)
+{
+	if(option != sensors_ignore_flag)
+	{
+			sensors_ignore_flag = option;
+			
+			print_yellow();
+			printf("Sensors: ");
+			print_reset();
+			printf("Ignoring: %d \n", sensors_ignore_flag);
 	}
 }
