@@ -214,7 +214,7 @@ void print_packet(t_packet* packet)
 {
 	int i = 0;
 	print_blue();
-	printf("\nPacket number: 0x%x\n", packet - &tx_packets[0]);
+	printf("\nTX Packet number: 0x%x\n", packet - &tx_packets[0]);
 	//printf("sync:   0x%x\n", packet -> sync);
 	//printf("chsum:  0x%x\n", packet -> crc);
 	//printf("status: 0x%x\n", packet -> status);

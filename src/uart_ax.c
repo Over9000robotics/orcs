@@ -29,7 +29,7 @@ int uart_ax_output_flush(void)
 
 void uart_ax_init(speed_t baud_rate)
 {
-	uart_ax_filestream = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
+	uart_ax_filestream = open("/dev/ttyUSB1", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
 	printf("REMINDER: set ax to ttyUSB1 later \n");
 	if (uart_ax_filestream == -1)
 	{
