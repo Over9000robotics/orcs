@@ -144,9 +144,17 @@ void uart1_transmit(uint8_t* p_tx_buffer, int n)
 			printf("file status = 0x%x\n", val);
 
 			print_red();
-			printf("Uart1: \n");
+			printf("Uart1: ");
 			print_reset();
-			perror("TX error: ");
+			printf("Unable to send bytes:");
+			
+			int i;
+			for(i=0; i<n; i++)
+			{
+				printf("%c ", *(p_tx_buffer+i));
+			}
+			printf("\n");
+			perror("TX error ");
 		}
 	}
 	else
@@ -333,7 +341,10 @@ t_packet* uart_try_read_packet(void)
 		}
 
 		return &rx_packet;
-	}
+	} 
+	//else {
+		//printf("not sync: %x\n", rx_buffer_header[0]);
+	//}
 
 	return 0;
 }
