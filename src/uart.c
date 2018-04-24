@@ -162,7 +162,7 @@ void uart1_transmit(uint8_t* p_tx_buffer, int n)
 		print_red();
 		printf("Uart1:");
 		print_reset();
-		printf("uart1_filestream != -1 (uart1_transmit) \n");
+		printf("uart1_filestream == -1 (uart1_transmit) \n");
 	}
 }
 
@@ -173,7 +173,7 @@ int uart0_receive_byte(uint8_t* p_rx_buffer)
 	if (uart0_filestream != -1)
 	{
 		int rx_length = read(uart0_filestream, p_rx_buffer, 1);
-		if(rx_length == -1)
+		if(rx_length == -1 || rx_length==0)
 		{
 			if(no_msgs)
 			{
@@ -187,14 +187,16 @@ int uart0_receive_byte(uint8_t* p_rx_buffer)
 				return 0;
 			}
 		}
-		else if (rx_length > -1)
+		else if (rx_length > 0)
 		{
+//~ #define DEBUG
 #ifdef DEBUG
 			print_blue();
 			printf("Uart: ");
 			print_reset();
 			printf("received byte - 0x%x\n", *p_rx_buffer);
 #endif
+//~ #undef DEBUG
 			no_msgs = 1;
 			return rx_length;
 		}
@@ -212,7 +214,7 @@ int uart0_receive_byte(uint8_t* p_rx_buffer)
 		print_red();
 		printf("Uart: ");
 		print_reset();
-		printf("uart_filestream != -1 (uart0_receieve_bytes)");
+		printf("uart_filestream == -1 (uart0_receieve_bytes)");
 	}
 	return 0;
 }
@@ -331,6 +333,7 @@ t_packet* uart_try_read_packet(void)
 			printf("\t size: %c 0x%x \n", size, size);
 			return 0;
 		}
+		
 		rx_packet.sync = PACKET_SYNC;
 		rx_packet.crc  = crc;
 		rx_packet.type = type;
@@ -339,7 +342,7 @@ t_packet* uart_try_read_packet(void)
 		{
 			rx_packet.data[i] = rx_buffer_data[i];
 		}
-
+		//~ print_packet(&rx_packet);
 		return &rx_packet;
 	} 
 	//else {

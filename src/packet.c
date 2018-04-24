@@ -70,10 +70,12 @@ t_packet* find_free_packet(void)
 t_packet* try_read_packet(void)
 {
 	rx_packet = 0;
+	uart_enabled=1;
 	if(uart_enabled == 1)
 	{
 		rx_packet = uart_try_read_packet();
-
+			
+		
 		if(rx_packet != 0)
 		{
 #ifdef DEBUG
