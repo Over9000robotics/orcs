@@ -30,12 +30,12 @@ void init_main(void)
 	pinMode(0, INPUT);
 	pullUpDnControl(0, PUD_DOWN);
 	
-	//uart0_init(B57600);
+	uart0_init(B57600);
 	//uart1_init(B57600); //using uart1 is alternate option
-	uart_ax_init(B115200);
+	//uart_ax_init(B115200);
 	
 	flush_success = uart0_input_flush();
-	//flush_success = uart1_input_flush();
+	flush_success = uart1_input_flush();
 	
 	actuators_init();
 }
@@ -54,14 +54,16 @@ int main(int argc, char* argv[])
 	delay(100);
 
 	//if communication doesn't work, end program
-	//motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
+	motion_set_position(MOTION_START_X, MOTION_START_Y, MOTION_START_O);
+
+
 	//if(!motion_check())
 		//return 0;
 
 	init_task(ENTER); /** @note Start options defined in config.h */
 	start_time = millis();
 	
-	//motion_soft_stop();
+	motion_soft_stop();
 
 	delay(100);
 
@@ -69,7 +71,18 @@ int main(int argc, char* argv[])
 	define_obstacle_handling();
 	define_sensor_obstacle_handling();
 	
+	//ZASTITA!
 	motion_set_rotating_speed(40);
+	
+	//mission_servo(SERVO1, 90);
+	//mission_servo(SERVO3, 180);
+	
+	//servo_set_angle(SERVO1, 90); //DESNI
+	
+	//brushless_set_speed(BR_HEAD, 25);
+	//while(1);
+	
+//	motion_soft_stop();
 	
 	while(1)
 	{	
@@ -77,22 +90,24 @@ int main(int argc, char* argv[])
 		if(millis() > last_check + MOTION_REFRESH_INTERVAL)
 		{
 			last_check = millis();
-			//motion_get_status_and_position();
+			motion_get_status_and_position();
 //			sensor_ask_for_status();
 		}
-
+/*
 		//check end of round
 		if(millis() - start_time > ROUND_TIME)
 		{
-			motion_soft_stop();
+		//	motion_soft_stop(SOFT_STOP_EN);
 //			actuator_stop_all();
 			print_blue();
 			printf("Round time past: %d \n", ROUND_TIME);
-			return 0;
+	//		return 0;
 		}
+*/
 	
 //		update_sensor_status();
-		//motion_msg_status();
+		motion_msg_status();
+		
 		
 		task();	
 	}

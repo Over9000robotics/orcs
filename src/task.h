@@ -10,6 +10,8 @@
 
 #include "mission.h"
 
+#define EJECT_TIME 500
+
 enum TaskStatus
 {
 	not_active,
@@ -51,6 +53,31 @@ void mission5(void);
 void mission6(void);
 void mission7(void);
 void mission8(void);
+void mission9(void);
+void mission10(void);
+void mission11(void);
+void mission12(void);
+void mission13(void);
+void mission14(void);
+void mission15(void);
+void mission16(void);
+void mission17(void);
+void mission18(void);
+void mission19(void);
+void mission_19a(void);
+void mission20(void);
+void mission21(void);
+void mission22(void);
+void mission23(void);
+void mission21(void);
+void mission22(void);
+void mission23(void);
+void mission24(void);
+void mission25(void);
+void mission26(void);
+void mission27(void);
+
+void last_mission(void);
 
 void task1(void);
 

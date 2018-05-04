@@ -11,27 +11,42 @@
 //Debug constants
 //#define DEBUG 1
 //#define DEBUG_VERIFY
-//#define DEBUG_UART1 1
+#define DEBUG_UART1 1
 //#define AX_PKT_DEBUG 1
+
+#define ORANGE_TABLE1 1
+//#define GREEN_TABLE1 1
 
 //START options
 #define NO_START_OPTION 0
 #define ENTER 1
 #define CINCH 2 //Pin 0 wiring pi, Pin 11 on phisycal
 
-#define ROUND_TIME 60000
+#define ROUND_TIME 100000
 
-//motion config
-#define MOTION_RESPONSE_MS 100	/**< wait 50 ms for motion response message */
+//Table 1, orange start position config
+#ifdef ORANGE_TABLE1
+	#define MOTION_START_X (-1350)	/**< X coordinate on startup */
+	#define MOTION_START_Y (-470)	/**< Y coordinate on startup */
+	#define MOTION_START_O 0	/**< Orientation on startup */
+#endif
 
-#define MOTION_START_X 0	/**< X coordinate on startup */
-#define MOTION_START_Y 0	/**< Y coordinate on startup */
-#define MOTION_START_O 0	/**< Orientation on startup */
+#ifdef GREEN_TABLE1
+	#define MOTION_START_X (1350)
+	#define MOTION_START_Y (-470)
+	#define MOTION_START_O 180
+#endif
+
+#define SOFT_STOP 0 //1 -> enable, other -> disable
+#define SOFT_STOP_EN 1 //do not change this parameter
+
+#define MOTION_RESPONSE_MS 100	/**< wait x  ms for motion response message */
 #define MOTION_REFRESH_INTERVAL 50
 #define MOTION_MIN_SPEED 1
 #define MOTION_MAX_SPEED 255
 #define MOTION_NORMAL_SPEED 50 /* 0x32 */
-#define MOTION_SAFE_SPEED 50
+#define MOTION_SAFE_SPEED 40
+#define MOTION_SWITCH_DISTANCE 120 //Distance for moving backward, switch activating
 
 #define GREEN 1
 #define ORANGE 2

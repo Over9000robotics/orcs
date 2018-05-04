@@ -14,6 +14,17 @@
 static t_axPacket tx_packet;
 static uint8_t tx_buffer[20];
 
+void collect_cubes(void)
+{
+	uint8_t num_of_param = 0;
+	
+	tx_buffer[num_of_param] = COLLECT_CUBES;
+	
+	uart_ax_transmit(tx_buffer, 1);
+	uart_ax_transmit(tx_buffer, 1);
+	uart_ax_transmit(tx_buffer, 1);
+}
+
 void actuators_init(void)
 {
 	brushless_set_speed(BR_HEAD, 0);
@@ -52,6 +63,18 @@ void ax_set_angle(uint8_t id, uint32_t degrees)
 	axpacket_prepare(id, INST_WRITE, P_GOAL_POSITION_L);
 	axpacket_put_word(angle);
 	axpacket_end();
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_POSITION_L);
+	axpacket_put_word(angle);
+	axpacket_end();
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_POSITION_L);
+	axpacket_put_word(angle);
+	axpacket_end();
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_POSITION_L);
+	axpacket_put_word(angle);
+	axpacket_end();
 }
 
 void ax_set_speed(uint8_t id, uint32_t speed)
@@ -65,6 +88,22 @@ void ax_set_speed(uint8_t id, uint32_t speed)
 		
 		return;
 	}
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_SPEED_L);
+	axpacket_put_word(speed);
+	axpacket_end();
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_SPEED_L);
+	axpacket_put_word(speed);
+	axpacket_end();
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_SPEED_L);
+	axpacket_put_word(speed);
+	axpacket_end();
+	
+	axpacket_prepare(id, INST_WRITE, P_GOAL_SPEED_L);
+	axpacket_put_word(speed);
+	axpacket_end();
 	
 	axpacket_prepare(id, INST_WRITE, P_GOAL_SPEED_L);
 	axpacket_put_word(speed);
@@ -142,6 +181,10 @@ void brushless_set_speed(uint8_t brushless_num, uint8_t procent)
 	tx_buffer[num_of_param++] = procent;
 	
 	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
 }
 
 /**
@@ -158,19 +201,27 @@ void servo_set_angle(int8_t servo_num, uint8_t angle)
 	tx_buffer[num_of_param++] = angle;
 	
 	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
+	uart1_transmit(tx_buffer, num_of_param);
 }
 
 void actuator_stop_all(void)
 {
 	//turn off al brushlesses
-	int i;
-	for(i=0; i<NUM_OF_BRUSHLESS; i++)
-	{
-		brushless_set_speed(i, 20);
-	}
-	delay(500);
-	for(i=0; i<NUM_OF_BRUSHLESS; i++)
-	{
-		brushless_set_speed(i, 0);
+	int j;
+	for(j=0; j<5; j++)
+	{	
+		int i;
+		for(i=0; i<NUM_OF_BRUSHLESS; i++)
+		{
+			brushless_set_speed(i, 20);
+		}
+		delay(500);
+		for(i=0; i<NUM_OF_BRUSHLESS; i++)
+		{
+			brushless_set_speed(i, 0);
+		}
 	}
 }

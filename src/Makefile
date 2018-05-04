@@ -3,12 +3,13 @@
 #DEBUG = -03
 
 OBJ 		= main.o \
+			  task_orange_t1.o \
+			  task_green_t1.o \
 			  uart.o \
 			  color.o \
 			  packet.o \
 			  motion.o \
 			  config.o \
-			  task.o \
 			  mission.o \
 			  sensor.o \
 			  actuator.o \

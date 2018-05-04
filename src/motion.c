@@ -89,7 +89,7 @@ uint8_t motion_msg_status(void)
 		{
 			case MOTION_GET_STATUS_AND_POSITION:	//'P'
 			{
-				if(rx_pkt_ptr -> size == 9)
+				if(rx_pkt_ptr -> size == 7)
 				{
 					set_status_and_position();
 					return 1;

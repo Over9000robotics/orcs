@@ -6,6 +6,8 @@
 
 #include <stdint.h>
 
+#define COLLECT_CUBES '1'
+
 #define BR_SET_SPEED    'B' //brushless set speed character
 #define SERVO_SET_ANGLE 'A'
 
@@ -101,6 +103,8 @@ typedef struct t_axPacket
 #define P_PUNCH_H (49)
 
 void actuators_init(void);
+
+void collect_cubes(void);
 
 void ax_set_angle(uint8_t id, uint32_t degrees);
 void ax_set_speed(uint8_t id, uint32_t speed);

@@ -11,7 +11,7 @@
 #define FRONT 0
 #define REAR  1
 
-#define NUM_OF_SENS 2
+#define NUM_OF_SENS 4
 
 #define SENSOR_ASK 'S'
 
@@ -19,6 +19,6 @@ void update_sensor_status(void);
 uint8_t* get_sensors(void);
 void sensor_ask_for_status(void);
 void print_sensors_state(void);
-
+void ignore_sensors(uint8_t option);
 
 #endif

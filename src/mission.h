@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 
-#define MAX_MISSIONS 20
+#define MAX_MISSIONS 200
 
 enum MissionStatus
 {
@@ -29,10 +29,12 @@ typedef struct t_mission
 	
 }t_mission;
 
+void mission_collect_cubes(void);
 void mission_forward(int distance, int speed);
 void mission_go(int x, int y, int speed, int direction);
 void mission_rotate_abs(int angle);
 void mission_rotate_rel(int angle);
+void mission_switch_activate(void);
 
 void mission_robot_stop(void);
 void mission_wait(unsigned int time_ms);
