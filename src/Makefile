@@ -5,6 +5,7 @@
 OBJ 		= main.o \
 			  task_orange_t1.o \
 			  task_green_t1.o \
+			  task_zoki_orange.o \
 			  uart.o \
 			  color.o \
 			  packet.o \

@@ -29,7 +29,12 @@ typedef struct t_mission
 	
 }t_mission;
 
+void mission_nuliraj_hvataljke(void);
+void mission_podigni_sisaljke(void);
+
 void mission_collect_cubes(void);
+void mission_eject_cubes(void);
+
 void mission_forward(int distance, int speed);
 void mission_go(int x, int y, int speed, int direction);
 void mission_rotate_abs(int angle);

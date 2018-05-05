@@ -45,6 +45,52 @@ void missions_print(t_mission* m)
 	}
 }
 
+void mission_nuliraj_hvataljke(void)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission nulate mechanisms \n");
+			print_reset();
+			
+			
+			collect_test('0');
+			mission_ptr->status = mission_done;
+			break;
+		}
+		
+		default:
+		{
+			break;
+		}
+	}
+}
+
+void mission_podigni_sisaljke(void)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission podigni sisaljke \n");
+			print_reset();
+			
+			
+			collect_test('7');
+			mission_ptr->status = mission_done;
+			break;
+		}
+		
+		default:
+		{
+			break;
+		}
+	}
+}
+
 void mission_collect_cubes(void)
 {
 	switch(mission_ptr->status)
@@ -57,7 +103,30 @@ void mission_collect_cubes(void)
 			
 			//da li iskljuciti motore
 			
-			mission_ptr->status = mission_in_progress;
+			collect_cubes();
+			mission_ptr->status = mission_done;
+			break;
+		}
+		
+		default:
+		{
+			break;
+		}
+	}
+}
+
+void mission_eject_cubes(void)
+{
+	switch(mission_ptr->status)
+	{
+		case mission_never_activated:
+		{
+			print_yellow();
+			printf("Mission eject cubes \n");
+			print_reset();
+			
+			eject_cubes();
+			mission_ptr->status = mission_done;
 			break;
 		}
 		

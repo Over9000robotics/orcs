@@ -25,12 +25,32 @@ void collect_cubes(void)
 	uart_ax_transmit(tx_buffer, 1);
 }
 
+void eject_cubes()
+{
+	uint8_t num_of_param = 0;
+	
+	tx_buffer[num_of_param] = EJECT_CUBES;
+	
+	uart_ax_transmit(tx_buffer, 1);
+	uart_ax_transmit(tx_buffer, 1);
+	uart_ax_transmit(tx_buffer, 1);
+}
+
+void collect_test(uint8_t character)
+{
+	uint8_t num_of_param = 0;
+	
+	tx_buffer[num_of_param] = character;
+	
+	uart_ax_transmit(tx_buffer, 1);
+}
+
 void actuators_init(void)
 {
-	brushless_set_speed(BR_HEAD, 0);
-	brushless_set_speed(BR_SECONDARY, 0);
+//	brushless_set_speed(BR_HEAD, 0);
+//	brushless_set_speed(BR_SECONDARY, 0);
 
-	ax_set_speed(HEAD_AX, 1023);
+	//ax_set_speed(HEAD_AX, 1023);
 }
 
 void ax_set_angle(uint8_t id, uint32_t degrees)
